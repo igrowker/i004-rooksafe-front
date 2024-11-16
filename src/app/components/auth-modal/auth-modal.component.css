@@ -1,0 +1,101 @@
+.auth-dialog {
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.auth-form {
+  padding: 24px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-illustration {
+  width: 50%;
+  background-color: #e0f7fa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  padding: 20px;
+  position: relative; 
+}
+
+.logo img {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 120px; 
+  height: auto; 
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 16px;
+  color: #666;
+  text-align: center;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.forgot-password {
+  font-size: 12px;
+  color: #007bff;
+  align-self: flex-end;
+  margin-top: -12px;
+  margin-bottom: 16px;
+  text-decoration: none;
+}
+
+.divider {
+  margin: 16px 0;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  border-top: 1px solid #ddd;
+  line-height: 0;
+  position: relative;
+}
+
+.divider:before {
+  content: " ";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 8px;
+  background-color: white;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.register-link {
+  font-size: 14px;
+  text-align: center;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+}
