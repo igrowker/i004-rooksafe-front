@@ -1,0 +1,25 @@
+<div class="questionnaire" *ngIf="tests.length > 0">
+  <app-test-progress
+    [currentStep]="questionIndex + 1"
+    [totalSteps]="tests.length"
+  ></app-test-progress>
+  <h4>{{ tests[questionIndex].question }}</h4>
+  <div
+    *ngFor="let option of tests[questionIndex].options; let i = index"
+    class="option"
+  >
+    <mat-radio-group>
+      <mat-radio-button
+        [value]="i"
+        name="option-{{ questionIndex }}"
+        (change)="nextQuestion(i)"
+      >
+        {{ option }}
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>
+
+<div *ngIf="tests.length === 0">
+  <p>No hay preguntas disponibles.</p>
+</div>

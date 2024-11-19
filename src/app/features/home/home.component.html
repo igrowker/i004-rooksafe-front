@@ -1,1 +1,44 @@
-<p>home works!</p>
+<section class="inversor">
+  <div>
+    <h5>Conócete como inversor</h5>
+    <p></p>
+  </div>
+  <!--  <img src="assets/images/manWorking.png " alt="man-working" /> -->
+  <img
+    src="https://s3-alpha-sig.figma.com/img/9790/7042/7122e65509b1fad0937250fe1bc34f50?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BCQpy9HQWwOAv1Zwx5Jfm0Q6aBPHxUhSbDZ0IlrvZQeyQ2Od7EtOS-XCCVuFycGM6Wt4RkKDY6AB1qli-DxgmnCzWvoTzsVKjPswpFvMFmoXnTLCGyoBmPKeki1cCxJy~PIA4S7oa8TYXlBKC7lBMdHDytI6gwjKc903B6YDJ9~M~QMKh9MFrh8d1Tqcehi4fdPHw~rUE4Hp0yhMZE4cetLV2ssySinwyMCr~kzrdDEC84vhYtBZECOnY4yulfVwynmV8Y~2CBxfxWVkBTGjE90jA6gCJUHg-gDjvS8Fx6EQVm47nqE9~EedYmYxbhUv9iNTltOkneavvC9X-rrKvA__"
+    alt="man-working"
+  />
+</section>
+<section class="how-works">
+  <div class="how-works-l">
+    <h6>¿Cómo funciona?</h6>
+    <p>
+      Respondiendo el test, podremos ofrecerte recomendaciones personalizadas
+      según tu nivel, tanto en educación financiera como en el simulador de
+      inversiones. Así, accederás a contenido y opciones alineadas a tus
+      objetivos y experiencia, asegurando que encuentres lo mas adecuado para
+      ti.
+    </p>
+  </div>
+  <div class="how-works-r">
+    <img
+      src="https://s3-alpha-sig.figma.com/img/c81d/17bf/98acd4990a7c62b61354768584d862c4?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jJaotG1FiZ9BeYg001l8ZFGT48uLfLnEug06IdGT9YAYXIlYtif9t7229AZ-Gk1RFs0b~BK-xwxlE9lmoiE28ugaLPY1M86vhexSryjXro4r1yuVG7YPkFsTjrzyc2ngzgzwXZostKAUIeJQhN5lU-9VPAAmdbxK84zrlopxsdNn48lVWkIZdW3EBsQU-njbzQ3P4Y~2FhtIDrIwG3-RWdZdkYvHNYuleSU0GhPQsCCaaO8mCkQjC8ZzdgCMsW9N0Pw8Tc1DPq431dRWVHeZH9YupFTi46l9t3qGpTz4LNzJTO2-uoM9NIQoF12NjP2E0fho7ICxIwore~M882vGhA__"
+      alt="test-img"
+    />
+    <button mat-flat-button>Comenzar test</button>
+  </div>
+</section>
+<section class="recomendation">
+  <div class="recomendation-header">
+    <h5>Recomendaciones según tu nivel</h5>
+    <a mat-button href="">Ver todo</a>
+  </div>
+  <div class="cards">
+    <app-card
+      *ngFor="let card of recomendationCards"
+      [title]="card.title"
+      [image]="card.image"
+      class="for-card"
+    ></app-card>
+  </div>
+</section>
