@@ -5,3 +5,14 @@ body {
     font-family: "Roboto", sans-serif, "Helvetica Neue";
 }
 
+.cdk-overlay-pane {
+  max-width: none !important;
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cdk-overlay-container .cdk-overlay-pane {
+  max-width: 1200px !important; /* Ajusta según el tamaño deseado */
+}
