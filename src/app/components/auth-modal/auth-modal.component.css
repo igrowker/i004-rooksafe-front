@@ -21,17 +21,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   padding: 20px;
-  position: relative; 
+  position: relative;
 }
 
 .logo img {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  width: 120px; 
-  height: auto; 
+  width: 120px;
+  height: auto;
 }
 
 h2 {
@@ -83,6 +83,17 @@ p {
   background-color: white;
 }
 
+.btn-continue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 8px 16px;
+  font-size: 14px;
+  margin: 20px auto;
+  border-radius: 50px
+}
+
 .social-buttons {
   display: flex;
   justify-content: center;
@@ -98,4 +109,65 @@ p {
 .register-link a {
   color: #007bff;
   text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .auth-illustration {
+    display: none;
+  }
+
+  .auth-form {
+    width: 100%;
+  }
+}
+
+.google-button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.google-button .icon-hover {
+  display: none;
+}
+
+.google-button:hover .icon-default {
+  display: none;
+}
+
+.google-button:hover .icon-hover {
+  display: inline;
+}
+
+.fb-button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.fb-button .icon-hover {
+  display: none;
+}
+
+.fb-button:hover .icon-default {
+  display: none;
+}
+
+.fb-button:hover .icon-hover {
+  display: inline;
+}
+
+.apple-button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.apple-button .icon-hover {
+  display: none;
+}
+
+.apple-button:hover .icon-default {
+  display: none;
+}
+
+.apple-button:hover .icon-hover {
+  display: inline;
 }
