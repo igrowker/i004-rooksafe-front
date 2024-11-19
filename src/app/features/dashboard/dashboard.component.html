@@ -1,0 +1,11 @@
+<app-sidenav> </app-sidenav>
+<app-toolbar></app-toolbar>
+<router-outlet />
+<section class="test-section">
+  <h6>Test del Inversor</h6>
+  <p>Conócete como inversor</p>
+  <app-questionnaires
+    [tests]="questions"
+    (testCompleted)="onTestCompleted($event)"
+  ></app-questionnaires>
+</section>
