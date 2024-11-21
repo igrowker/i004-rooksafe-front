@@ -1,0 +1,20 @@
+services:
+    rooksake-front:
+       image: rooksafe_frontend
+       restart: unless-stopped
+       build:
+         context: .
+         dockerfile: Dockerfile.prod
+       working_dir: /usr/share/nginx/html
+       networks:
+         - rooksafe
+       ports:
+         - "8888:80"
+       volumes:
+         - ./public:/usr/share/html/public
+         - "/etc/timezone:/etc/timezone:ro"
+         - "/etc/localtime:/etc/localtime:ro"
+
+networks:
+  rooksafe:
+        external: true
