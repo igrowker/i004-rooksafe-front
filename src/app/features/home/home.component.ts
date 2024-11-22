@@ -1,34 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
-import { CardComponent } from 'src/app/components/card/card.component';
-import { AuthModalComponent } from 'src/app/components/auth-modal/auth-modal.component';
-import { MatDialog } from '@angular/material/dialog';
-
+import { SidenavComponent } from 'src/app/components/sidenav/sidenav.component';
+import { ToolbarComponent } from 'src/app/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, MaterialModule, CardComponent,AuthModalComponent],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterOutlet,
+    SidenavComponent,
+    ToolbarComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
-   constructor(private dialog: MatDialog) {}
-  recomendationCards = [
-    {
-      title: '¿Es seguro depositar dinero en apps online?',
-      image: 'assets/images/recomendationCard-1.png',
-    },
-    {
-      title: '¿De qué se trata un plazo fijo?',
-      image: 'assets/images/recomendationCard-2.png',
-    },
-    {
-      title: 'Recomendaciones de seguridad.',
-      image: 'assets/images/recomendationCard-3.png',
-    },
-  ];
-
-
-}
+export class HomeComponent {}

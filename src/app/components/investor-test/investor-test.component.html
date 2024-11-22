@@ -1,0 +1,13 @@
+<div class="investor-test-conteiner">
+  <div class="investor-test-title">
+    <mat-icon>arrow_back</mat-icon>
+    <h6>Test del Inversor</h6>
+  </div>
+  <p>Conócete como inversor</p>
+  <app-questionnaires
+    [tests]="questions"
+    (testCompleted)="onTestCompleted($event)"
+    class="investor-test-questionnaire"
+  ></app-questionnaires>
+  <button mat-button color="primary">Siguiente</button>
+</div>
