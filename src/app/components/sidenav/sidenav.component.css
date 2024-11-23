@@ -30,6 +30,12 @@
   background-color: #d3eaf9;
 }
 
+.icon-item.active span {
+  font-weight: 600;
+}
+
+
+
 .icons-container {
   display: flex;
   flex-direction: column;
