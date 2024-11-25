@@ -1,6 +1,5 @@
 section {
   width: 70%;
-  margin: 0 auto;
   box-sizing: border-box;
 }
 .home-toolbar {
@@ -12,6 +11,7 @@ section {
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2),
     inset 0 0 5px rgba(255, 255, 255, 0.1);
 }
+
 .home-main {
   margin-top: 5vh;
 }
@@ -27,7 +27,7 @@ section {
 }
 
 .inversor div {
-  max-width: 60%;
+  max-width: 80%;
 }
 
 .inversor h5 {
@@ -137,8 +137,10 @@ section {
   max-width: 30%;
 }
 
-/* Responsive CSS */
 @media (max-width: 768px) {
+  .home-sidenav {
+    width: 20%; 
+  }
   .inversor {
     flex-direction: column;
     text-align: center;
@@ -164,6 +166,9 @@ section {
 }
 
 @media (max-width: 576px) {
+  .home-sidenav {
+    width: 30%; 
+  }
   .how-works {
     padding: 16px;
   }
@@ -177,3 +182,4 @@ section {
     max-width: 100%;
   }
 }
+
