@@ -110,6 +110,9 @@ section {
   margin-top: 32px;
 }
 
+.recomendation span {
+  margin-left: 2rem;
+}
 
 .recomendation-header {
   display: flex;
@@ -120,7 +123,6 @@ section {
 
 .recomendation-header h5 {
   font-size: 1.5rem;
-  font-weight: bold;
 }
 
 .recomendation-header a {

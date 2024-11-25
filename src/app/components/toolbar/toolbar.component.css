@@ -1,6 +1,7 @@
 .toolbar-container {
   display: flex;
   position: relative;
+  top: 2rem!important;
   left: 5rem;
   align-items: center;
   justify-content: space-around;
@@ -83,7 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
+  width: 45px;
   height: 36px;
   background: #d1f2ff;
   border-top-right-radius: 40px;
