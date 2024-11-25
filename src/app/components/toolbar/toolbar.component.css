@@ -1,5 +1,7 @@
 .toolbar-container {
   display: flex;
+  position: relative;
+  left: 5rem;
   align-items: center;
   justify-content: space-around;
   padding: 0 14px;
@@ -36,6 +38,7 @@
   flex-grow: 1;
   max-width: 380px;
   margin: 0 20px;
+  cursor: pointer;
 }
 
 .toolbar-search input {
@@ -43,7 +46,8 @@
   height: 34px;
   padding: 0 12px;
   border: 1px solid #dcdcdc;
-  border-radius: 18px;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
   font-size: 14px;
   background: #fafafa;
   outline: none;
@@ -51,8 +55,10 @@
 
 .toolbar-config {
   display: flex;
+  position: relative;
   align-items: center;
   gap: 14px;
+  cursor: pointer;
 }
 
 .toolbar-config span {
@@ -61,8 +67,27 @@
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: #e8f3f7;
+  background: #d1f2ff;
   border-radius: 50%;
+  color: #333;
+  font-size: 20px;
+}
+
+.toolbar-search {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
+
+.toolbar-search span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #d1f2ff;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
   color: #333;
   font-size: 20px;
 }
