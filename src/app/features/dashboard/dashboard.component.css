@@ -26,10 +26,27 @@ section {
   margin-right: 20px;
 }
 
+.title-conteiner {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .toolbar-search {
   display: flex;
   position: relative;
   align-items: center;
+}
+
+.title-conteiner span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #d1f2ff;
+  border-radius: 50%;
+  font-size: 20px;
 }
 
 .inversor h5 {

@@ -1,0 +1,180 @@
+.test-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  section {
+    width: 90%;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  .inversor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 16px;
+    padding: 20px 40px;
+    max-width: 1200px;
+    margin: 20px auto;
+  }
+  
+  .inversor div {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .title-conteiner {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  
+  .toolbar-search {
+    display: flex;
+    position: relative;
+    align-items: center;
+  }
+  
+  .title-conteiner span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: #5dc3c1;
+    border-radius: 50%;
+    font-size: 20px;
+  }
+  
+  .inversor h5 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 12px;
+  }
+  
+  .inversor p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #555555;
+    line-height: 1.5;
+  }
+  
+  .inversor img {
+    width: 300px;
+    height: auto;
+  }
+  
+  .recomendation {
+    margin-top: 32px;
+  }
+  
+  .recomendation span {
+    margin-left: 2rem;
+  }
+  
+  .recomendation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .recomendation-header h5 {
+    font-size: 1.5rem;
+  }
+  
+  .recomendation-header a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1rem;
+  }
+  
+  .cards {
+    display: flex;
+    gap: 16px;
+    justify-content: space-around;
+  }
+  
+  .for-card {
+    flex: 1 1 calc(33.33% - 16px);
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    text-align: center;
+    background-color: white;
+    padding: 1rem;
+    max-width: 30%;
+  }
+  
+  .for-card img {
+    width: auto;
+    max-width: 60%;
+    height: auto;
+    padding: 1rem;
+    max-width: 30%;
+  }
+  
+  /* Responsive CSS */
+  @media (max-width: 768px) {
+    .inversor {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .how-works {
+      flex-direction: column;
+    }
+  
+    .how-works-r img {
+      margin: 0 auto;
+    }
+  
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .for-card {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+
+
+  .recomendation-card{
+    font-size: "Roboto";
+    font-weight: 600;
+    border: none;
+}
+
+.card-title {
+    margin-top: 1rem;
+    height: 3rem; 
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-overflow: ellipsis; 
+}
+
+.outlined-button {
+    margin-top: 1rem;
+    background-color: white;
+    color: #005cbb; 
+    border: 1px solid #005cbb;
+    border-radius: 24px; 
+    padding: 8px 16px;
+    font-size: 14px;
+    text-transform: none; 
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .outlined-button:hover {
+    background-color: #005cbb;
+    color: white;
+  }

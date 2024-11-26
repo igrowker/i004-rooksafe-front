@@ -1,1 +1,48 @@
-<p>education-content works!</p>
+<section class="inversor">
+    <div>
+        <div class="title-conteiner">
+          <span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <mask id="mask0_1128_14776" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                <rect width="24" height="24" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#mask0_1128_14776)">
+                <path d="M8 18L12 14.95L16 18L14.5 13.05L18.5 10.2H13.6L12 5L10.4 10.2H5.5L9.5 13.05L8 18ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#1C4445"/>
+                </g>
+                </svg>
+          </span>
+          <h5>Aprende finanzas, potencia tu futuro.</h5>
+        </div>
+        <p style="font-size: 16px;font-weight: 600;">
+            Conviértete en un experto del mercado, aprende de los expertos <br> sobre las principales herramientas para manejar tu dinero. 
+        </p>
+      </div>
+    <img
+      src="assets/images/education-img.png"
+      alt="man-working" style="margin-top: 1.5rem;" />
+  </section>
+
+  <section class="recomendation">
+    <div class="recomendation-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <svg width="40" style="margin-left: 1.5rem;" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="20" fill="#5DC3C1"/>
+            <mask id="mask0_1128_14623" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="8" y="8" width="24" height="24">
+            <rect x="8" y="8" width="24" height="24" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#mask0_1128_14623)">
+            <path d="M15 25H22V23H15V25ZM15 21H25V19H15V21ZM15 17H25V15H15V17ZM13 29C12.45 29 11.9792 28.8042 11.5875 28.4125C11.1958 28.0208 11 27.55 11 27V13C11 12.45 11.1958 11.9792 11.5875 11.5875C11.9792 11.1958 12.45 11 13 11H27C27.55 11 28.0208 11.1958 28.4125 11.5875C28.8042 11.9792 29 12.45 29 13V27C29 27.55 28.8042 28.0208 28.4125 28.4125C28.0208 28.8042 27.55 29 27 29H13ZM13 27H27V13H13V27Z" fill="#1C4445"/>
+            </g>
+            </svg>
+            
+        <h5>
+          Reportes
+        </h5>
+      </div>
+      <a mat-button href="">Ver todo</a>
+    </div>
+    <div class="cards">
+      <app-card *ngFor="let card of recomendationCards" [title]="card.title" [image]="card.image"
+        class="for-card"></app-card>
+    </div>
+  </section>
