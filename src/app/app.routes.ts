@@ -5,6 +5,7 @@ import { OnboardingComponent } from './components/onboarding/onboarding.componen
 import { DashboardComponent } from '@features/dashboard/dashboard.component';
 import { InvestorTestComponent } from './components/investor-test/investor-test.component';
 import { EducationContentComponent } from './components/education-content/education-content.component';
+import { CandleChartComponent } from './components/candle-chart/candle-chart.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home/dashboard', pathMatch: 'full' },
@@ -35,6 +36,7 @@ export const routes: Routes = [
       },
     ],
   },
+  { path: 'data', component: CandleChartComponent },
   { path: 'error', component: ErrorComponent },
   { path: 'onboarding', component: OnboardingComponent },
   { path: '**', redirectTo: 'error' },

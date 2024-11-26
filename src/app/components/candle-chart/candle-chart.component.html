@@ -1,0 +1,23 @@
+<div class="chart-box">
+  <div id="chart-candlestick">
+    <apx-chart
+      #chartCandle
+      [series]="chartCandleOptions.series"
+      [chart]="chartCandleOptions.chart"
+      [xaxis]="chartCandleOptions.xaxis"
+      [plotOptions]="chartCandleOptions.plotOptions"
+    ></apx-chart>
+  </div>
+  <div id="chart-bar">
+    <apx-chart
+      #chartBar
+      [series]="chartBarOptions.series"
+      [chart]="chartBarOptions.chart"
+      [xaxis]="chartBarOptions.xaxis"
+      [yaxis]="chartBarOptions.yaxis"
+      [dataLabels]="chartBarOptions.dataLabels"
+      [stroke]="chartBarOptions.stroke"
+      [plotOptions]="chartBarOptions.plotOptions"
+    ></apx-chart>
+  </div>
+</div>
