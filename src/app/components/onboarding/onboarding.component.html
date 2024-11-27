@@ -1,11 +1,10 @@
-
 <mat-toolbar class="navbar-onboarding">
     <a class="logo" href="/">
         <img alt="logo" src="/assets/images/logo.png">
     </a>
     <div class="nav-buttons">
-        <button mat-flat-button class="button-login">Iniciar Sesión</button>
-        <a mat-stroked-button href="" target="_blank">Registrarse
+        <button mat-flat-button class="button-login" (click)="openLoginModal()">Iniciar Sesión</button>
+        <a mat-stroked-button (click)="openRegisterModal()">Registrarse
         </a>
     </div>
 </mat-toolbar>
@@ -17,12 +16,8 @@
         </div>
         <div class="gretting-onboarding">
             <p>Explora recursos educativos, descubre tu nivel</p>
-                <p>de inversor y practica simulaciones</p>
+            <p>de inversor y practica simulaciones</p>
         </div>
-
-
-        <button mat-flat-button class="button-init"  (click)="openLoginModal()">Comenzar</button>
+        <button mat-flat-button class="button-init" (click)="openLoginModal()">Comenzar</button>
     </section>
-
-
 </main>
