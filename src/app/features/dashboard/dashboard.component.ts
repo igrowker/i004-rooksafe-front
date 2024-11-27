@@ -3,12 +3,11 @@ import { Component } from '@angular/core';
 import { RouterLinkActive, RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { CardComponent } from 'src/app/components/card/card.component';
-import { HeroComponent } from 'src/app/components/hero/hero.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [MaterialModule, CardComponent, CommonModule, RouterModule, HeroComponent],
+  imports: [MaterialModule, CardComponent, CommonModule, RouterModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
