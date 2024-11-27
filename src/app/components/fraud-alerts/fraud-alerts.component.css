@@ -1,0 +1,77 @@
+.test-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section {
+  width: 90%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.fraud-alerts-conteiner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  padding: 20px 40px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.alerts-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: fit-content;
+}
+.fraud-alerts-conteiner div {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.alerts {
+  margin-top: 32px;
+}
+
+.alerts span {
+  margin-left: 2rem;
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.alerts-header h5 {
+  font-size: 1.5rem;
+}
+
+.alerts-header a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 1rem;
+}
+
+.cards {
+  display: flex;
+  gap: 16px;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.cards > div {
+  max-width: 300px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+}
+.cards img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}

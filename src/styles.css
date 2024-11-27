@@ -1,8 +1,8 @@
 html,
 body {
-    height: 100%;
-    margin: 0;
-    font-family: "Roboto", sans-serif, "Helvetica Neue";
+  height: 100%;
+  margin: 0;
+  font-family: "Roboto", sans-serif, "Helvetica Neue";
 }
 
 .cdk-overlay-pane {
@@ -14,5 +14,9 @@ body {
 }
 
 .cdk-overlay-container .cdk-overlay-pane {
-  max-width: 1200px !important; /* Ajusta según el tamaño deseado */
+  max-width: 1200px !important;
+}
+
+.mat-drawer-content {
+  height: 100vh !important;
 }

@@ -16,6 +16,9 @@ export interface TestArray {
 export class QuestionnairesComponent {
   @Input() tests: TestArray[] = [];
   @Output() testCompleted = new EventEmitter<any>();
+  @Input() title: string = '';
+  @Input() subTitle: string = '';
+  @Input() paragraph: string = '';
 
   questionIndex = 0;
   answers: number[] = [];

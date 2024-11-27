@@ -2,9 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '@features/home/home.component';
 import { ErrorComponent } from './features/error/error.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
-import { DashboardComponent } from '@features/dashboard/dashboard.component';
-import { InvestorTestComponent } from './components/investor-test/investor-test.component';
-import { EducationContentComponent } from './components/education-content/education-content.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home/dashboard', pathMatch: 'full' },
@@ -32,6 +29,13 @@ export const routes: Routes = [
           import(
             './components/education-content/education-content.component'
           ).then((c) => c.EducationContentComponent),
+      },
+      {
+        path: 'fraudAlertsComponent',
+        loadComponent: () =>
+          import('./components/fraud-alerts/fraud-alerts.component').then(
+            (c) => c.FraudAlertsComponent
+          ),
       },
     ],
   },

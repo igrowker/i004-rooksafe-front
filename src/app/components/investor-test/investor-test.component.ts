@@ -13,6 +13,13 @@ import { MaterialModule } from '@shared/material/material.module';
   styleUrl: './investor-test.component.css',
 })
 export class InvestorTestComponent {
+  title;
+  paragraph;
+  constructor() {
+    this.title = 'Test del Inversor';
+    this.paragraph = 'Conócete como inversor';
+  }
+
   questions: TestArray[] = [
     {
       question: '¿En cuáles de estos instrumentos has invertido alguna vez?',
