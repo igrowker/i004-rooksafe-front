@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLinkActive, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { CardComponent } from 'src/app/components/card/card.component';
 
