@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '@features/home/home.component';
 import { ErrorComponent } from './features/error/error.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
+import { InvestorTestComponent } from './components/investor-test/investor-test.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home/dashboard', pathMatch: 'full' },
@@ -35,6 +36,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/fraud-alerts/fraud-alerts.component').then(
             (c) => c.FraudAlertsComponent
+          ),
+      },
+      {
+        path: 'simulation',
+        loadComponent: () =>
+          import('./components/simulador/simulador.component').then(
+            (c) => c.SimuladorComponent
           ),
       },
     ],
