@@ -4,11 +4,12 @@ import {
   TestArray,
 } from '../questionnaires/questionnaires.component';
 import { MaterialModule } from '@shared/material/material.module';
+import { SimuladorComponent } from '../simulador/simulador.component';
 
 @Component({
   selector: 'app-investor-test',
   standalone: true,
-  imports: [QuestionnairesComponent, MaterialModule],
+  imports: [QuestionnairesComponent, MaterialModule, SimuladorComponent],
   templateUrl: './investor-test.component.html',
   styleUrl: './investor-test.component.css',
 })

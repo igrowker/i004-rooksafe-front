@@ -23,7 +23,10 @@
     "@angular/platform-server": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.2",
+    "apexcharts": "^3.53.0",
     "express": "^4.18.2",
+    "moment": "^2.30.1",
+    "ng-apexcharts": "^1.12.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
