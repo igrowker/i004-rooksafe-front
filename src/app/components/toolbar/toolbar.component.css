@@ -1,8 +1,9 @@
 .toolbar-container {
   display: flex;
-  position: relative;
-  top: 2rem!important;
-  left: 5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #faf9fd;
   align-items: center;
   justify-content: space-around;
   padding: 0 14px;

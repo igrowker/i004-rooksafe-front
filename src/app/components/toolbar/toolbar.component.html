@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" style="position: fixed; top: 0; width: 100%; z-index: 2" class="toolbar-container">
+<mat-toolbar color="primary"  class="toolbar-container">
   <div class="toolbar-profile">
     <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_1625_1065)">
@@ -46,7 +46,7 @@
       </defs>
     </svg>
 
-    <p>Matias - Sin Perfil</p>
+    <p>{{userProfile.name}} - {{userProfile.experience_level}}</p>
   </div>
   <div class="toolbar-search d-flex">
     <input placeholder="Buscar" type="text" />
