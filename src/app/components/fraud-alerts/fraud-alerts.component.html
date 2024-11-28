@@ -134,28 +134,40 @@
   </div>
   <div class="cards">
     <div>
+      <h5>Principales alertas de la semana</h5>
       <app-card
         *ngFor="let card of alertsCards1"
         [title]="card.title"
         [image]="card.image"
         class="for-card-one"
       ></app-card>
+      <button mat-stroked-button color="primary">Leer más</button>
     </div>
-    <div>
-      <app-card
-        *ngFor="let card of alertsCards2"
-        [title]="card.title"
-        [image]="card.image"
-        class="for-card-two"
-      ></app-card>
+    <div class="card">
+      <h5>Tendencias de estafas</h5>
+
+      <mat-card-content>
+        <app-info-card
+          *ngFor="let card of alertsCards2"
+          [paragraph]="card.title"
+          [image]="card.image"
+          class="for-card-two"
+        ></app-info-card>
+      </mat-card-content>
+      <button mat-stroked-button color="primary">Leer más</button>
     </div>
-    <div>
-      <app-card
-        *ngFor="let card of alertsCards3"
-        [title]="card.title"
-        [image]="card.image"
-        class="for-card-three"
-      ></app-card>
+    <div class="card">
+      <h5>Tendencias de estafas</h5>
+
+      <mat-card-content>
+        <app-info-card
+          *ngFor="let card of alertsCards3"
+          [paragraph]="card.title"
+          [image]="card.image"
+          class="for-card-three"
+        ></app-info-card>
+      </mat-card-content>
+      <button mat-stroked-button color="primary">Leer más</button>
     </div>
   </div>
 </section>

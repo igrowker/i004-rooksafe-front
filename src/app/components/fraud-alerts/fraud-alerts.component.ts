@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { CardComponent } from '../card/card.component';
 import { CommonModule } from '@angular/common';
+import { InfoCardComponent } from '../info-card/info-card.component';
 
 @Component({
   selector: 'app-fraud-alerts',
   standalone: true,
-  imports: [MaterialModule, RouterModule, CardComponent, CommonModule],
+  imports: [
+    MaterialModule,
+    RouterModule,
+    CardComponent,
+    CommonModule,
+    InfoCardComponent,
+  ],
   templateUrl: './fraud-alerts.component.html',
   styleUrl: './fraud-alerts.component.css',
 })
