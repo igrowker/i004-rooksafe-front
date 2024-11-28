@@ -26,4 +26,10 @@ export class AuthService {
     return this._http.post(this.url + "api/auth/register/",{email, password, name},{headers})
   }
 
+  get_user(): Observable<any> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get(this.url + "api/user/profile/", { headers });
+  }
+
 }
