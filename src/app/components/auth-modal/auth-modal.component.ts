@@ -42,28 +42,24 @@ export class AuthModalComponent {
     if (this.isRegister && this.formData.name) {
       this._authService.register_usuario(this.formData.email, this.formData.password, this.formData.name).subscribe(
         response => {
-          console.log(response);
           this._snackBar.open('Registro exitoso!', 'Cerrar', {
             duration: 3000, 
             verticalPosition: 'top', 
           });
         },
         error => {
-          console.log(error);
           this._snackBar.open('Hubo un error en el registro', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
         }
       );
     } else if (!this.isRegister) {
       this._authService.login_usuario(this.formData.email, this.formData.password).subscribe(
         response => {
-          console.log(response);
           this._snackBar.open('Ingreso exitoso!', 'Cerrar', {
             duration: 3000,
             verticalPosition: 'top',
           });
         },
         error => {
-          console.log(error);
           this._snackBar.open('Error al ingresar, revise sus credenciales', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
         }
       );
