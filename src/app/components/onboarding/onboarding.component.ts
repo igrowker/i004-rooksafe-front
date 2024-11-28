@@ -6,9 +6,9 @@ import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 @Component({
   selector: 'app-onboarding',
   standalone: true,
-  imports: [MaterialModule,AuthModalComponent],
+  imports: [MaterialModule, AuthModalComponent],
   templateUrl: './onboarding.component.html',
-  styleUrl: './onboarding.component.css'
+  styleUrls: ['./onboarding.component.css']
 })
 export class OnboardingComponent {
   constructor(private dialog: MatDialog) {}

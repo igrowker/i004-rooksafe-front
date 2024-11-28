@@ -16,7 +16,7 @@
         <input matInput type="password" [(ngModel)]="formData.password" name="password" required />
       </mat-form-field>
       <mat-checkbox *ngIf="!isRegister">Permanecer conectado</mat-checkbox>
-      <button mat-raised-button color="primary" class="btn-continue">{{ buttonText }}</button>
+      <button mat-raised-button color="primary" class="btn-continue" type="submit">{{ buttonText }}</button>
       <ng-container *ngIf="!isRegister">
         <div class="divider">o podés ingresar con</div>
         <div class="social-buttons">

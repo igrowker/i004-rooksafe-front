@@ -1,14 +1,16 @@
 import { Component, EventEmitter, Inject, Output } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef  } from '@angular/material/dialog';
 import { MaterialModule } from '@shared/material/material.module';
 import { AuthFormData, AuthModalData } from '../../core/models/auth-form-data.interface'; 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AuthService } from 'src/app/services/auth-service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-auth-modal',
   standalone: true,
-  imports: [CommonModule,MaterialModule,FormsModule],
+  imports: [CommonModule,MaterialModule,FormsModule,MatSnackBarModule],
   templateUrl: './auth-modal.component.html',
   styleUrl: './auth-modal.component.css'
 })
@@ -26,7 +28,8 @@ export class AuthModalComponent {
   buttonText: string = 'Continuar';
 
  
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AuthModalData) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AuthModalData, private _authService: AuthService , 
+  private _snackBar: MatSnackBar) {
     this.isRegister = data.isRegister;
     this.title = data.title;
     this.description = data.description;
@@ -34,8 +37,35 @@ export class AuthModalComponent {
   }
 
   onSubmit() {
-    console.log(this.formData)
     this.formSubmit.emit(this.formData);
+
+    if (this.isRegister && this.formData.name) {
+      this._authService.register_usuario(this.formData.email, this.formData.password, this.formData.name).subscribe(
+        response => {
+          this._snackBar.open('Registro exitoso!', 'Cerrar', {
+            duration: 3000, 
+            verticalPosition: 'top', 
+          });
+          localStorage.setItem('token',response.token)
+        },
+        error => {
+          this._snackBar.open('Hubo un error en el registro', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
+        }
+      );
+    } else if (!this.isRegister) {
+      this._authService.login_usuario(this.formData.email, this.formData.password).subscribe(
+        response => {
+          this._snackBar.open('Ingreso exitoso!', 'Cerrar', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+          localStorage.setItem('token',response.access)
+        },
+        error => {
+          this._snackBar.open('Error al ingresar, revise sus credenciales', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
+        }
+      );
+    }
   }
 
   changeForm() {
