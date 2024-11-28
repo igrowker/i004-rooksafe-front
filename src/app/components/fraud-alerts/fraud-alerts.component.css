@@ -31,7 +31,9 @@ section {
   flex: 1;
   margin-right: 20px;
 }
-
+.for-card-three img {
+  min-height: 74px;
+}
 .alerts {
   margin-top: 32px;
 }
@@ -52,8 +54,6 @@ section {
 }
 
 .alerts-header a {
-  text-decoration: none;
-  color: #007bff;
   font-size: 1rem;
 }
 
@@ -71,7 +71,6 @@ section {
 }
 .cards img {
   width: 100%;
-  height: auto;
   border-radius: 4px;
   object-fit: cover;
 }
