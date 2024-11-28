@@ -46,6 +46,7 @@ export class AuthModalComponent {
             duration: 3000, 
             verticalPosition: 'top', 
           });
+          localStorage.setItem('token',response.token)
         },
         error => {
           this._snackBar.open('Hubo un error en el registro', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
@@ -58,6 +59,7 @@ export class AuthModalComponent {
             duration: 3000,
             verticalPosition: 'top',
           });
+          localStorage.setItem('token',response.access)
         },
         error => {
           this._snackBar.open('Error al ingresar, revise sus credenciales', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
