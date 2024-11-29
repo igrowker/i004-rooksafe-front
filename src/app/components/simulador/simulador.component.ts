@@ -10,6 +10,7 @@ import {
   ApexTitleSubtitle,
   ApexTooltip
 } from "ng-apexcharts";
+import { SimulatorService } from 'src/app/services/simulation-service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -30,8 +31,10 @@ export type ChartOptions = {
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
-
-  constructor() {
+  public token = sessionStorage.getItem('token');
+  data: any[] = [];
+  constructor(private _simulatorService:SimulatorService) {
+    
     this.chartOptions = {
       series: [
         {
@@ -137,6 +140,7 @@ export class SimuladorComponent {
         }
       }
     };
+    
   }
 
   public generateDayWiseTimeSeries(baseval:any, count:any, yrange:any) {
@@ -151,5 +155,21 @@ export class SimuladorComponent {
       i++;
     }
     return series;
+  }
+
+  ngOnInit(): void {
+    this.get_simulation();
+  }
+
+
+  get_simulation(){
+    if(this.token){
+      this._simulatorService.simulator_status(this.token).subscribe(
+        response=>{
+          this.data = response.simulations;
+          console.log(this.data)
+        }
+      )
+    }
   }
 }
