@@ -4,19 +4,20 @@ import {
   TestArray,
 } from '../questionnaires/questionnaires.component';
 import { MaterialModule } from '@shared/material/material.module';
-import { SimuladorComponent } from '../simulador/simulador.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-investor-test',
   standalone: true,
-  imports: [QuestionnairesComponent, MaterialModule, SimuladorComponent],
+  imports: [QuestionnairesComponent, MaterialModule],
   templateUrl: './investor-test.component.html',
   styleUrl: './investor-test.component.css',
 })
 export class InvestorTestComponent {
   title;
   paragraph;
-  constructor() {
+  constructor(private _snackBar: MatSnackBar, private router: Router) {
     this.title = 'Test del Inversor';
     this.paragraph = 'Conócete como inversor';
   }
@@ -57,6 +58,12 @@ export class InvestorTestComponent {
   ];
   onTestCompleted(answers: number[]) {
     console.log('Respuestas seleccionadas:', answers);
-    alert(`Cuestionario completado. Respuestas: ${answers}`);
+    this._snackBar.open(
+      `Cuestionario completado. Respuestas: ${answers}`,
+      'Cerrar',
+      { duration: 3000, verticalPosition: 'top' }
+    );
+    //tal vez podemos agregar un swall fire para mostrar las respuestas, o el resultado del test
+    this.router.navigate(['/home/dashboard']);
   }
 }
