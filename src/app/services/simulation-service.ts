@@ -16,8 +16,8 @@ export class SimulatorService {
     this.url = GLOBAL.url;
   }
 
-  simulator_start(investment_amount: number, asset_type: string):Observable<any>{
-    let headers = new HttpHeaders().set('Content-Type','application/json');
+  simulator_start(investment_amount: number, asset_type: string, token: string):Observable<any>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
     return this._http.post(this.url + "api/simulator/start",{ investment_amount, asset_type },{headers})
   }
 

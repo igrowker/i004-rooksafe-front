@@ -32,6 +32,8 @@ export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
   public token = sessionStorage.getItem('token');
+  public investment_amount : number = 1000.00;
+  public asset_type : string = "crypto";
   data: any[] = [];
   constructor(private _simulatorService:SimulatorService) {
     
@@ -159,6 +161,7 @@ export class SimuladorComponent {
 
   ngOnInit(): void {
     this.get_simulation();
+    this.generate_simulation()
   }
 
 
@@ -167,9 +170,21 @@ export class SimuladorComponent {
       this._simulatorService.simulator_status(this.token).subscribe(
         response=>{
           this.data = response.simulations;
-          console.log(this.data)
         }
       )
     }
   }
+
+  generate_simulation(){
+    if(this.token){
+      this._simulatorService.simulator_start(this.investment_amount, this.asset_type, this.token).subscribe(
+        response=>{
+          this.data = response;
+          console.log(response)
+        }
+      )
+    }
+  }
+
+
 }
