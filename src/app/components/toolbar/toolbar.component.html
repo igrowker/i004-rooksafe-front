@@ -46,14 +46,24 @@
       </defs>
     </svg>
 
-    <p>{{userProfile.name}} - {{userProfile.experience_level}}</p>
+    
   </div>
   <div class="toolbar-search d-flex">
     <input placeholder="Buscar" type="text" />
-    <span><mat-icon>search</mat-icon></span>
+    <span class="material-icons" style="font-size: 1.4rem;font-weight: 700;">search</span>
   </div>
   <div class="toolbar-config">
-    <span><mat-icon>settings</mat-icon></span>
-    <span><mat-icon>notifications</mat-icon></span>
+    <span class="material-icons" style="font-size: 1.2rem;">notifications</span>
+    <span class="material-icons" [matMenuTriggerFor]="menu" style="font-size: 1.2rem;">settings</span>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item class="menu-item">
+        <span class="menu-icon material-icons">person</span>
+        <span class="menu-text">Perfil</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <span class="menu-icon material-icons">logout</span>
+        <span class="menu-text">Cerrar Sesión</span>
+      </button>
+    </mat-menu>
   </div>
 </mat-toolbar>

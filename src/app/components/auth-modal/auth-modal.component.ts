@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from 'src/app/services/auth-service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-modal',
@@ -28,7 +29,7 @@ export class AuthModalComponent {
   buttonText: string = 'Continuar';
 
  
-  constructor(@Inject(MAT_DIALOG_DATA) public data: AuthModalData, private _authService: AuthService , 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: AuthModalData, private _authService: AuthService, private _router: Router ,  public dialogRef: MatDialogRef<AuthModalComponent>,
   private _snackBar: MatSnackBar) {
     this.isRegister = data.isRegister;
     this.title = data.title;
@@ -46,7 +47,9 @@ export class AuthModalComponent {
             duration: 3000, 
             verticalPosition: 'top', 
           });
-          localStorage.setItem('token',response.token)
+          sessionStorage.setItem('token',response.token)
+          this.closeModal();
+          this._router.navigate(['/']); 
         },
         error => {
           this._snackBar.open('Hubo un error en el registro', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
@@ -59,7 +62,9 @@ export class AuthModalComponent {
             duration: 3000,
             verticalPosition: 'top',
           });
-          localStorage.setItem('token',response.access)
+          this._router.navigate(['/']); 
+          this.closeModal();
+          sessionStorage.setItem('token',response.access)
         },
         error => {
           this._snackBar.open('Error al ingresar, revise sus credenciales', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
@@ -78,6 +83,12 @@ export class AuthModalComponent {
       this.title = 'Ingreso de Usuarios';
       this.description = 'Para acceder ingresa tu correo y contraseña';
       this.buttonText = 'Continuar';
+    }
+  }
+
+  closeModal() {
+    if (this.dialogRef) {
+      this.dialogRef.close();
     }
   }
 
