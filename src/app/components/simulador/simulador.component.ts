@@ -10,6 +10,7 @@ import {
   ApexTitleSubtitle,
   ApexTooltip
 } from "ng-apexcharts";
+import { SimulatorService } from 'src/app/services/simulation-service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -30,8 +31,12 @@ export type ChartOptions = {
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
-
-  constructor() {
+  public token = sessionStorage.getItem('token');
+  public investment_amount : number = 1000.00;
+  public asset_type : string = "crypto";
+  data: any[] = [];
+  constructor(private _simulatorService:SimulatorService) {
+    
     this.chartOptions = {
       series: [
         {
@@ -137,6 +142,7 @@ export class SimuladorComponent {
         }
       }
     };
+    
   }
 
   public generateDayWiseTimeSeries(baseval:any, count:any, yrange:any) {
@@ -152,4 +158,33 @@ export class SimuladorComponent {
     }
     return series;
   }
+
+  ngOnInit(): void {
+    this.get_simulation();
+    this.generate_simulation()
+  }
+
+
+  get_simulation(){
+    if(this.token){
+      this._simulatorService.simulator_status(this.token).subscribe(
+        response=>{
+          this.data = response.simulations;
+        }
+      )
+    }
+  }
+
+  generate_simulation(){
+    if(this.token){
+      this._simulatorService.simulator_start(this.investment_amount, this.asset_type, this.token).subscribe(
+        response=>{
+          this.data = response;
+          console.log(response)
+        }
+      )
+    }
+  }
+
+
 }
