@@ -93,3 +93,25 @@
   color: #333;
   font-size: 20px;
 }
+
+::ng-deep .mat-mdc-menu-panel {
+  position: fixed !important;
+  top: 8% !important;
+  right: 8% !important;
+  transform: none !important;
+}
+
+.mat-menu-item {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem; 
+}
+
+.menu-icon {
+  font-size: 1.2rem; 
+}
+
+.menu-text {
+  font-size: 1rem; 
+}
+

@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   get_user(): Observable<any> {
-    const token = localStorage.getItem('token'); 
+    const token = sessionStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this._http.get(this.url + "api/user/profile/", { headers });
   }
