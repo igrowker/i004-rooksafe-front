@@ -2,13 +2,14 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from '@features/home/home.component';
 import { ErrorComponent } from './features/error/error.component';
 import { OnboardingComponent } from './components/onboarding/onboarding.component';
-import { InvestorTestComponent } from './components/investor-test/investor-test.component';
+import { AuthGuard } from '@core/guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home/dashboard', pathMatch: 'full' },
   {
     path: 'home',
     component: HomeComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
