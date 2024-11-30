@@ -1,3 +1,23 @@
+<div>
+  <div class="upbuttons">
+    <button class="botonArriba boton" mat-fab extended>+ / $9000.00 Demo</button>
+    <mat-form-field class="botonArriba">
+      <mat-label>Nivel 1</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+          {{ nivel.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="botonArriba">
+      <mat-label>Grafico de velas</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
+          {{ nivel.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 <div id="chart" class="chart">
   <apx-chart
     [series]="chartOptions.series"
@@ -6,5 +26,13 @@
     [yaxis]="chartOptions.yaxis"
     [title]="chartOptions.title"
     [tooltip]="chartOptions.tooltip"
+    [plotOptions]="chartOptions.plotOptions"
   ></apx-chart>
+</div>
+<div class="downbuttons">
+  <!-- <button class="botonArriba boton" mat-fab extended>Boton a cambiar de inversion</button> -->
+  <button class="botonArriba boton" mat-fab extended>Vender</button>
+  <button class="botonArriba boton" mat-fab extended>Comprar</button>
+  <!-- <button class="botonArriba boton" mat-fab extended>Boton a cambiar de duracion</button> -->
+</div>
 </div>

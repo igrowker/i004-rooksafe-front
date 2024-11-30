@@ -1,5 +1,28 @@
 .chart {
   margin-top: 8.5rem;
   width: 80%;
-  margin-left: 3.5rem;
+  margin-left: 3.5rem;  
+}
+.custom-form-field {
+  width: 100%;
+  max-width: 300px;
+}
+
+.custom-select-panel {
+  width: 100%;
+  max-width: 300px;
+  min-width: 150px;
+
+}
+
+.botonArriba {
+  margin: 5px;
+}
+
+.upbuttons {
+  text-align: center;
+  align-items: center;
+}
+.downbuttons{
+  text-align: center;
 }
