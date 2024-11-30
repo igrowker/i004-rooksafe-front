@@ -12,6 +12,10 @@ import { CardComponent } from 'src/app/components/card/card.component';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  completedTest: boolean = false;
+  ngOnInit(): void {
+    //aca iría lógica según venga del back
+  }
   recomendationCards = [
     {
       title: '¿Es seguro depositar dinero en apps online?',
