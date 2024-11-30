@@ -39,6 +39,7 @@ export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
   public token = sessionStorage.getItem('token');
+  public title = "Moneda a graficar";
   public investment_amount : number = 1000.00;
   public asset_type : string = "crypto";
   data: any[] = [];
@@ -485,15 +486,25 @@ export class SimuladorComponent {
         }
       ],
       chart: {
+        toolbar:{
+          tools:{
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset:false,
+            download:false
+          }
+        },
         height: 350,
-        type: "candlestick"
+        type: "candlestick",
       },
       title: {
-        text: "",
+        text: this.title,
         align: "left"
       },
       tooltip: {
-        enabled: true
+        enabled: true,
       },
       xaxis: {
         type: "category",
@@ -504,6 +515,15 @@ export class SimuladorComponent {
         }
       },
       yaxis: {
+        opposite: true,
+        crosshairs: {
+          show: true,
+          stroke: {
+            color: '#3333ff', 
+            width: 2,
+            dashArray: 0,
+          },
+        },
         tooltip: {
           enabled: true,
         }

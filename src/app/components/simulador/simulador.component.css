@@ -1,6 +1,9 @@
+.simulator{
+  width: 90%;
+}
 .chart {
   margin-top: 8.5rem;
-  width: 80%;
+  width: 100%;
   margin-left: 3.5rem;  
 }
 .custom-form-field {
