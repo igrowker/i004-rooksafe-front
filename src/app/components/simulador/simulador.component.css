@@ -18,14 +18,73 @@
 
 }
 
-.botonArriba {
-  margin: 5px;
+.btn-gra {
+  margin: 0;
+  height: 57px; 
+  border-radius: 8px; 
+}
+
+.wallet{
+  background-color: white; 
+  color: #004b9b; 
+  border: solid 2px #004b9b ;
+}
+
+.buy{
+  margin: 0.5rem; 
+  background-color: rgb(193, 247, 207);
+  color: #0c7813; 
+  font-weight: bold; 
+  border: solid 2px #0c7813 ;
+}
+
+.sell{
+  margin: 0.5rem; 
+  background-color: rgb(255, 201, 201); 
+  color: #ff1100;
+  font-weight: bold; 
+  border: solid 2px #ff1100 ;
 }
 
 .upbuttons {
-  text-align: center;
-  align-items: center;
+  display: flex;
+  justify-content: center; 
+  gap: 10px; 
+  margin-bottom: 1rem; 
 }
+
+
 .downbuttons{
   text-align: center;
+}
+
+mat-form-field{
+  color: rgb(39, 9, 208);
+}
+
+.investment-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+}
+
+.investment-btn {
+  background-color: #004b9b; 
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.investment-btn:hover {
+  background-color: #002f6c; 
+}
+
+.investment-text {
+  font-size: 16px;
+  color: #333; 
+  font-weight: bold;
 }

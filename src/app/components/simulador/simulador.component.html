@@ -1,7 +1,7 @@
 <div class="simulator">
   <div class="upbuttons">
-    <button class="botonArriba boton" mat-fab extended>+ / $9000.00 Demo</button>
-    <mat-form-field class="botonArriba">
+    <button class="btn-gra wallet" mat-fab extended>+ / $9000.00 Demo</button>
+    <mat-form-field class="btn-select">
       <mat-label>Nivel 1</mat-label>
       <mat-select>
         <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
@@ -9,7 +9,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="botonArriba">
+    <mat-form-field>
       <mat-label>Grafico de velas</mat-label>
       <mat-select>
         <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
@@ -30,9 +30,8 @@
   ></apx-chart>
 </div>
 <div class="downbuttons">
-  <!-- <button class="botonArriba boton" mat-fab extended>Boton a cambiar de inversion</button> -->
-  <button class="botonArriba boton" mat-fab extended>Vender</button>
-  <button class="botonArriba boton" mat-fab extended>Comprar</button>
-  <!-- <button class="botonArriba boton" mat-fab extended>Boton a cambiar de duracion</button> -->
+  <button class="btn-gra wallet" mat-fab extended>+ / $9000.00 Demo</button>
+  <button class="btn-gra sell" mat-fab extended>Vender</button>
+  <button class="btn-gra buy" mat-fab extended>Comprar</button>
 </div>
 </div>

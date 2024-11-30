@@ -39,9 +39,9 @@ export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
   public token = sessionStorage.getItem('token');
-  public title = "Moneda a graficar";
-  public investment_amount : number = 1000.00;
-  public asset_type : string = "crypto";
+  public title = "Nombre de la moneda";
+  public investment_amount: number = 1000.00;
+  public asset_type: string = "crypto";
   data: any[] = [];
   constructor(private _simulatorService:SimulatorService) {
     
@@ -509,9 +509,7 @@ export class SimuladorComponent {
       xaxis: {
         type: "category",
         labels: {
-          formatter: function(val) {
-            return moment(val).format("MMM DD HH:mm");
-          }
+          show: false
         }
       },
       yaxis: {
