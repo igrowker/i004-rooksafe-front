@@ -26,4 +26,20 @@ export class SimulatorService {
     return this._http.get(this.url + "api/simulator/status", { headers });
   }
 
+  types_symbol(token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get(this.url + "finnhub/symbols", { headers });
+  }
+
+
+  update_symbol(symbol:string,token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get(this.url + "finnhub/candles/"+symbol, { headers });
+  }
+
+  get_symbols(token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get(this.url + "finnhub/symbols", { headers });
+  }
+
 }
