@@ -15,7 +15,7 @@ export class AuthService {
   login_usuario(email: string, password: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(
-      this.url + 'auth/login/',
+      this.url + 'auth/login',
       { email, password },
       { headers }
     );
@@ -28,7 +28,7 @@ export class AuthService {
   ): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(
-      this.url + 'api/auth/register/',
+      this.url + 'api/auth/register',
       { email, password, name },
       { headers }
     );
@@ -37,7 +37,7 @@ export class AuthService {
   get_user(): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get(this.url + 'api/user/profile/', { headers });
+    return this._http.get(this.url + 'api/user/profile', { headers });
   }
 
   verifyToken(): Observable<boolean> {
