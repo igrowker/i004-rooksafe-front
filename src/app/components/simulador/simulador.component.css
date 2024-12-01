@@ -88,3 +88,7 @@ mat-form-field{
   color: #333; 
   font-weight: bold;
 }
+
+.select-symbol{
+  width: 30%!important;
+}

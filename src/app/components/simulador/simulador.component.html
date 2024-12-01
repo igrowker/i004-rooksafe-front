@@ -4,18 +4,26 @@
     <mat-form-field class="btn-select">
       <mat-label>Nivel 1</mat-label>
       <mat-select>
-        <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
-          {{ nivel.viewValue }}
+        <mat-option>
+         1
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Simbolo a operar</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let nivel of niveles" [value]="nivel.value">
-          {{ nivel.viewValue }}
+    <mat-form-field class="select-symbol">
+      <mat-label>Símbolo a operar</mat-label>
+      <input
+        type="text"
+        matInput
+        [matAutocomplete]="auto"
+        [(ngModel)]="searchText"
+        (input)="filterSymbols()"
+        placeholder="Buscar símbolo"
+      />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSymbolSelected($event.option.value)">
+        <mat-option *ngFor="let data of filteredSymbols" [value]="data.symbol">
+          {{ data.symbol }} - {{ data.name }}
         </mat-option>
-      </mat-select>
+      </mat-autocomplete>
     </mat-form-field>
   </div>
 <div id="chart" class="chart">
