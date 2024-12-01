@@ -1,15 +1,15 @@
 services:
     rooksake-front:
-       image: rooksafe_frontend
+       image: igrowker/i004-rooksafe-front
        restart: unless-stopped
        build:
          context: .
-         dockerfile: Dockerfile.prod
+         dockerfile: Dockerfile
        working_dir: /usr/share/nginx/html
        networks:
          - rooksafe
        ports:
-         - "8888:80"
+         - "8080:80"
        volumes:
          - ./public:/usr/share/html/public
          - "/etc/timezone:/etc/timezone:ro"
@@ -17,4 +17,5 @@ services:
 
 networks:
   rooksafe:
-        external: true
+    name: rooksafe
+    external: true
