@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { GLOBAL } from "./GLOBAL";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
