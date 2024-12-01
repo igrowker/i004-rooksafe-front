@@ -1,4 +1,4 @@
-FROM docker.uclv.cu/node:22.0.0-alpine AS develop-stage
+FROM node:22.0.0-alpine AS develop-stage
 
 WORKDIR /front
 
@@ -17,7 +17,7 @@ RUN ng build
 
 
 # production stage
-FROM docker.uclv.cu/nginx:alpine AS frontend
+FROM nginx:alpine AS frontend
 
 COPY --from=develop-stage /front/dist/template-angular-ts/browser/ /usr/share/nginx/html/
 COPY --from=develop-stage /front/dist/template-angular-ts/browser/index.csr.html  /usr/share/nginx/html/index.html
