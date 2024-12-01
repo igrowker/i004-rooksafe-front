@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GLOBAL } from './GLOBAL';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public url;
+  private url: string =  environment.apiUrl;
 
   constructor(private _http: HttpClient) {
-    this.url = GLOBAL.url;
   }
 
   login_usuario(email: string, password: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(
-      this.url + 'auth/login/',
+      this.url + 'auth/login',
       { email, password },
       { headers }
     );
@@ -29,7 +28,7 @@ export class AuthService {
   ): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(
-      this.url + 'api/auth/register/',
+      this.url + 'api/auth/register',
       { email, password, name },
       { headers }
     );
@@ -38,7 +37,7 @@ export class AuthService {
   get_user(): Observable<any> {
     const token = sessionStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get(this.url + 'api/user/profile/', { headers });
+    return this._http.get(this.url + 'api/user/profile', { headers });
   }
 
   verifyToken(): Observable<boolean> {

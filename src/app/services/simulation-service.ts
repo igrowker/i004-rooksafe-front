@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
-import { GLOBAL } from "./GLOBAL";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SimulatorService {
 
-  public url;
+  private url: string =  environment.apiUrl;
 
   constructor(
     private _http : HttpClient,
   ) {
-    this.url = GLOBAL.url;
   }
 
   simulator_start(investment_amount: number, asset_type: string, token: string):Observable<any>{
