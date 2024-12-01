@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SimulatorService {
 
-  private url: string =  environment.url;
+  private url: string =  environment.apiUrl;
 
   constructor(
     private _http : HttpClient,
