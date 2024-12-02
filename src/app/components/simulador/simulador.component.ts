@@ -50,9 +50,15 @@ export class SimuladorComponent {
   filteredSymbols: { symbol: string; name: string }[] = [];
   public asset_type: string = "crypto";
   data: any[] = [];
+  wallet = {
+    balance: 0, 
+    balanceInput: 0 
+  };
   symbols: { symbol: string; name: string }[] = [];
   public chartHasData = false;
   public isLoading = true;
+  isInputEnabled = false;
+  isAddingFunds = false;
   
   constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
@@ -125,6 +131,7 @@ export class SimuladorComponent {
 
   ngOnInit(): void {
     this.getSymbols();
+    this.getWallet();
     ['touchstart', 'touchmove'].forEach((eventName) => {
       document.addEventListener(
         eventName,
@@ -135,21 +142,62 @@ export class SimuladorComponent {
   }
 
   getSymbols(): void {
-    this.isLoading = true; // Activar el spinner al inicio
+    this.isLoading = true; 
     if (this.token) {
       this._simulatorService.get_symbols(this.token).subscribe({
         next: (response) => {
           this.symbols = response.data;
           this.filteredSymbols = this.symbols;
-          this.isLoading = false; // Desactivar el spinner después de completar la solicitud
+          this.isLoading = false; 
         },
         error: (err) => {
           console.error("Error fetching symbols:", err);
-          this.isLoading = false; // Asegurar que el spinner desaparezca en caso de error
+          this.isLoading = false; 
         }
       });
     } else {
-      this.isLoading = false; // Manejar el caso donde no haya token
+      this.isLoading = false; 
+    }
+  }
+
+  enableInput(): void {
+    this.isInputEnabled = true;
+  }
+
+  addFunds(): void {
+    const amount = Number(this.wallet.balanceInput);
+
+    if (isNaN(amount) || amount <= 0) {
+      alert('Por favor, ingrese un monto válido.');
+      return;
+    }
+
+    this.wallet.balance += amount;
+    this.wallet.balanceInput = 0;
+    this.isInputEnabled = false;
+    alert(`Se han agregado $${amount} a su billetera.`);
+  }
+  
+  toggleInputState(): void {
+    if (this.isAddingFunds) {
+      this.isInputEnabled = false;
+    } else {
+      this.isInputEnabled = true;
+    }
+    this.isAddingFunds = !this.isAddingFunds;
+  }
+
+
+  getWallet(): void {
+    if (this.token) {
+      this._simulatorService.get_wallet(this.token).subscribe({
+        next: (response) => {
+          this.wallet.balanceInput = response.wallet.balance; 
+        },
+        error: (err) => {
+          console.error("Error fetching wallet balance:", err);
+        }
+      });
     }
   }
 
@@ -169,36 +217,30 @@ export class SimuladorComponent {
 
   update_symbol(): void {
     if (this.token && this.selectedSymbol) {
-      this.isLoading = true; // Mostrar el cargador mientras se obtienen los datos
+      this.isLoading = true; 
       this._simulatorService.update_symbol(this.selectedSymbol, this.token).subscribe({
         next: (response) => {
           this.data = response;
-          this.updateChart(response); // Actualiza el gráfico con los nuevos datos
-          this.isLoading = false; // Oculta el cargador al completar la solicitud
+          this.updateChart(response); 
+          this.isLoading = false; 
         },
         error: (err) => {
           console.error("Error al actualizar el símbolo:", err);
-          this.isLoading = false; // Asegúrate de ocultar el cargador en caso de error
+          this.isLoading = false; 
         }
       });
     }
   }
 
   updateChart(response: any): void {
-    console.log("Datos para el gráfico:", response.data);
     const dataArray = response.data;
   
-    // Verificar si los datos son un arreglo y si tiene elementos
     if (Array.isArray(dataArray) && dataArray.length > 0) {
-      this.chartHasData = true; // El gráfico tiene datos
+      this.chartHasData = true; 
   
-      // Formatear los datos recibidos para el gráfico
-      const formattedData = dataArray.map((item: any) => {
-        // Convertir la hora de UTC a la zona horaria de Argentina
+        const formattedData = dataArray.map((item: any) => {
         const dateInArgentina = toZonedTime(item.time, 'America/Argentina/Buenos_Aires');
-        // Formatear la fecha para usar en el eje X del gráfico
         const formattedDateForX = format(dateInArgentina, 'yyyy-MM-dd HH:mm:ss');
-        // Formatear la fecha para mostrar en la etiqueta
         const formattedDateForDisplay = format(dateInArgentina, 'yyyy-MM-dd');
   
         return {
@@ -208,7 +250,6 @@ export class SimuladorComponent {
         };
       });
   
-      // Actualizar los datos del gráfico
       this.chartOptions.series = [
         {
           name: "candle",
@@ -216,10 +257,8 @@ export class SimuladorComponent {
         }
       ];
   
-      // Actualizar el gráfico con las nuevas opciones
       this.chart?.updateOptions(this.chartOptions, true, true);
     } else {
-      // Si no hay datos válidos, mostrar "No Data"
       this.chartHasData = false;
       console.error("Datos inválidos o vacíos:", dataArray);
     }

@@ -1,5 +1,4 @@
 <div class="simulator">
-  <!-- Spinner de carga centrado -->
   <div *ngIf="isLoading" class="loading-container">
     <mat-progress-spinner 
       mode="indeterminate" 
@@ -10,7 +9,39 @@
 
 <div class="simulator"  *ngIf="!isLoading">
   <div class="upbuttons">
-    <button class="btn-gra wallet" mat-fab extended>+ / $9000.00 Demo</button>
+
+    <div class="d-flex wallet-container">
+      <button 
+        class="btn-gra wallet left-button" 
+        mat-fab 
+        extended 
+        title="Agregar Crédito" 
+        (click)="toggleInputState()"
+      >
+        {{ isAddingFunds ? '×' : '+' }}
+      </button>
+    
+      <input 
+        class="btn-gra wallet-input right-button" 
+        type="text" 
+        [disabled]="!isInputEnabled" 
+        [value]="!isInputEnabled ? wallet.balance : wallet.balanceInput" 
+        [(ngModel)]="wallet.balanceInput"
+        title="Crédito Disponible ${{wallet.balanceInput}}" 
+        placeholder="Ingrese monto"
+      />
+    
+      <button 
+        *ngIf="isInputEnabled" 
+        class="btn-gra wallet confirm-button" 
+        mat-fab 
+        extended 
+        (click)="addFunds()"
+      >
+        Confirmar
+      </button>
+    </div>
+
     <mat-form-field class="btn-select">
       <mat-label>Nivel 1</mat-label>
       <mat-select>

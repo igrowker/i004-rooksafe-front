@@ -41,4 +41,9 @@ export class SimulatorService {
     return this._http.get<SymbolResponse>(this.url + "finnhub/symbols", { headers });
   }
 
+  get_wallet(token:string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this._http.get<SymbolResponse>(this.url + "api/wallet/status", { headers });
+  }
+
 }

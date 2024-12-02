@@ -1,4 +1,3 @@
-
 .custom-form-field {
   width: 100%;
   max-width: 300px;
@@ -8,50 +7,99 @@
   width: 100%;
   max-width: 300px;
   min-width: 150px;
-
 }
 
 .btn-gra {
   margin: 0;
   height: 57px; 
-  border-radius: 8px; 
+  border-radius: 0; 
 }
 
-.wallet{
-  background-color: white; 
-  color: #004b9b; 
-  border: solid 2px #004b9b ;
+.wallet {
+  background-color: white;
+  color: #004b9b;
+  border: solid 2px #004b9b;
 }
 
-.buy{
-  margin: 0.5rem; 
+.left-button {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.wallet-input {
+  flex: 1;
+  height: 57px;
+  border: solid 2px #004b9b;
+  border-left: none; 
+  color: #004b9b;
+  font-size: 16px;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wallet-input:disabled {
+  background-color: white;
+  cursor: not-allowed;
+  border-right: 2px solid #004b9b; 
+}
+
+.wallet-input:disabled + .confirm-button {
+  display: none; 
+}
+
+.confirm-button {
+  background-color: #fff;
+  border: solid 2px #004b9b;
+  border-left: none; 
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-weight: bold;
+}
+
+
+.confirm-button:hover {
+  background-color: #a8e4b9;
+}
+
+.confirm-button:not(:disabled) + .wallet-input {
+  border-right: none; 
+}
+
+.right-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1px solid #ccc;
+}
+
+.buy {
+  margin: 0.5rem;
   background-color: rgb(193, 247, 207);
-  color: #0c7813; 
-  font-weight: bold; 
-  border: solid 2px #0c7813 ;
+  color: #0c7813;
+  font-weight: bold;
+  border: solid 2px #0c7813;
 }
 
-.sell{
-  margin: 0.5rem; 
-  background-color: rgb(255, 201, 201); 
+.sell {
+  margin: 0.5rem;
+  background-color: rgb(255, 201, 201);
   color: #ff1100;
-  font-weight: bold; 
-  border: solid 2px #ff1100 ;
+  font-weight: bold;
+  border: solid 2px #ff1100;
 }
 
 .upbuttons {
   display: flex;
-  justify-content: center; 
-  gap: 10px; 
-  margin-bottom: 1rem; 
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
 }
 
-
-.downbuttons{
+.downbuttons {
   text-align: center;
 }
 
-mat-form-field{
+mat-form-field {
   color: rgb(39, 9, 208);
 }
 
@@ -59,11 +107,11 @@ mat-form-field{
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; 
+  gap: 10px;
 }
 
 .investment-btn {
-  background-color: #004b9b; 
+  background-color: #004b9b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -73,12 +121,12 @@ mat-form-field{
 }
 
 .investment-btn:hover {
-  background-color: #002f6c; 
+  background-color: #002f6c;
 }
 
 .investment-text {
   font-size: 16px;
-  color: #333; 
+  color: #333;
   font-weight: bold;
 }
 
@@ -86,25 +134,24 @@ mat-form-field{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Asegura que ocupe toda la altura del contenedor */
+  height: 100%; 
 }
 
 .no-data-image {
-  width: 30%; /* 30% del ancho del contenedor */
-  max-width: 300px; /* Opcional: un límite máximo para pantallas grandes */
-  object-fit: contain; /* Asegura que la imagen mantenga proporción */
+  width: 30%; 
+  max-width: 300px; 
+  object-fit: contain; 
 }
 
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Ajusta según el contenedor */
+  height: 100%; 
   width: 100%;
-  position: absolute; /* Para mantenerlo en el centro */
+  position: absolute; 
   top: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo translúcido opcional */
-  z-index: 10; /* Asegúrate de que esté encima del contenido */
+  background-color: rgba(255, 255, 255, 0.8); 
+  z-index: 10;
 }
-
