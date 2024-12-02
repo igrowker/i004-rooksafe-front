@@ -41,31 +41,35 @@ interface Niveles {
 })
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
-  public chartOptions: Partial<ChartOptions>;
-  public token = sessionStorage.getItem('token');
-  public title = "Nombre de la moneda";
+  chartOptions: Partial<ChartOptions>;
+  token = sessionStorage.getItem('token');
+  title = "Nombre de la moneda";
   searchText: string = '';
-  public investment_amount: number = 1000.00;
+  previousBalanceInput: number = 0;
+  investment_amount: number = 1000.00;
   selectedSymbol: string = '';
   filteredSymbols: { symbol: string; name: string }[] = [];
-  public asset_type: string = "crypto";
+  asset_type: string = "crypto";
   data: any[] = [];
   wallet = {
-    balance: 0, 
-    balanceInput: 0 
+    balance: 0,
+    balanceInput: 0
   };
+  simulations = []
+  transactions = []
   symbols: { symbol: string; name: string }[] = [];
-  public chartHasData = false;
-  public isLoading = true;
+  chartHasData = false;
+  isLoading = true;
   isInputEnabled = false;
   isAddingFunds = false;
-  
+  operation = 0;
+
   constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
       series: [
         {
           name: "candle",
-          data: [] 
+          data: []
         }
       ],
       chart: {
@@ -81,7 +85,7 @@ export class SimuladorComponent {
         },
         height: 350,
         animations: {
-          enabled: false 
+          enabled: false
         },
         type: "candlestick",
       },
@@ -142,21 +146,21 @@ export class SimuladorComponent {
   }
 
   getSymbols(): void {
-    this.isLoading = true; 
+    this.isLoading = true;
     if (this.token) {
       this._simulatorService.get_symbols(this.token).subscribe({
         next: (response) => {
           this.symbols = response.data;
           this.filteredSymbols = this.symbols;
-          this.isLoading = false; 
+          this.isLoading = false;
         },
         error: (err) => {
           console.error("Error fetching symbols:", err);
-          this.isLoading = false; 
+          this.isLoading = false;
         }
       });
     } else {
-      this.isLoading = false; 
+      this.isLoading = false;
     }
   }
 
@@ -177,13 +181,16 @@ export class SimuladorComponent {
     this.isInputEnabled = false;
     alert(`Se han agregado $${amount} a su billetera.`);
   }
-  
+
   toggleInputState(): void {
     if (this.isAddingFunds) {
+      this.wallet.balanceInput = this.previousBalanceInput;
       this.isInputEnabled = false;
     } else {
+      this.previousBalanceInput = this.wallet.balanceInput;
       this.isInputEnabled = true;
     }
+
     this.isAddingFunds = !this.isAddingFunds;
   }
 
@@ -192,7 +199,9 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.wallet.balanceInput = response.wallet.balance; 
+          this.wallet.balanceInput = response.wallet.balance;
+          this.simulations = response.wallet.simulations;
+          this.transactions = response.wallet.transactions;
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -211,22 +220,23 @@ export class SimuladorComponent {
   }
 
   onSymbolSelected(selectedSymbol: string): void {
-    this.selectedSymbol = selectedSymbol; 
-    this.update_symbol(); 
+    this.selectedSymbol = selectedSymbol;
+    this.update_symbol();
   }
 
   update_symbol(): void {
     if (this.token && this.selectedSymbol) {
-      this.isLoading = true; 
+      this.isLoading = true;
       this._simulatorService.update_symbol(this.selectedSymbol, this.token).subscribe({
         next: (response) => {
           this.data = response;
-          this.updateChart(response); 
-          this.isLoading = false; 
+          this.updateChart(response);
+          this.isLoading = false;
+          console.log(this.data)
         },
         error: (err) => {
           console.error("Error al actualizar el símbolo:", err);
-          this.isLoading = false; 
+          this.isLoading = false;
         }
       });
     }
@@ -234,34 +244,53 @@ export class SimuladorComponent {
 
   updateChart(response: any): void {
     const dataArray = response.data;
-  
+
     if (Array.isArray(dataArray) && dataArray.length > 0) {
-      this.chartHasData = true; 
-  
-        const formattedData = dataArray.map((item: any) => {
+      this.chartHasData = true;
+
+      const formattedData = dataArray.map((item: any) => {
         const dateInArgentina = toZonedTime(item.time, 'America/Argentina/Buenos_Aires');
         const formattedDateForX = format(dateInArgentina, 'yyyy-MM-dd HH:mm:ss');
         const formattedDateForDisplay = format(dateInArgentina, 'yyyy-MM-dd');
-  
+
         return {
           x: formattedDateForX,
           y: [item.open, item.high, item.low, item.close],
           label: formattedDateForDisplay
         };
       });
-  
+
       this.chartOptions.series = [
         {
           name: "candle",
           data: formattedData
         }
       ];
-  
+
       this.chart?.updateOptions(this.chartOptions, true, true);
     } else {
       this.chartHasData = false;
       console.error("Datos inválidos o vacíos:", dataArray);
     }
   }
+
+  addAmount(){
+    if(this.operation < this.wallet.balanceInput  )
+    this.operation = this.operation + 25000;
+  }
+  removeAmount(){
+    if(this.operation > 0)
+    this.operation = this.operation - 25000;
+  }
+
+  sellSymbol(){
+    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol )
+      console.log("venta")
+  }
   
+  buySymbol(){
+    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol)
+    console.log("compra")
+  }
+
 }

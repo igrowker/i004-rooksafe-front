@@ -13,23 +13,25 @@
   margin: 0;
   height: 57px; 
   border-radius: 0; 
+  font-weight: bold;
 }
 
 .wallet {
   background-color: white;
   color: #004b9b;
-  border: solid 2px #004b9b;
+  border: solid 1px #004b9b;
 }
 
 .left-button {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  font-weight: bold;
 }
 
 .wallet-input {
   flex: 1;
   height: 57px;
-  border: solid 2px #004b9b;
+  border: solid 1px #004b9b;
   border-left: none; 
   color: #004b9b;
   font-size: 16px;
@@ -41,7 +43,7 @@
 .wallet-input:disabled {
   background-color: white;
   cursor: not-allowed;
-  border-right: 2px solid #004b9b; 
+  border-right: 1px solid #004b9b; 
 }
 
 .wallet-input:disabled + .confirm-button {
@@ -50,16 +52,11 @@
 
 .confirm-button {
   background-color: #fff;
-  border: solid 2px #004b9b;
+  border: solid 1px #004b9b;
   border-left: none; 
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
   font-weight: bold;
-}
-
-
-.confirm-button:hover {
-  background-color: #a8e4b9;
 }
 
 .confirm-button:not(:disabled) + .wallet-input {
@@ -77,7 +74,9 @@
   background-color: rgb(193, 247, 207);
   color: #0c7813;
   font-weight: bold;
-  border: solid 2px #0c7813;
+  border: solid 1px #0c7813;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .sell {
@@ -85,14 +84,15 @@
   background-color: rgb(255, 201, 201);
   color: #ff1100;
   font-weight: bold;
-  border: solid 2px #ff1100;
+  border: solid 1px #ff1100;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .upbuttons {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 1rem;
 }
 
 .downbuttons {
