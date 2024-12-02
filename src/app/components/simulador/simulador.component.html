@@ -1,4 +1,14 @@
 <div class="simulator">
+  <!-- Spinner de carga centrado -->
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-progress-spinner 
+      mode="indeterminate" 
+      diameter="50" 
+      class="spinner">
+    </mat-progress-spinner>
+  </div>
+
+<div class="simulator"  *ngIf="!isLoading">
   <div class="upbuttons">
     <button class="btn-gra wallet" mat-fab extended>+ / $9000.00 Demo</button>
     <mat-form-field class="btn-select">
@@ -9,22 +19,25 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="select-symbol">
-      <mat-label>Símbolo a operar</mat-label>
-      <input
-        type="text"
-        matInput
-        [matAutocomplete]="auto"
-        [(ngModel)]="searchText"
-        (input)="filterSymbols()"
-        placeholder="Buscar símbolo"
-      />
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSymbolSelected($event.option.value)">
-        <mat-option *ngFor="let data of filteredSymbols" [value]="data.symbol">
-          {{ data.symbol }} - {{ data.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div class="select-symbol">
+      <mat-form-field>
+        <mat-label>Símbolo a operar</mat-label>
+        <input
+          type="text"
+          matInput
+          [matAutocomplete]="auto"
+          [(ngModel)]="searchText"
+          (input)="filterSymbols()"
+          placeholder="Buscar símbolo"
+        />
+        <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="onSymbolSelected($event.option.value)">
+          <mat-option *ngFor="let data of filteredSymbols" [value]="data.symbol">
+            {{ data.symbol }} - {{ data.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
   </div>
 <div id="chart" class="chart">
   <apx-chart

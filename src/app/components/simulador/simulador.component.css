@@ -1,11 +1,4 @@
-.simulator{
-  width: 90%;
-}
-.chart {
-  margin-top: 8.5rem;
-  width: 100%;
-  margin-left: 3.5rem;  
-}
+
 .custom-form-field {
   width: 100%;
   max-width: 300px;
@@ -89,6 +82,29 @@ mat-form-field{
   font-weight: bold;
 }
 
-.select-symbol{
-  width: 30%!important;
+.no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Asegura que ocupe toda la altura del contenedor */
 }
+
+.no-data-image {
+  width: 30%; /* 30% del ancho del contenedor */
+  max-width: 300px; /* Opcional: un límite máximo para pantallas grandes */
+  object-fit: contain; /* Asegura que la imagen mantenga proporción */
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ajusta según el contenedor */
+  width: 100%;
+  position: absolute; /* Para mantenerlo en el centro */
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo translúcido opcional */
+  z-index: 10; /* Asegúrate de que esté encima del contenido */
+}
+
