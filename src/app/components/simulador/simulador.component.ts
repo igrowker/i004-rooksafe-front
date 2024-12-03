@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
+import { MaterialModule } from '@shared/material/material.module';
 import { NgApexchartsModule } from "ng-apexcharts";
-import moment from "moment";
+import { toZonedTime, format } from 'date-fns-tz';
+
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -8,9 +10,12 @@ import {
   ApexYAxis,
   ApexXAxis,
   ApexTitleSubtitle,
-  ApexTooltip
+  ApexTooltip,
+  ApexPlotOptions
 } from "ng-apexcharts";
 import { SimulatorService } from 'src/app/services/simulation-service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -19,172 +24,273 @@ export type ChartOptions = {
   yaxis: ApexYAxis;
   title: ApexTitleSubtitle;
   tooltip: ApexTooltip;
+  plotOptions: ApexPlotOptions;
 };
+
+interface Niveles {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
-  public chartOptions: Partial<ChartOptions>;
-  public token = sessionStorage.getItem('token');
-  public investment_amount : number = 1000.00;
-  public asset_type : string = "crypto";
+  chartOptions: Partial<ChartOptions>;
+  token = sessionStorage.getItem('token');
+  title = "Nombre de la moneda";
+  searchText: string = '';
+  previousBalanceInput: number = 0;
+  investment_amount: number = 1000.00;
+  selectedSymbol: string = '';
+  filteredSymbols: { symbol: string; name: string }[] = [];
+  asset_type: string = "crypto";
   data: any[] = [];
-  constructor(private _simulatorService:SimulatorService) {
-    
+  wallet = {
+    balance: 0,
+    balanceInput: 0
+  };
+  simulations = []
+  transactions = []
+  symbols: { symbol: string; name: string }[] = [];
+  chartHasData = false;
+  isLoading = true;
+  isInputEnabled = false;
+  isAddingFunds = false;
+  operation = 0;
+
+  constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
       series: [
         {
           name: "candle",
-          data: [
-            {
-              x: new Date(1538778600000),
-              y: [6629.81, 6650.5, 6623.04, 6633.33]
-            },
-            {
-              x: new Date(1538780400000),
-              y: [6632.01, 6643.59, 6620, 6630.11]
-            },
-            {
-              x: new Date(1538782200000),
-              y: [6630.71, 6648.95, 6623.34, 6635.65]
-            },
-            {
-              x: new Date(1538784000000),
-              y: [6635.65, 6651, 6629.67, 6638.24]
-            },
-            {
-              x: new Date(1538785800000),
-              y: [6638.24, 6640, 6620, 6624.47]
-            },
-            {
-              x: new Date(1538787600000),
-              y: [6624.53, 6636.03, 6621.68, 6624.31]
-            },
-            {
-              x: new Date(1538789400000),
-              y: [6624.61, 6632.2, 6617, 6626.02]
-            },
-            {
-              x: new Date(1538791200000),
-              y: [6627, 6627.62, 6584.22, 6603.02]
-            },
-            {
-              x: new Date(1538793000000),
-              y: [6605, 6608.03, 6598.95, 6604.01]
-            },
-            {
-              x: new Date(1538794800000),
-              y: [6604.5, 6614.4, 6602.26, 6608.02]
-            },
-            {
-              x: new Date(1538796600000),
-              y: [6608.02, 6610.68, 6601.99, 6608.91]
-            },
-            {
-              x: new Date(1538798400000),
-              y: [6608.91, 6618.99, 6608.01, 6612]
-            },
-            {
-              x: new Date(1538800200000),
-              y: [6612, 6615.13, 6605.09, 6612]
-            },
-            {
-              x: new Date(1538802000000),
-              y: [6612, 6624.12, 6608.43, 6622.95]
-            },
-            {
-              x: new Date(1538803800000),
-              y: [6623.91, 6623.91, 6615, 6615.67]
-            },
-            {
-              x: new Date(1538805600000),
-              y: [6618.69, 6618.74, 6610, 6610.4]
-            },
-            {
-              x: new Date(1538807400000),
-              y: [6611, 6622.78, 6610.4, 6614.9]
-            },
-            {
-              x: new Date(1538809200000),
-              y: [6614.9, 6626.2, 6613.33, 6623.45]
-            }
-          ]
+          data: []
         }
       ],
       chart: {
+        toolbar: {
+          tools: {
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false,
+            download: false
+          }
+        },
         height: 350,
-        type: "candlestick"
+        animations: {
+          enabled: false
+        },
+        type: "candlestick",
       },
       title: {
-        text: "",
+        text: this.selectedSymbol,
         align: "left"
       },
       tooltip: {
-        enabled: true
+        enabled: true,
       },
       xaxis: {
-        type: "category",
+        type: "datetime",
         labels: {
-          formatter: function(val) {
-            return moment(val).format("MMM DD HH:mm");
+          show: false
+        },
+      },
+      yaxis: {
+        opposite: true,
+        crosshairs: {
+          show: true,
+          stroke: {
+            color: '#3333ff',
+            width: 2,
+            dashArray: 0,
+          },
+        },
+        tooltip: {
+          enabled: true,
+        }
+      },
+      plotOptions: {
+        candlestick: {
+          colors: {
+            upward: '#089981',
+            downward: '#F23645'
           }
         }
       },
-      yaxis: {
-        tooltip: {
-          enabled: true
-        }
-      }
     };
-    
   }
 
-  public generateDayWiseTimeSeries(baseval:any, count:any, yrange:any) {
-    var i = 0;
-    var series = [];
-    while (i < count) {
-      var y =
-        Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
-
-      series.push([baseval, y]);
-      baseval += 86400000;
-      i++;
-    }
-    return series;
-  }
+  niveles: Niveles[] = [
+    { value: 'nivel1', viewValue: 'Nivel 1' },
+    { value: 'nivel2', viewValue: 'Nivel 2' },
+    { value: 'nivel3', viewValue: 'Nivel 3' },
+  ];
 
   ngOnInit(): void {
-    this.get_simulation();
-    this.generate_simulation()
+    this.getSymbols();
+    this.getWallet();
+    ['touchstart', 'touchmove'].forEach((eventName) => {
+      document.addEventListener(
+        eventName,
+        () => { },
+        { passive: false }
+      );
+    });
   }
 
-
-  get_simulation(){
-    if(this.token){
-      this._simulatorService.simulator_status(this.token).subscribe(
-        response=>{
-          this.data = response.simulations;
+  getSymbols(): void {
+    this.isLoading = true;
+    if (this.token) {
+      this._simulatorService.get_symbols(this.token).subscribe({
+        next: (response) => {
+          this.symbols = response.data;
+          this.filteredSymbols = this.symbols;
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error("Error fetching symbols:", err);
+          this.isLoading = false;
         }
-      )
+      });
+    } else {
+      this.isLoading = false;
     }
   }
 
-  generate_simulation(){
-    if(this.token){
-      this._simulatorService.simulator_start(this.investment_amount, this.asset_type, this.token).subscribe(
-        response=>{
+  enableInput(): void {
+    this.isInputEnabled = true;
+  }
+
+  addFunds(): void {
+    const amount = Number(this.wallet.balanceInput);
+
+    if (isNaN(amount) || amount <= 0) {
+      alert('Por favor, ingrese un monto válido.');
+      return;
+    }
+
+    this.wallet.balance += amount;
+    this.wallet.balanceInput = 0;
+    this.isInputEnabled = false;
+    alert(`Se han agregado $${amount} a su billetera.`);
+  }
+
+  toggleInputState(): void {
+    if (this.isAddingFunds) {
+      this.wallet.balanceInput = this.previousBalanceInput;
+      this.isInputEnabled = false;
+    } else {
+      this.previousBalanceInput = this.wallet.balanceInput;
+      this.isInputEnabled = true;
+    }
+
+    this.isAddingFunds = !this.isAddingFunds;
+  }
+
+
+  getWallet(): void {
+    if (this.token) {
+      this._simulatorService.get_wallet(this.token).subscribe({
+        next: (response) => {
+          this.wallet.balanceInput = response.wallet.balance;
+          this.simulations = response.wallet.simulations;
+          this.transactions = response.wallet.transactions;
+        },
+        error: (err) => {
+          console.error("Error fetching wallet balance:", err);
+        }
+      });
+    }
+  }
+
+
+  filterSymbols(): void {
+    const search = this.searchText.toLowerCase();
+    this.filteredSymbols = this.symbols.filter((symbol) =>
+      symbol.symbol.toLowerCase().includes(search) ||
+      symbol.name.toLowerCase().includes(search)
+    );
+  }
+
+  onSymbolSelected(selectedSymbol: string): void {
+    this.selectedSymbol = selectedSymbol;
+    this.update_symbol();
+  }
+
+  update_symbol(): void {
+    if (this.token && this.selectedSymbol) {
+      this.isLoading = true;
+      this._simulatorService.update_symbol(this.selectedSymbol, this.token).subscribe({
+        next: (response) => {
           this.data = response;
-          console.log(response)
+          this.updateChart(response);
+          this.isLoading = false;
+          console.log(this.data)
+        },
+        error: (err) => {
+          console.error("Error al actualizar el símbolo:", err);
+          this.isLoading = false;
         }
-      )
+      });
     }
   }
 
+  updateChart(response: any): void {
+    const dataArray = response.data;
+
+    if (Array.isArray(dataArray) && dataArray.length > 0) {
+      this.chartHasData = true;
+
+      const formattedData = dataArray.map((item: any) => {
+        const dateInArgentina = toZonedTime(item.time, 'America/Argentina/Buenos_Aires');
+        const formattedDateForX = format(dateInArgentina, 'yyyy-MM-dd HH:mm:ss');
+        const formattedDateForDisplay = format(dateInArgentina, 'yyyy-MM-dd');
+
+        return {
+          x: formattedDateForX,
+          y: [item.open, item.high, item.low, item.close],
+          label: formattedDateForDisplay
+        };
+      });
+
+      this.chartOptions.series = [
+        {
+          name: "candle",
+          data: formattedData
+        }
+      ];
+
+      this.chart?.updateOptions(this.chartOptions, true, true);
+    } else {
+      this.chartHasData = false;
+      console.error("Datos inválidos o vacíos:", dataArray);
+    }
+  }
+
+  addAmount(){
+    if(this.operation < this.wallet.balanceInput  )
+    this.operation = this.operation + 25000;
+  }
+  removeAmount(){
+    if(this.operation > 0)
+    this.operation = this.operation - 25000;
+  }
+
+  sellSymbol(){
+    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol )
+      console.log("venta")
+  }
+  
+  buySymbol(){
+    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol)
+    console.log("compra")
+  }
 
 }

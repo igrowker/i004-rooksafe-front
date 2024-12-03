@@ -1,5 +1,157 @@
-.chart {
-  margin-top: 8.5rem;
-  width: 80%;
-  margin-left: 3.5rem;
+.custom-form-field {
+  width: 100%;
+  max-width: 300px;
+}
+
+.custom-select-panel {
+  width: 100%;
+  max-width: 300px;
+  min-width: 150px;
+}
+
+.btn-gra {
+  margin: 0;
+  height: 57px; 
+  border-radius: 0; 
+  font-weight: bold;
+}
+
+.wallet {
+  background-color: white;
+  color: #004b9b;
+  border: solid 1px #004b9b;
+}
+
+.left-button {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  font-weight: bold;
+}
+
+.wallet-input {
+  flex: 1;
+  height: 57px;
+  border: solid 1px #004b9b;
+  border-left: none; 
+  color: #004b9b;
+  font-size: 16px;
+  text-align: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wallet-input:disabled {
+  background-color: white;
+  cursor: not-allowed;
+  border-right: 1px solid #004b9b; 
+}
+
+.wallet-input:disabled + .confirm-button {
+  display: none; 
+}
+
+.confirm-button {
+  background-color: #fff;
+  border: solid 1px #004b9b;
+  border-left: none; 
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-weight: bold;
+}
+
+.confirm-button:not(:disabled) + .wallet-input {
+  border-right: none; 
+}
+
+.right-button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1px solid #ccc;
+}
+
+.buy {
+  margin: 0.5rem;
+  background-color: rgb(193, 247, 207);
+  color: #0c7813;
+  font-weight: bold;
+  border: solid 1px #0c7813;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sell {
+  margin: 0.5rem;
+  background-color: rgb(255, 201, 201);
+  color: #ff1100;
+  font-weight: bold;
+  border: solid 1px #ff1100;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.upbuttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.downbuttons {
+  text-align: center;
+}
+
+mat-form-field {
+  color: rgb(39, 9, 208);
+}
+
+.investment-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.investment-btn {
+  background-color: #004b9b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.investment-btn:hover {
+  background-color: #002f6c;
+}
+
+.investment-text {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+}
+
+.no-data-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+}
+
+.no-data-image {
+  width: 30%; 
+  max-width: 300px; 
+  object-fit: contain; 
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  width: 100%;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.8); 
+  z-index: 10;
 }
