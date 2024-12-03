@@ -28,9 +28,7 @@ export class InvestorTestComponent {
       options: [
         'Plazo Fijo',
         'Fondos Comunes de Inversión',
-        'Bonos',
-        'Opciones',
-        'Futuros',
+        'Bonos'
       ],
     },
     {
@@ -42,9 +40,8 @@ export class InvestorTestComponent {
       question: '¿Cuántos años tenés?',
       options: [
         'Menos de 30 años',
-        'Entre 40 y 40 años',
-        'Entre 41 y 51 años',
-        'Más de 50 años',
+        'Entre 30 y 40 años',
+        'Más de 40 años',
       ],
     },
     {
