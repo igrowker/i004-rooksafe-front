@@ -51,10 +51,8 @@ export class SimuladorComponent {
   filteredSymbols: { symbol: string; name: string }[] = [];
   asset_type: string = "crypto";
   data: any[] = [];
-  wallet = {
-    balance: 0,
-    balanceInput: 0
-  };
+  balance = 0;
+  balanceInput = 0;
   simulations = []
   transactions = []
   symbols: { symbol: string; name: string }[] = [];
@@ -169,25 +167,24 @@ export class SimuladorComponent {
   }
 
   addFunds(): void {
-    const amount = Number(this.wallet.balanceInput);
 
-    if (isNaN(amount) || amount <= 0) {
+    if (isNaN(this.balanceInput) || this.balanceInput <= 0) {
       alert('Por favor, ingrese un monto válido.');
       return;
     }
 
-    this.wallet.balance += amount;
-    this.wallet.balanceInput = 0;
+    this.balance += this.balanceInput;
+    this.balanceInput = 0;
     this.isInputEnabled = false;
-    alert(`Se han agregado $${amount} a su billetera.`);
+    alert(`Se han agregado $${this.balanceInput} a su billetera.`);
   }
 
   toggleInputState(): void {
     if (this.isAddingFunds) {
-      this.wallet.balanceInput = this.previousBalanceInput;
+      this.balanceInput = this.previousBalanceInput;
       this.isInputEnabled = false;
     } else {
-      this.previousBalanceInput = this.wallet.balanceInput;
+      this.previousBalanceInput = this.balanceInput;
       this.isInputEnabled = true;
     }
 
@@ -199,9 +196,9 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.wallet.balanceInput = response.wallet.balance;
-          this.simulations = response.wallet.simulations;
-          this.transactions = response.wallet.transactions;
+          this.balanceInput = response.balance;
+          this.simulations = response.simulations;
+          this.transactions = response.transactions;
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -275,7 +272,7 @@ export class SimuladorComponent {
   }
 
   addAmount(){
-    if(this.operation < this.wallet.balanceInput  )
+    if(this.operation < this.balanceInput  )
     this.operation = this.operation + 25000;
   }
   removeAmount(){
@@ -284,12 +281,12 @@ export class SimuladorComponent {
   }
 
   sellSymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol )
+    if(this.operation < this.balanceInput && this.balanceInput > 0 && this.selectedSymbol )
       console.log("venta")
   }
   
   buySymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol)
+    if(this.operation < this.balanceInput && this.balanceInput > 0 && this.selectedSymbol)
     console.log("compra")
   }
 

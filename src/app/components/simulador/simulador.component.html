@@ -25,9 +25,9 @@
         class="btn-gra wallet-input right-button" 
         type="text" 
         [disabled]="!isInputEnabled" 
-        [value]="!isInputEnabled ? wallet.balance : wallet.balanceInput" 
-        [(ngModel)]="wallet.balanceInput"
-        title="Crédito Disponible ${{wallet.balanceInput}}" 
+        [value]="!isInputEnabled ? balance : balanceInput" 
+        [(ngModel)]="balanceInput"
+        title="Crédito Disponible ${{balanceInput}}" 
         placeholder="Ingrese monto"
       />
     
