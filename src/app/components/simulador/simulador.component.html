@@ -13,24 +13,12 @@
           {{ isAddingFunds ? '×' : '+' }}
         </button>
 
-        <input
-        *ngIf="!isAddingFunds"
-        class="btn-gra wallet-input right-button"
-        type="number"
-        [disabled]="true"
-        [value]="balance"
-        title="Crédito Disponible ${{ balance }}"
-      />
-    
-      <!-- Input para ingresar un nuevo saldo -->
-      <input
-        *ngIf="isAddingFunds"
-        class="btn-gra wallet-input right-button"
-        type="number"
-        [(ngModel)]="balanceInput"
-        title="Agregando Saldo ${{ balanceInput }}. Su nuevo saldo sera: ${{ balanceInput + balance }} "
-        placeholder="Ingrese monto"
-      />
+        <input *ngIf="!isAddingFunds" class="btn-gra wallet-input right-button" type="number" [disabled]="true"
+          [value]="balance" title="Crédito Disponible ${{ balance }}" />
+
+        <input *ngIf="isAddingFunds" class="btn-gra wallet-input right-button" type="number" [(ngModel)]="balanceInput"
+          title="Agregando Saldo ${{ balanceInput }}. Su nuevo saldo sera: ${{ balanceInput + balance }} "
+          placeholder="Ingrese monto" />
 
         <button *ngIf="isInputEnabled" class="btn-gra wallet confirm-button" mat-fab extended (click)="addFunds()">
           Confirmar
@@ -57,13 +45,20 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-
     </div>
-    <div id="chart" class="chart">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-        [yaxis]="chartOptions.yaxis" [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"
-        [plotOptions]="chartOptions.plotOptions"></apx-chart>
-    </div>
+    <ng-container *ngIf="this.selectedSymbol">
+      <div id="chart" class="chart">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+          class="chart" [yaxis]="chartOptions.yaxis" [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"
+          [plotOptions]="chartOptions.plotOptions"></apx-chart>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!this.selectedSymbol">
+      <div class="no-data-container">
+        <img src="assets/images/no-data.jpg" alt="" class="no-data-image">
+        <p class="no-data-text">Seleccione un símbolo para ver el gráfico</p>
+      </div>
+    </ng-container>
     <div class="downbuttons">
       <div class="d-flex wallet-container">
         <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito" (click)="removeAmount()">
