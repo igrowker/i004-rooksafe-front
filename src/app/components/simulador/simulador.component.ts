@@ -269,7 +269,7 @@ export class SimuladorComponent {
   }
 
   addAmount() {
-    if (this.operation < this.balanceInput)
+    if ((this.operation+25000) < this.balance)
       this.operation = this.operation + 25000;
   }
   removeAmount() {
@@ -283,6 +283,7 @@ export class SimuladorComponent {
   }
 
   buySymbol() {
+    console.log("c")
     if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
       console.log("compra")
   }

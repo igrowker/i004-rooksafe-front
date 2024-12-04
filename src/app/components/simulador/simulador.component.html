@@ -56,23 +56,25 @@
     <ng-container *ngIf="!this.selectedSymbol">
       <div class="no-data-container">
         <img src="assets/images/no-data.jpg" alt="" class="no-data-image">
-        <p class="no-data-text">Seleccione un símbolo para ver el gráfico</p>
+        <p class="no-data-text">Seleccione un símbolo para operar</p>
       </div>
     </ng-container>
-    <div class="downbuttons">
-      <div class="d-flex wallet-container">
-        <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito" (click)="removeAmount()">
-          -
-        </button>
-
-        <input class="btn-gra wallet-input right-button" type="text" [value]="operation" [(ngModel)]="operation"
-          title="Monto a invertir ${{operation}}" placeholder="Ingrese monto a invertir" />
-        <button class="btn-gra wallet confirm-button" mat-fab extended (click)="addAmount()">
-          +
-        </button>
-
-        <button class="btn-gra sell" mat-fab extended (click)="sellSymbol()">Vender</button>
-        <button class="btn-gra buy" mat-fab extended (click)="buySymbol()">Comprar</button>
+    <ng-container *ngIf="this.selectedSymbol">
+      <div class="downbuttons">
+        <div class="d-flex wallet-container">
+          <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito" (click)="removeAmount()">
+            -
+          </button>
+  
+          <input class="btn-gra wallet-input right-button" type="number" [value]="operation" [(ngModel)]="operation"
+            title="Monto a invertir ${{operation}}" placeholder="Ingrese monto a invertir" />
+          <button class="btn-gra wallet confirm-button" mat-fab extended (click)="addAmount()">
+            +
+          </button>
+  
+          <button class="btn-gra sell" mat-fab extended (click)="sellSymbol()">Vender</button>
+          <button class="btn-gra buy" mat-fab extended (click)="buySymbol()">Comprar</button>
+        </div>
       </div>
-    </div>
+    </ng-container>
   </div>
