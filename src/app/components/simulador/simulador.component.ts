@@ -167,28 +167,27 @@ export class SimuladorComponent {
   }
 
   addFunds(): void {
-
-    if (isNaN(this.balanceInput) || this.balanceInput <= 0) {
-      alert('Por favor, ingrese un monto válido.');
-      return;
+    if (!isNaN(this.balanceInput) || this.balanceInput > 0) {
+      if (this.token) {
+        this._simulatorService.add_founds(this.balanceInput, this.token).subscribe(
+          response => {
+            this.getWallet();
+            this.toggleInputState();
+            this.balanceInput = 0;
+          }
+        )
+      }
     }
-
-    this.balance += this.balanceInput;
-    this.balanceInput = 0;
-    this.isInputEnabled = false;
-    alert(`Se han agregado $${this.balanceInput} a su billetera.`);
   }
 
   toggleInputState(): void {
     if (this.isAddingFunds) {
-      this.balanceInput = this.previousBalanceInput;
       this.isInputEnabled = false;
     } else {
-      this.previousBalanceInput = this.balanceInput;
       this.isInputEnabled = true;
     }
-
     this.isAddingFunds = !this.isAddingFunds;
+    this.getWallet();
   }
 
 
@@ -196,9 +195,7 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.balanceInput = response.balance;
-          this.simulations = response.simulations;
-          this.transactions = response.transactions;
+          this.balance = response.balance;
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -271,23 +268,23 @@ export class SimuladorComponent {
     }
   }
 
-  addAmount(){
-    if(this.operation < this.balanceInput  )
-    this.operation = this.operation + 25000;
+  addAmount() {
+    if (this.operation < this.balanceInput)
+      this.operation = this.operation + 25000;
   }
-  removeAmount(){
-    if(this.operation > 0)
-    this.operation = this.operation - 25000;
+  removeAmount() {
+    if (this.operation > 0)
+      this.operation = this.operation - 25000;
   }
 
-  sellSymbol(){
-    if(this.operation < this.balanceInput && this.balanceInput > 0 && this.selectedSymbol )
+  sellSymbol() {
+    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
       console.log("venta")
   }
-  
-  buySymbol(){
-    if(this.operation < this.balanceInput && this.balanceInput > 0 && this.selectedSymbol)
-    console.log("compra")
+
+  buySymbol() {
+    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
+      console.log("compra")
   }
 
 }

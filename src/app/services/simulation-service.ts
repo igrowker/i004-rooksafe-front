@@ -46,4 +46,9 @@ export class SimulatorService {
     return this._http.get<SymbolResponse>(this.url + "api/wallet/status", { headers });
   }
 
+  add_founds(amount: number, token: string):Observable<any>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
+    return this._http.post(this.url + "api/wallet/add_money", {amount} ,{headers})
+  }
+
 }

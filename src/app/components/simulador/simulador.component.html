@@ -1,117 +1,83 @@
 <div class="simulator">
   <div *ngIf="isLoading" class="loading-container">
-    <mat-progress-spinner 
-      mode="indeterminate" 
-      diameter="50" 
-      class="spinner">
+    <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
     </mat-progress-spinner>
   </div>
 
-<div class="simulator"  *ngIf="!isLoading">
-  <div class="upbuttons">
+  <div class="simulator" *ngIf="!isLoading">
+    <div class="upbuttons">
 
-    <div class="d-flex wallet-container">
-      <button 
-        class="btn-gra wallet left-button" 
-        mat-fab 
-        extended 
-        title="Agregar Crédito" 
-        (click)="toggleInputState()"
-      >
-        {{ isAddingFunds ? '×' : '+' }}
-      </button>
-    
-      <input 
-        class="btn-gra wallet-input right-button" 
-        type="text" 
-        [disabled]="!isInputEnabled" 
-        [value]="!isInputEnabled ? balance : balanceInput" 
-        [(ngModel)]="balanceInput"
-        title="Crédito Disponible ${{balanceInput}}" 
-        placeholder="Ingrese monto"
+      <div class="d-flex wallet-container">
+        <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito"
+          (click)="toggleInputState()">
+          {{ isAddingFunds ? '×' : '+' }}
+        </button>
+
+        <input
+        *ngIf="!isAddingFunds"
+        class="btn-gra wallet-input right-button"
+        type="number"
+        [disabled]="true"
+        [value]="balance"
+        title="Crédito Disponible ${{ balance }}"
       />
     
-      <button 
-        *ngIf="isInputEnabled" 
-        class="btn-gra wallet confirm-button" 
-        mat-fab 
-        extended 
-        (click)="addFunds()"
-      >
-        Confirmar
-      </button>
-    </div>
+      <!-- Input para ingresar un nuevo saldo -->
+      <input
+        *ngIf="isAddingFunds"
+        class="btn-gra wallet-input right-button"
+        type="number"
+        [(ngModel)]="balanceInput"
+        title="Agregando Saldo ${{ balanceInput }}. Su nuevo saldo sera: ${{ balanceInput + balance }} "
+        placeholder="Ingrese monto"
+      />
 
-    <mat-form-field class="btn-select">
-      <mat-label>Nivel 1</mat-label>
-      <mat-select>
-        <mat-option>
-         1
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="select-symbol">
-      <mat-form-field>
-        <mat-label>Símbolo a operar</mat-label>
-        <input
-          type="text"
-          matInput
-          [matAutocomplete]="auto"
-          [(ngModel)]="searchText"
-          (input)="filterSymbols()"
-          placeholder="Buscar símbolo"
-        />
-        <mat-autocomplete  #auto="matAutocomplete" (optionSelected)="onSymbolSelected($event.option.value)">
-          <mat-option *ngFor="let data of filteredSymbols" [value]="data.symbol">
-            {{ data.symbol }} - {{ data.name }}
+        <button *ngIf="isInputEnabled" class="btn-gra wallet confirm-button" mat-fab extended (click)="addFunds()">
+          Confirmar
+        </button>
+      </div>
+
+      <mat-form-field class="btn-select">
+        <mat-label>Nivel 1</mat-label>
+        <mat-select>
+          <mat-option>
+            1
           </mat-option>
-        </mat-autocomplete>
+        </mat-select>
       </mat-form-field>
-    </div>
+      <div class="select-symbol">
+        <mat-form-field>
+          <mat-label>Símbolo a operar</mat-label>
+          <input type="text" matInput [matAutocomplete]="auto" [(ngModel)]="searchText" (input)="filterSymbols()"
+            placeholder="Buscar símbolo" />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSymbolSelected($event.option.value)">
+            <mat-option *ngFor="let data of filteredSymbols" [value]="data.symbol">
+              {{ data.symbol }} - {{ data.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
 
+    </div>
+    <div id="chart" class="chart">
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis" [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"
+        [plotOptions]="chartOptions.plotOptions"></apx-chart>
+    </div>
+    <div class="downbuttons">
+      <div class="d-flex wallet-container">
+        <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito" (click)="removeAmount()">
+          -
+        </button>
+
+        <input class="btn-gra wallet-input right-button" type="text" [value]="operation" [(ngModel)]="operation"
+          title="Monto a invertir ${{operation}}" placeholder="Ingrese monto a invertir" />
+        <button class="btn-gra wallet confirm-button" mat-fab extended (click)="addAmount()">
+          +
+        </button>
+
+        <button class="btn-gra sell" mat-fab extended (click)="sellSymbol()">Vender</button>
+        <button class="btn-gra buy" mat-fab extended (click)="buySymbol()">Comprar</button>
+      </div>
+    </div>
   </div>
-<div id="chart" class="chart">
-  <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [yaxis]="chartOptions.yaxis"
-    [title]="chartOptions.title"
-    [tooltip]="chartOptions.tooltip"
-    [plotOptions]="chartOptions.plotOptions"
-  ></apx-chart>
-</div>
-<div class="downbuttons">
-  <div class="d-flex wallet-container">
-    <button 
-      class="btn-gra wallet left-button" 
-      mat-fab 
-      extended 
-      title="Agregar Crédito" 
-      (click)="removeAmount()"
-    >
-      -
-    </button>
-  
-    <input 
-      class="btn-gra wallet-input right-button" 
-      type="text" 
-      [value]="operation" 
-      [(ngModel)]="operation"
-      title="Monto a invertir ${{operation}}" 
-      placeholder="Ingrese monto a invertir"
-    />
-    <button 
-    class="btn-gra wallet confirm-button" 
-    mat-fab 
-    extended 
-    (click)="addAmount()"
-  >
-    +
-  </button>
-  
-  <button class="btn-gra sell" mat-fab extended (click)="sellSymbol()">Vender</button>
-  <button class="btn-gra buy" mat-fab extended  (click)="buySymbol()">Comprar</button>
-  </div>
-</div>
-</div>
