@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MaterialModule } from '@shared/material/material.module';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { toZonedTime, format } from 'date-fns-tz';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 import {
   ChartComponent,
@@ -16,6 +18,7 @@ import {
 import { SimulatorService } from 'src/app/services/simulation-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -35,14 +38,14 @@ interface Niveles {
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule ],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   chartOptions: Partial<ChartOptions>;
-  token = sessionStorage.getItem('token');
+  token:any;
   title = "Nombre de la moneda";
   searchText: string = '';
   previousBalanceInput: number = 0;
@@ -61,6 +64,7 @@ export class SimuladorComponent {
   isInputEnabled = false;
   isAddingFunds = false;
   operation = 0;
+  private socket$!: WebSocketSubject<any>;
 
   constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
@@ -123,6 +127,11 @@ export class SimuladorComponent {
         }
       },
     };
+    if (typeof window !== 'undefined') {  // Verifica si está en el navegador
+      this.socket$ = new WebSocketSubject('http://ec2-18-212-166-21.compute-1.amazonaws.com/ws/trades');
+      this.token = sessionStorage.getItem('token');
+    }
+    
   }
 
   niveles: Niveles[] = [
@@ -135,11 +144,7 @@ export class SimuladorComponent {
     this.getSymbols();
     this.getWallet();
     ['touchstart', 'touchmove'].forEach((eventName) => {
-      document.addEventListener(
-        eventName,
-        () => { },
-        { passive: false }
-      );
+
     });
   }
 
@@ -160,6 +165,18 @@ export class SimuladorComponent {
     } else {
       this.isLoading = false;
     }
+  }
+
+  sendMessage(message: string) {
+    this.socket$.next({ message });
+  }
+
+  getMessages() {
+    return this.socket$;
+  }
+
+  closeConnection() {
+    this.socket$.complete();
   }
 
   enableInput(): void {
@@ -279,13 +296,13 @@ export class SimuladorComponent {
 
   sellSymbol() {
     if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
-      console.log("venta")
+      console.log("venta: amount, symbol")
   }
 
   buySymbol() {
-    console.log("c")
     if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
-      console.log("compra")
+      console.log("compra: amount, symbol " )
   }
+
 
 }

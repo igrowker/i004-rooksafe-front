@@ -1,7 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { WebSocketSubject } from 'rxjs/webSocket';
+import { isPlatformBrowser } from '@angular/common';
+
 interface SymbolResponse {
   status: string;
   data: {
@@ -13,12 +16,33 @@ interface SymbolResponse {
   providedIn: 'root'
 })
 export class SimulatorService {
-
   private url: string =  environment.apiUrl;
+  private socket$: WebSocketSubject<any> | undefined;
+  private isBrowser: boolean;
 
   constructor(
     private _http : HttpClient,
-  ) {
+    @Inject(PLATFORM_ID)  platformId: Object) {
+      this.isBrowser = isPlatformBrowser(platformId);
+    if (typeof window !== 'undefined') {  // Verifica si está en el navegador
+      this.socket$ = new WebSocketSubject(this.url+'ws/trades');
+    }
+  }
+
+  sendMessage(message: string) {
+    if (this.socket$) {
+      this.socket$.next({ message });
+    }
+  }
+
+  getMessages() {
+    return this.socket$;
+  }
+
+  closeConnection() {
+    if (this.socket$) {
+      this.socket$.complete();
+    }
   }
 
   simulator_start(investment_amount: number, asset_type: string, token: string):Observable<any>{
@@ -49,6 +73,10 @@ export class SimulatorService {
   add_founds(amount: number, token: string):Observable<any>{
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
     return this._http.post(this.url + "api/wallet/add_money", {amount} ,{headers})
+  }
+
+  isRunningInBrowser(): boolean {
+    return this.isBrowser;
   }
 
 }
