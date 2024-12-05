@@ -48,6 +48,7 @@
     </div>
     <ng-container *ngIf="this.selectedSymbol">
       <div id="chart" class="chart">
+        <div class="chart-title">{{title}}</div>
         <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
           class="chart" [yaxis]="chartOptions.yaxis" [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"
           [plotOptions]="chartOptions.plotOptions"></apx-chart>

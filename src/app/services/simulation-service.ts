@@ -45,15 +45,6 @@ export class SimulatorService {
     }
   }
 
-  simulator_start(investment_amount: number, asset_type: string, token: string):Observable<any>{
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
-    return this._http.post(this.url + "api/simulator/start",{ investment_amount, asset_type },{headers})
-  }
-
-  simulator_status(token:string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get(this.url + "api/simulator/status", { headers });
-  }
 
   update_symbol(symbol:string,token:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -67,7 +58,7 @@ export class SimulatorService {
 
   get_wallet(token:string): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get<SymbolResponse>(this.url + "api/wallet/status", { headers });
+    return this._http.get(this.url + "api/wallet/status", { headers });
   }
 
   add_founds(amount: number, token: string):Observable<any>{

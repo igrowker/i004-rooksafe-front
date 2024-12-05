@@ -38,15 +38,15 @@ interface Niveles {
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule ],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   chartOptions: Partial<ChartOptions>;
-  token:any;
-  title = "Nombre de la moneda";
+  token: any;
+  title = '';
   searchText: string = '';
   previousBalanceInput: number = 0;
   investment_amount: number = 1000.00;
@@ -131,7 +131,7 @@ export class SimuladorComponent {
       this.socket$ = new WebSocketSubject('http://ec2-18-212-166-21.compute-1.amazonaws.com/ws/trades');
       this.token = sessionStorage.getItem('token');
     }
-    
+
   }
 
   niveles: Niveles[] = [
@@ -143,9 +143,6 @@ export class SimuladorComponent {
   ngOnInit(): void {
     this.getSymbols();
     this.getWallet();
-    ['touchstart', 'touchmove'].forEach((eventName) => {
-
-    });
   }
 
   getSymbols(): void {
@@ -212,7 +209,7 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.balance = response.balance;
+          console.log(response)
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -232,6 +229,7 @@ export class SimuladorComponent {
 
   onSymbolSelected(selectedSymbol: string): void {
     this.selectedSymbol = selectedSymbol;
+    this.title = `Detalle Símbolo: ${this.selectedSymbol}`;
     this.update_symbol();
   }
 
@@ -286,7 +284,7 @@ export class SimuladorComponent {
   }
 
   addAmount() {
-    if ((this.operation+25000) < this.balance)
+    if ((this.operation + 25000) < this.balance)
       this.operation = this.operation + 25000;
   }
   removeAmount() {
@@ -301,7 +299,7 @@ export class SimuladorComponent {
 
   buySymbol() {
     if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
-      console.log("compra: amount, symbol " )
+      console.log("compra: amount, symbol ")
   }
 
 

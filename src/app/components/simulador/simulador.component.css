@@ -20,6 +20,13 @@
   text-align: center;
 }
 
+.chart-title{
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
 
 .custom-form-field {
   width: 100%;
