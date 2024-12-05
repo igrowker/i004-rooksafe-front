@@ -112,6 +112,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.operation {
+  margin: 0.5rem;
+  background-color: rgb(155, 181, 253);
+  color: #0029f9;
+  font-weight: bold;
+  border: solid 1px #2d4dee;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 .upbuttons,
 .downbuttons {
   display: flex;

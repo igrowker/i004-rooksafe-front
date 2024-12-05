@@ -68,7 +68,14 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   
+    <div style="display: flex; align-items: center; gap: 1rem;">
     <button mat-raised-button color="primary" class="download-btn">
       Descargar Operaciones Finalizadas
     </button>
+
+    <a routerLink="/home/simulation"  mat-raised-button color="primary" style="margin-top: 1rem;">
+      Volver
+    </a>
+   </div>
+    
   </div>

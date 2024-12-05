@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 
 @Component({
   selector: 'app-operations-detail',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, RouterLink],
   templateUrl: './operations-detail.component.html',
   styleUrl: './operations-detail.component.css'
 })

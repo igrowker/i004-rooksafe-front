@@ -19,6 +19,7 @@ import { SimulatorService } from 'src/app/services/simulation-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterLink } from '@angular/router';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -38,7 +39,7 @@ interface Niveles {
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule ],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule, RouterLink ],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
