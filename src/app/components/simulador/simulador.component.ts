@@ -1,7 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MaterialModule } from '@shared/material/material.module';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { toZonedTime, format } from 'date-fns-tz';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 import {
   ChartComponent,
@@ -16,6 +18,7 @@ import {
 import { SimulatorService } from 'src/app/services/simulation-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -35,14 +38,14 @@ interface Niveles {
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule ],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
   chartOptions: Partial<ChartOptions>;
-  token = sessionStorage.getItem('token');
+  token:any;
   title = "Nombre de la moneda";
   searchText: string = '';
   previousBalanceInput: number = 0;
@@ -51,10 +54,8 @@ export class SimuladorComponent {
   filteredSymbols: { symbol: string; name: string }[] = [];
   asset_type: string = "crypto";
   data: any[] = [];
-  wallet = {
-    balance: 0,
-    balanceInput: 0
-  };
+  balance = 0;
+  balanceInput = 0;
   simulations = []
   transactions = []
   symbols: { symbol: string; name: string }[] = [];
@@ -63,6 +64,7 @@ export class SimuladorComponent {
   isInputEnabled = false;
   isAddingFunds = false;
   operation = 0;
+  private socket$!: WebSocketSubject<any>;
 
   constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
@@ -125,6 +127,11 @@ export class SimuladorComponent {
         }
       },
     };
+    if (typeof window !== 'undefined') {  // Verifica si está en el navegador
+      this.socket$ = new WebSocketSubject('http://ec2-18-212-166-21.compute-1.amazonaws.com/ws/trades');
+      this.token = sessionStorage.getItem('token');
+    }
+    
   }
 
   niveles: Niveles[] = [
@@ -137,11 +144,7 @@ export class SimuladorComponent {
     this.getSymbols();
     this.getWallet();
     ['touchstart', 'touchmove'].forEach((eventName) => {
-      document.addEventListener(
-        eventName,
-        () => { },
-        { passive: false }
-      );
+
     });
   }
 
@@ -164,34 +167,44 @@ export class SimuladorComponent {
     }
   }
 
+  sendMessage(message: string) {
+    this.socket$.next({ message });
+  }
+
+  getMessages() {
+    return this.socket$;
+  }
+
+  closeConnection() {
+    this.socket$.complete();
+  }
+
   enableInput(): void {
     this.isInputEnabled = true;
   }
 
   addFunds(): void {
-    const amount = Number(this.wallet.balanceInput);
-
-    if (isNaN(amount) || amount <= 0) {
-      alert('Por favor, ingrese un monto válido.');
-      return;
+    if (!isNaN(this.balanceInput) || this.balanceInput > 0) {
+      if (this.token) {
+        this._simulatorService.add_founds(this.balanceInput, this.token).subscribe(
+          response => {
+            this.getWallet();
+            this.toggleInputState();
+            this.balanceInput = 0;
+          }
+        )
+      }
     }
-
-    this.wallet.balance += amount;
-    this.wallet.balanceInput = 0;
-    this.isInputEnabled = false;
-    alert(`Se han agregado $${amount} a su billetera.`);
   }
 
   toggleInputState(): void {
     if (this.isAddingFunds) {
-      this.wallet.balanceInput = this.previousBalanceInput;
       this.isInputEnabled = false;
     } else {
-      this.previousBalanceInput = this.wallet.balanceInput;
       this.isInputEnabled = true;
     }
-
     this.isAddingFunds = !this.isAddingFunds;
+    this.getWallet();
   }
 
 
@@ -199,9 +212,7 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.wallet.balanceInput = response.wallet.balance;
-          this.simulations = response.wallet.simulations;
-          this.transactions = response.wallet.transactions;
+          this.balance = response.balance;
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -274,23 +285,24 @@ export class SimuladorComponent {
     }
   }
 
-  addAmount(){
-    if(this.operation < this.wallet.balanceInput  )
-    this.operation = this.operation + 25000;
+  addAmount() {
+    if ((this.operation+25000) < this.balance)
+      this.operation = this.operation + 25000;
   }
-  removeAmount(){
-    if(this.operation > 0)
-    this.operation = this.operation - 25000;
+  removeAmount() {
+    if (this.operation > 0)
+      this.operation = this.operation - 25000;
   }
 
-  sellSymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol )
-      console.log("venta")
+  sellSymbol() {
+    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
+      console.log("venta: amount, symbol")
   }
-  
-  buySymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol)
-    console.log("compra")
+
+  buySymbol() {
+    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
+      console.log("compra: amount, symbol " )
   }
+
 
 }
