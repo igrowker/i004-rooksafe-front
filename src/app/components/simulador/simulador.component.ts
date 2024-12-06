@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { MaterialModule } from '@shared/material/material.module';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { toZonedTime, format } from 'date-fns-tz';
@@ -65,7 +64,6 @@ export class SimuladorComponent {
   isInputEnabled = false;
   isAddingFunds = false;
   operation = 0;
-  private socket$!: WebSocketSubject<any>;
 
   constructor(private _simulatorService: SimulatorService) {
     this.chartOptions = {
@@ -128,8 +126,7 @@ export class SimuladorComponent {
         }
       },
     };
-    if (typeof window !== 'undefined') {  // Verifica si está en el navegador
-      this.socket$ = new WebSocketSubject('http://ec2-18-212-166-21.compute-1.amazonaws.com/ws/trades');
+    if (typeof window !== 'undefined') {  
       this.token = sessionStorage.getItem('token');
     }
     
@@ -166,18 +163,6 @@ export class SimuladorComponent {
     } else {
       this.isLoading = false;
     }
-  }
-
-  sendMessage(message: string) {
-    this.socket$.next({ message });
-  }
-
-  getMessages() {
-    return this.socket$;
-  }
-
-  closeConnection() {
-    this.socket$.complete();
   }
 
   enableInput(): void {
