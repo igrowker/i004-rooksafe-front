@@ -3,8 +3,8 @@ import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { isPlatformBrowser } from '@angular/common';
-import jwt_decode from 'jwt-decode'; // Usar el import con *
-import { map, catchError } from 'rxjs/operators'; // Importa los operadores de RxJS
+import jwt_decode from 'jwt-decode';
+import { map, catchError } from 'rxjs/operators'; 
 
 
 @Injectable({
@@ -43,9 +43,7 @@ export class AuthService {
      return of(null);
    }
 
-
-
-  login_usuario(email: string, password: string): Observable<any> {
+   login_usuario(email: string, password: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(
       this.url + 'api/auth/login',
@@ -85,27 +83,21 @@ export class AuthService {
 
   verifyToken(): Observable<boolean> {
     const token = this.getToken();
-    console.log('Token recibido:', token);  // Verifica que el token existe
     if (this.isBrowser && token) {
       if (this.isTokenExpired(token)) {
-        console.log('Token expirado, intentando refrescar');
         return this.refreshToken().pipe(
           map(newToken => {
-            console.log('Nuevo token obtenido:', newToken);
-            return !!newToken; // Devuelve true si se obtuvo un nuevo token
+            return !!newToken; 
           }),
           catchError((error) => {
-            console.error('Error al refrescar token:', error);
-            return of(false); // Devuelve false si ocurre un error
+            return of(false); 
           })
         );
       } else {
-        console.log('Token aún válido');
-        return of(true); // Si el token no ha expirado, retorna true
+        return of(true); 
       }
     }
-    console.log('No hay token');
-    return of(false); // Si no hay token, devuelve false
+    return of(false); 
   }
 
 }
