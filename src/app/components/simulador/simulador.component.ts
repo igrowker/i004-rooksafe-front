@@ -1,62 +1,36 @@
 import { Component, ViewChild } from '@angular/core';
 import { MaterialModule } from '@shared/material/material.module';
-import { NgApexchartsModule } from "ng-apexcharts";
+import { ChartComponent, NgApexchartsModule } from "ng-apexcharts";
 import { toZonedTime, format } from 'date-fns-tz';
-
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexYAxis,
-  ApexXAxis,
-  ApexTitleSubtitle,
-  ApexTooltip,
-  ApexPlotOptions
-} from "ng-apexcharts";
 import { SimulatorService } from 'src/app/services/simulation-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  title: ApexTitleSubtitle;
-  tooltip: ApexTooltip;
-  plotOptions: ApexPlotOptions;
-};
-
-interface Niveles {
-  value: string;
-  viewValue: string;
-}
+import { RouterLink } from '@angular/router';
+import { defaultChartOptions } from '../../shared/chart-config';
+import { ChartData } from '@core/models/simulator.interface';
+import { DialogComponent } from './dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, RouterLink],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
+
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
-  chartOptions: Partial<ChartOptions>;
-  token = sessionStorage.getItem('token');
-  title = "Nombre de la moneda";
+  chartOptions = { ...defaultChartOptions };
+  token: any;
+  title = "";
   searchText: string = '';
-  previousBalanceInput: number = 0;
-  investment_amount: number = 1000.00;
   selectedSymbol: string = '';
   filteredSymbols: { symbol: string; name: string }[] = [];
   asset_type: string = "crypto";
   data: any[] = [];
-  wallet = {
-    balance: 0,
-    balanceInput: 0
-  };
-  simulations = []
-  transactions = []
+  balance = 0;
+  balanceInput = 0;
   symbols: { symbol: string; name: string }[] = [];
   chartHasData = false;
   isLoading = true;
@@ -64,85 +38,15 @@ export class SimuladorComponent {
   isAddingFunds = false;
   operation = 0;
 
-  constructor(private _simulatorService: SimulatorService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: "candle",
-          data: []
-        }
-      ],
-      chart: {
-        toolbar: {
-          tools: {
-            zoom: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: false,
-            download: false
-          }
-        },
-        height: 350,
-        animations: {
-          enabled: false
-        },
-        type: "candlestick",
-      },
-      title: {
-        text: this.selectedSymbol,
-        align: "left"
-      },
-      tooltip: {
-        enabled: true,
-      },
-      xaxis: {
-        type: "datetime",
-        labels: {
-          show: false
-        },
-      },
-      yaxis: {
-        opposite: true,
-        crosshairs: {
-          show: true,
-          stroke: {
-            color: '#3333ff',
-            width: 2,
-            dashArray: 0,
-          },
-        },
-        tooltip: {
-          enabled: true,
-        }
-      },
-      plotOptions: {
-        candlestick: {
-          colors: {
-            upward: '#089981',
-            downward: '#F23645'
-          }
-        }
-      },
-    };
+  constructor(private _simulatorService: SimulatorService, private _dialog: MatDialog) {
+    if (typeof window !== 'undefined') {
+      this.token = sessionStorage.getItem('token');
+    }
   }
-
-  niveles: Niveles[] = [
-    { value: 'nivel1', viewValue: 'Nivel 1' },
-    { value: 'nivel2', viewValue: 'Nivel 2' },
-    { value: 'nivel3', viewValue: 'Nivel 3' },
-  ];
 
   ngOnInit(): void {
     this.getSymbols();
     this.getWallet();
-    ['touchstart', 'touchmove'].forEach((eventName) => {
-      document.addEventListener(
-        eventName,
-        () => { },
-        { passive: false }
-      );
-    });
   }
 
   getSymbols(): void {
@@ -164,34 +68,28 @@ export class SimuladorComponent {
     }
   }
 
-  enableInput(): void {
-    this.isInputEnabled = true;
-  }
-
   addFunds(): void {
-    const amount = Number(this.wallet.balanceInput);
-
-    if (isNaN(amount) || amount <= 0) {
-      alert('Por favor, ingrese un monto válido.');
-      return;
+    if (!isNaN(this.balanceInput) || this.balanceInput > 0) {
+      if (this.token) {
+        this._simulatorService.add_founds(this.balanceInput, this.token).subscribe(
+          response => {
+            this.getWallet();
+            this.toggleInputState();
+            this.balanceInput = 0;
+          }
+        )
+      }
     }
-
-    this.wallet.balance += amount;
-    this.wallet.balanceInput = 0;
-    this.isInputEnabled = false;
-    alert(`Se han agregado $${amount} a su billetera.`);
   }
 
   toggleInputState(): void {
     if (this.isAddingFunds) {
-      this.wallet.balanceInput = this.previousBalanceInput;
       this.isInputEnabled = false;
     } else {
-      this.previousBalanceInput = this.wallet.balanceInput;
       this.isInputEnabled = true;
     }
-
     this.isAddingFunds = !this.isAddingFunds;
+    this.getWallet();
   }
 
 
@@ -199,12 +97,10 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.wallet.balanceInput = response.wallet.balance;
-          this.simulations = response.wallet.simulations;
-          this.transactions = response.wallet.transactions;
+          this.balance = response.balance.toFixed(2);
         },
         error: (err) => {
-          console.error("Error fetching wallet balance:", err);
+          console.error("Error al obtener el saldo de la billetera: ", err);
         }
       });
     }
@@ -232,7 +128,6 @@ export class SimuladorComponent {
           this.data = response;
           this.updateChart(response);
           this.isLoading = false;
-          console.log(this.data)
         },
         error: (err) => {
           console.error("Error al actualizar el símbolo:", err);
@@ -244,11 +139,10 @@ export class SimuladorComponent {
 
   updateChart(response: any): void {
     const dataArray = response.data;
-
     if (Array.isArray(dataArray) && dataArray.length > 0) {
       this.chartHasData = true;
-
-      const formattedData = dataArray.map((item: any) => {
+      this.chartOptions.title.text = `Evolución del Símbolo : ${this.selectedSymbol}`;
+      const formattedData: ChartData[] = dataArray.map((item: any) => {
         const dateInArgentina = toZonedTime(item.time, 'America/Argentina/Buenos_Aires');
         const formattedDateForX = format(dateInArgentina, 'yyyy-MM-dd HH:mm:ss');
         const formattedDateForDisplay = format(dateInArgentina, 'yyyy-MM-dd');
@@ -274,23 +168,77 @@ export class SimuladorComponent {
     }
   }
 
-  addAmount(){
-    if(this.operation < this.wallet.balanceInput  )
-    this.operation = this.operation + 25000;
-  }
-  removeAmount(){
-    if(this.operation > 0)
-    this.operation = this.operation - 25000;
+  updateAmount(change: number): void {
+    this.operation = Math.max(0, this.operation + change); 
   }
 
-  sellSymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol )
-      console.log("venta")
-  }
-  
-  buySymbol(){
-    if(this.operation < this.wallet.balanceInput && this.wallet.balanceInput > 0 && this.selectedSymbol)
-    console.log("compra")
+  sellSymbol() {
+    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol) {
+      this._simulatorService.sell_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
+        response => {
+          this.getWallet();
+          const rtaOperacion = {
+            codope: response.transaction_id,   
+            shares: response.shares_sold,      
+            stock_price: response.stock_price, 
+            total_cost: response.total_value,  
+            symbol: this.selectedSymbol,
+            tipo: "Venta"        
+          };
+          this.showSuccessDialog(rtaOperacion);
+        },
+        error => {
+          console.error("Error en la venta:", error);
+          this.showErrorDialog("Hubo un error al realizar la venta.");
+        }
+      );
+    }
   }
 
+  buySymbol() {
+    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol) {
+      this._simulatorService.buy_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
+        response => {
+          this.getWallet();
+          const rtaOperacion = {
+            codope: response.transaction_id,   
+            shares: response.shares_purchased,      
+            stock_price: response.stock_price, 
+            total_cost: response.total_cost,  
+            symbol: this.selectedSymbol,
+            tipo: "Compra"        
+          };
+          this.showSuccessDialog(rtaOperacion);
+        },
+        error => {
+          console.error("Error en la compra:", error);
+          this.showErrorDialog("Hubo un error al realizar la compra.");
+        }
+      );
+    }
+  }
+
+  showSuccessDialog(rtaOperacion:any) {
+    this._dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        codope: rtaOperacion.codope,
+        shares: rtaOperacion.shares,
+        stock_price: rtaOperacion.stock_price,
+        total_cost: rtaOperacion.total_cost,
+        symbol: rtaOperacion.symbol,
+        type: rtaOperacion.tipo || 'success'
+      },
+    });
+  }
+
+  showErrorDialog(message: string) {
+    this._dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        message: message,
+        type: 'error' 
+      },
+    });
+  }
 }

@@ -46,6 +46,13 @@ export const routes: Routes = [
             (c) => c.SimuladorComponent
           ),
       },
+      {
+        path: 'detail',
+        loadComponent: () =>
+          import('./components/operations-detail/operations-detail.component').then(
+            (c) => c.OperationsDetailComponent
+          ),
+      },
     ],
   },
   { path: 'error', component: ErrorComponent },
