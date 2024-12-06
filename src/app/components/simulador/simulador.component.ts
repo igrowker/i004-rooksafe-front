@@ -1,63 +1,34 @@
 import { Component, ViewChild } from '@angular/core';
 import { MaterialModule } from '@shared/material/material.module';
-import { NgApexchartsModule } from "ng-apexcharts";
+import { ChartComponent, NgApexchartsModule } from "ng-apexcharts";
 import { toZonedTime, format } from 'date-fns-tz';
-import { WebSocketSubject } from 'rxjs/webSocket';
-
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexYAxis,
-  ApexXAxis,
-  ApexTitleSubtitle,
-  ApexTooltip,
-  ApexPlotOptions
-} from "ng-apexcharts";
 import { SimulatorService } from 'src/app/services/simulation-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  title: ApexTitleSubtitle;
-  tooltip: ApexTooltip;
-  plotOptions: ApexPlotOptions;
-};
-
-interface Niveles {
-  value: string;
-  viewValue: string;
-}
+import { defaultChartOptions } from '../../shared/chart-config';
+import { ChartData } from '@core/models/simulator.interface';
 
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, MatSelectModule, RouterLink ],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, RouterLink],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
+
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
-  chartOptions: Partial<ChartOptions>;
-  token:any;
-  title = "Nombre de la moneda";
+  chartOptions = { ...defaultChartOptions };
+  token: any;
+  title = "";
   searchText: string = '';
-  previousBalanceInput: number = 0;
-  investment_amount: number = 1000.00;
   selectedSymbol: string = '';
   filteredSymbols: { symbol: string; name: string }[] = [];
   asset_type: string = "crypto";
   data: any[] = [];
   balance = 0;
   balanceInput = 0;
-  simulations = []
-  transactions = []
   symbols: { symbol: string; name: string }[] = [];
   chartHasData = false;
   isLoading = true;
@@ -66,84 +37,14 @@ export class SimuladorComponent {
   operation = 0;
 
   constructor(private _simulatorService: SimulatorService) {
-    this.chartOptions = {
-      series: [
-        {
-          name: "candle",
-          data: []
-        }
-      ],
-      chart: {
-        toolbar: {
-          tools: {
-            zoom: false,
-            zoomin: false,
-            zoomout: false,
-            pan: false,
-            reset: false,
-            download: false
-          }
-        },
-        height: 350,
-        animations: {
-          enabled: false
-        },
-        type: "candlestick",
-      },
-      title: {
-        text: this.selectedSymbol,
-        align: "left"
-      },
-      tooltip: {
-        enabled: true,
-      },
-      xaxis: {
-        type: "datetime",
-        labels: {
-          show: false
-        },
-      },
-      yaxis: {
-        opposite: true,
-        crosshairs: {
-          show: true,
-          stroke: {
-            color: '#3333ff',
-            width: 2,
-            dashArray: 0,
-          },
-        },
-        tooltip: {
-          enabled: true,
-        }
-      },
-      plotOptions: {
-        candlestick: {
-          colors: {
-            upward: '#089981',
-            downward: '#F23645'
-          }
-        }
-      },
-    };
-    if (typeof window !== 'undefined') {  
+    if (typeof window !== 'undefined') {
       this.token = sessionStorage.getItem('token');
     }
-    
   }
-
-  niveles: Niveles[] = [
-    { value: 'nivel1', viewValue: 'Nivel 1' },
-    { value: 'nivel2', viewValue: 'Nivel 2' },
-    { value: 'nivel3', viewValue: 'Nivel 3' },
-  ];
 
   ngOnInit(): void {
     this.getSymbols();
     this.getWallet();
-    ['touchstart', 'touchmove'].forEach((eventName) => {
-
-    });
   }
 
   getSymbols(): void {
@@ -163,10 +64,6 @@ export class SimuladorComponent {
     } else {
       this.isLoading = false;
     }
-  }
-
-  enableInput(): void {
-    this.isInputEnabled = true;
   }
 
   addFunds(): void {
@@ -201,7 +98,7 @@ export class SimuladorComponent {
           this.balance = response.balance.toFixed(2);
         },
         error: (err) => {
-          console.error("Error fetching wallet balance:", err);
+          console.error("Error al obtener el saldo de la billetera: ", err);
         }
       });
     }
@@ -240,11 +137,10 @@ export class SimuladorComponent {
 
   updateChart(response: any): void {
     const dataArray = response.data;
-
     if (Array.isArray(dataArray) && dataArray.length > 0) {
       this.chartHasData = true;
-
-      const formattedData = dataArray.map((item: any) => {
+      this.chartOptions.title.text = `Evolución del Símbolo : ${this.selectedSymbol}`;
+      const formattedData: ChartData[] = dataArray.map((item: any) => {
         const dateInArgentina = toZonedTime(item.time, 'America/Argentina/Buenos_Aires');
         const formattedDateForX = format(dateInArgentina, 'yyyy-MM-dd HH:mm:ss');
         const formattedDateForDisplay = format(dateInArgentina, 'yyyy-MM-dd');
@@ -270,12 +166,8 @@ export class SimuladorComponent {
     }
   }
 
-  addAmount() {
-      this.operation = this.operation + 1;
-  }
-  removeAmount() {
-    if ((this.operation -1 ) >= 0 )
-      this.operation = this.operation - 1;
+  updateAmount(change: number): void {
+    this.operation = Math.max(0, this.operation + change); 
   }
 
   sellSymbol() {

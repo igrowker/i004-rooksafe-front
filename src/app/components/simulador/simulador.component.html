@@ -25,14 +25,6 @@
         </button>
       </div>
 
-      <mat-form-field class="btn-select">
-        <mat-label>Nivel 1</mat-label>
-        <mat-select>
-          <mat-option>
-            1
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
       <div class="select-symbol">
         <mat-form-field>
           <mat-label>Símbolo a operar</mat-label>
@@ -46,29 +38,34 @@
         </mat-form-field>
       </div>
     </div>
-    <ng-container *ngIf="this.selectedSymbol">
-      <div id="chart" class="chart">
-        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-          class="chart" [yaxis]="chartOptions.yaxis" [title]="chartOptions.title" [tooltip]="chartOptions.tooltip"
-          [plotOptions]="chartOptions.plotOptions"></apx-chart>
-      </div>
-    </ng-container>
-    <ng-container *ngIf="!this.selectedSymbol">
+    <div *ngIf="chartHasData; else noDataTemplate">
+      <apx-chart 
+        [series]="chartOptions.series" 
+        [chart]="chartOptions.chart" 
+        [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis"
+        [tooltip]="chartOptions.tooltip"
+        [title]="chartOptions.title"
+        [plotOptions]="chartOptions.plotOptions">
+      </apx-chart>
+    </div>
+    <ng-template #noDataTemplate>
       <div class="no-data-container">
         <img src="assets/images/no-data.jpg" alt="" class="no-data-image">
         <p class="no-data-text">Seleccione un símbolo para operar</p>
       </div>
-    </ng-container>
+    </ng-template>
     <ng-container *ngIf="this.selectedSymbol">
       <div class="downbuttons">
         <div class="d-flex wallet-container">
-          <button class="btn-gra wallet left-button" mat-fab extended title="Agregar Crédito" (click)="removeAmount()">
+          <button class="btn-gra wallet left-button" mat-fab extended title="Reducir Operación" (click)="updateAmount(-1)">
             -
           </button>
-  
-          <input class="btn-gra wallet-input right-button" type="number" [value]="operation" [(ngModel)]="operation"
+          
+          <input class="btn-gra wallet-input right-button" type="number" [(ngModel)]="operation"
             title="Monto a invertir ${{operation}}" placeholder="Ingrese monto a invertir" />
-          <button class="btn-gra wallet confirm-button" mat-fab extended (click)="addAmount()">
+          
+          <button class="btn-gra wallet confirm-button" mat-fab extended title="Incrementar Operación"  (click)="updateAmount(1)">
             +
           </button>
   
