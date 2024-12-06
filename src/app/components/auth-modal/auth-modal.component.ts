@@ -66,6 +66,7 @@ export class AuthModalComponent {
           });
           if (this._authService.isRunningInBrowser()) {
             sessionStorage.setItem('token', response.access);
+            sessionStorage.setItem('refresh_token', response.refresh);
           }
           this._router.navigate(['/']); 
           this.closeModal();
