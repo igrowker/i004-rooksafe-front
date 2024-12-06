@@ -70,6 +70,17 @@ export class SimulatorService {
     return this._http.get<SymbolResponse>(this.url + "api/wallet/status", { headers });
   }
 
+  buy_symbols(shares: number, stock_symbol: string, token: string):Observable<any>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
+    return this._http.post(this.url + "api/wallet/buy", {shares,stock_symbol} ,{headers})
+  }
+
+  sell_symbols(shares: number, stock_symbol: string, token: string):Observable<any>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
+    return this._http.post(this.url + "api/wallet/sell", {shares,stock_symbol} ,{headers})
+  }
+
+
   add_founds(amount: number, token: string):Observable<any>{
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
     return this._http.post(this.url + "api/wallet/add_money", {amount} ,{headers})

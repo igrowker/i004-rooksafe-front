@@ -213,7 +213,7 @@ export class SimuladorComponent {
     if (this.token) {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
-          this.balance = response.balance;
+          this.balance = response.balance.toFixed(2);
         },
         error: (err) => {
           console.error("Error fetching wallet balance:", err);
@@ -244,7 +244,6 @@ export class SimuladorComponent {
           this.data = response;
           this.updateChart(response);
           this.isLoading = false;
-          console.log(this.data)
         },
         error: (err) => {
           console.error("Error al actualizar el símbolo:", err);
@@ -287,23 +286,29 @@ export class SimuladorComponent {
   }
 
   addAmount() {
-    if ((this.operation+25000) < this.balance)
-      this.operation = this.operation + 25000;
+      this.operation = this.operation + 1;
   }
   removeAmount() {
-    if (this.operation > 0)
-      this.operation = this.operation - 25000;
+    if ((this.operation -1 ) >= 0 )
+      this.operation = this.operation - 1;
   }
 
   sellSymbol() {
-    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
-      console.log("venta: amount, symbol")
+    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol) {
+      this._simulatorService.sell_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
+        response => {
+          this.getWallet();
+        })
+    }
   }
 
   buySymbol() {
-    if (this.operation < this.balance && this.balance > 0 && this.selectedSymbol)
-      console.log("compra: amount, symbol " )
-  }
+    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol)
+      this._simulatorService.buy_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
+        response => {
+          this.getWallet();
+        })
 
+  }
 
 }
