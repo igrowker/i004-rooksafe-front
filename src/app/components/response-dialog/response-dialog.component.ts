@@ -15,7 +15,6 @@ export class ResponseDialogComponent {
     public dialogRef: MatDialogRef<ResponseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log('respuesta desde el dialog', this.data);
   }
 
   onClose(): void {

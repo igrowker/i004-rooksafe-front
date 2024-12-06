@@ -55,11 +55,8 @@ export class InvestorTestComponent {
     },
   ];
   onTestCompleted(answers: number[]) {
-    console.log('respuestas del investor', answers);
     this.investorTestService.send_test({ respuestas: answers }).subscribe({
       next: (response) => {
-        console.log('respuesta del server', response);
-
         const dialogRef = this.dialog.open(ResponseDialogComponent, {
           width: '500px',
           height: 'auto',
@@ -68,11 +65,6 @@ export class InvestorTestComponent {
         dialogRef.afterClosed().subscribe(() => {
           this.router.navigate(['home/educationContent']);
         });
-        /*  this._snackBar.open(
-          `Cuestionario completado. Respuestas: ${answers}`,
-          'Cerrar',
-          { duration: 3000, verticalPosition: 'top' }
-        ); */
       },
       error: (error) => {
         console.error('Error al enviar respuestas al servidor:', error);

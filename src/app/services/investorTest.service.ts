@@ -13,8 +13,6 @@ export class InvestorTestService {
 
   send_test(respuestas: any): Observable<any> {
     let token = sessionStorage.getItem('token');
-    console.log('respuestas service', respuestas);
-
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
