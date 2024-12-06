@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { TestProgressComponent } from 'src/app/utils/test-progress/test-progress.component';
+
 export interface TestArray {
   question: string;
   options: string[];
@@ -9,7 +11,7 @@ export interface TestArray {
 @Component({
   selector: 'app-questionnaires',
   standalone: true,
-  imports: [MaterialModule, CommonModule, TestProgressComponent],
+  imports: [MaterialModule, CommonModule, TestProgressComponent, RouterLink],
   templateUrl: './questionnaires.component.html',
   styleUrl: './questionnaires.component.css',
 })
@@ -23,7 +25,8 @@ export class QuestionnairesComponent {
   questionIndex = 0;
   answers: number[] = [];
 
-  nextQuestion(selectedAnswer: number) {
+  nextQuestion(selectedIndex: number) {
+    const selectedAnswer = selectedIndex + 1;
     this.answers[this.questionIndex] = selectedAnswer;
     if (this.questionIndex < this.tests.length - 1) {
       this.questionIndex++;
