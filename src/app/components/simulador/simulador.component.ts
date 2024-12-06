@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { defaultChartOptions } from '../../shared/chart-config';
 import { ChartData } from '@core/models/simulator.interface';
+import { DialogComponent } from './dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-simulador',
@@ -36,7 +38,7 @@ export class SimuladorComponent {
   isAddingFunds = false;
   operation = 0;
 
-  constructor(private _simulatorService: SimulatorService) {
+  constructor(private _simulatorService: SimulatorService, private _dialog: MatDialog) {
     if (typeof window !== 'undefined') {
       this.token = sessionStorage.getItem('token');
     }
@@ -175,17 +177,68 @@ export class SimuladorComponent {
       this._simulatorService.sell_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
         response => {
           this.getWallet();
-        })
+          const rtaOperacion = {
+            codope: response.transaction_id,   
+            shares: response.shares_sold,      
+            stock_price: response.stock_price, 
+            total_cost: response.total_value,  
+            symbol: this.selectedSymbol,
+            tipo: "Venta"        
+          };
+          this.showSuccessDialog(rtaOperacion);
+        },
+        error => {
+          console.error("Error en la venta:", error);
+          this.showErrorDialog("Hubo un error al realizar la venta.");
+        }
+      );
     }
   }
 
   buySymbol() {
-    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol)
+    if (this.operation > 0 && this.balance > 0 && this.selectedSymbol) {
       this._simulatorService.buy_symbols(this.operation, this.selectedSymbol, this.token).subscribe(
         response => {
           this.getWallet();
-        })
-
+          const rtaOperacion = {
+            codope: response.transaction_id,   
+            shares: response.shares_purchased,      
+            stock_price: response.stock_price, 
+            total_cost: response.total_cost,  
+            symbol: this.selectedSymbol,
+            tipo: "Compra"        
+          };
+          this.showSuccessDialog(rtaOperacion);
+        },
+        error => {
+          console.error("Error en la compra:", error);
+          this.showErrorDialog("Hubo un error al realizar la compra.");
+        }
+      );
+    }
   }
 
+  showSuccessDialog(rtaOperacion:any) {
+    this._dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        codope: rtaOperacion.codope,
+        shares: rtaOperacion.shares,
+        stock_price: rtaOperacion.stock_price,
+        total_cost: rtaOperacion.total_cost,
+        symbol: rtaOperacion.symbol,
+        type: rtaOperacion.tipo || 'success'
+      },
+    });
+  }
+
+  showErrorDialog(message: string) {
+    this._dialog.open(DialogComponent, {
+      width: '400px',
+      data: {
+        message: message,
+        type: 'error' 
+      },
+    });
+  }
 }
