@@ -8,9 +8,10 @@ import { MaterialModule } from '@shared/material/material.module';
   standalone: true,
   imports: [MaterialModule],
   templateUrl: './card-two.component.html',
-  styleUrl: './card-two.component.css'
+  styleUrl: './card-two.component.css',
 })
 export class CardTwoComponent {
   @Input() title: string = '';
   @Input() image: string = '';
+  @Input() contentUrl: string = '';
 }
