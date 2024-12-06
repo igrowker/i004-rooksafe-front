@@ -1,0 +1,37 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  
+    .title {
+      text-align: center;
+      color: #4b5dff;
+      margin-bottom: 20px;
+    }
+  
+    .filter-card {
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+  
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+  
+      mat-form-field {
+        margin: 0 10px;
+      }
+    }
+  
+    .mat-table {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .download-btn {
+      display: block;
+      margin-top: 1rem;
+    }
+  }
