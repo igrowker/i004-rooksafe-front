@@ -10,6 +10,7 @@ import { InvestorTestService } from 'src/app/services/investorTest.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseDialogComponent } from '../response-dialog/response-dialog.component';
 import { response } from 'express';
+import { AuthService } from 'src/app/services/auth-service';
 
 @Component({
   selector: 'app-investor-test',
@@ -21,11 +22,13 @@ import { response } from 'express';
 export class InvestorTestComponent {
   title;
   paragraph;
+  userProfile: any;
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private router: Router,
-    private investorTestService: InvestorTestService
+    private investorTestService: InvestorTestService,
+    private _authService: AuthService
   ) {
     this.title = 'Test del Inversor';
     this.paragraph = 'Conócete como inversor';
@@ -62,6 +65,7 @@ export class InvestorTestComponent {
           height: 'auto',
           data: response,
         });
+        this.loadUserProfile();
         dialogRef.afterClosed().subscribe(() => {
           this.router.navigate(['home/educationContent']);
         });
@@ -76,5 +80,19 @@ export class InvestorTestComponent {
       },
     });
     this.router.navigate(['/home/dashboard']);
+  }
+
+  loadUserProfile(): void {
+    this._authService.get_user().subscribe(
+      (response) => {
+        this.userProfile = response;
+        if (this._authService.isRunningInBrowser()) {
+        sessionStorage.setItem('usr', JSON.stringify(response));
+        }
+      },
+      (error) => {
+        console.error("Error al obtener el perfil del usuario:", error);
+      }
+    );
   }
 }

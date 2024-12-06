@@ -140,6 +140,7 @@ section {
 .for-card {
   flex: 1 1 calc(33.33% - 16px);
   padding: 1rem;
+  margin-bottom: 1.5rem;
   box-sizing: border-box;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
