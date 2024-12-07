@@ -1,6 +1,10 @@
 <section class="fraud-alerts-conteiner">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
+    </mat-progress-spinner>
+  </div>
   <div>
-    <div class="title-conteiner">
+    <div class="title-conteiner" *ngIf="!isLoading">
       <span
         ><svg
           width="40"

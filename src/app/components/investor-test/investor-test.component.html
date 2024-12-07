@@ -1,4 +1,8 @@
-<div class="investor-test-conteiner">
+<div *ngIf="isLoading" class="loading-container">
+  <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
+  </mat-progress-spinner>
+</div>
+<div class="investor-test-conteiner" *ngIf="!isLoading">
   <app-questionnaires
     [title]="title"
     [paragraph]="paragraph"
