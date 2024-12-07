@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   QuestionnairesComponent,
   TestArray,
@@ -9,20 +9,21 @@ import { Router } from '@angular/router';
 import { InvestorTestService } from 'src/app/services/investorTest.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ResponseDialogComponent } from '../response-dialog/response-dialog.component';
-import { response } from 'express';
 import { AuthService } from 'src/app/services/auth-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-investor-test',
   standalone: true,
-  imports: [QuestionnairesComponent, MaterialModule],
+  imports: [QuestionnairesComponent, MaterialModule, CommonModule],
   templateUrl: './investor-test.component.html',
   styleUrl: './investor-test.component.css',
 })
-export class InvestorTestComponent {
+export class InvestorTestComponent implements OnInit {
   title;
   paragraph;
   userProfile: any;
+  isLoading: boolean = true;
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -57,6 +58,11 @@ export class InvestorTestComponent {
       ],
     },
   ];
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
+  }
   onTestCompleted(answers: number[]) {
     this.investorTestService.send_test({ respuestas: answers }).subscribe({
       next: (response) => {
@@ -66,6 +72,7 @@ export class InvestorTestComponent {
           data: response,
         });
         this.loadUserProfile();
+        this.isLoading = false;
         dialogRef.afterClosed().subscribe(() => {
           this.router.navigate(['home/educationContent']);
         });
@@ -87,11 +94,11 @@ export class InvestorTestComponent {
       (response) => {
         this.userProfile = response;
         if (this._authService.isRunningInBrowser()) {
-        sessionStorage.setItem('usr', JSON.stringify(response));
+          sessionStorage.setItem('usr', JSON.stringify(response));
         }
       },
       (error) => {
-        console.error("Error al obtener el perfil del usuario:", error);
+        console.error('Error al obtener el perfil del usuario:', error);
       }
     );
   }

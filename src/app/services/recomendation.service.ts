@@ -6,7 +6,6 @@ import { Observable, of } from 'rxjs';
 })
 export class RecomendationService {
   constructor() {}
-  //aqui van las supuestas recomendaciones segun el perfil
   getRecomendations(): Observable<any[]> {
     const recomendationCards = [
       {

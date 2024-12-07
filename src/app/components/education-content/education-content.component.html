@@ -1,4 +1,9 @@
-<section class="inversor">
+<div *ngIf="isLoading" class="loading-container">
+  <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
+  </mat-progress-spinner>
+</div>
+
+<section class="inversor" *ngIf="!isLoading">
   <div>
     <div class="title-conteiner">
       <span>

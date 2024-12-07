@@ -6,15 +6,8 @@ export const DASHBOARD_ROUTES: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    providers: [
-      /* provideBookingDomain(config) */
-    ],
+    providers: [],
     children: [
-      /* {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'dashboard',
-      }, */
       {
         path: '',
         component: DashboardComponent,

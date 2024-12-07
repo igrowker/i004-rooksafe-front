@@ -20,17 +20,18 @@
     <p>
       Respondé 8 simples preguntas y conocé qué tipo de inversor sos:
       <br />
-      <b>Inicial, Intermedio o Avanzado.</b>
+      <b>Básico, Intermedio o Avanzado.</b>
       <br />
       Además al finalizar te mostraremos recomendaciones para tu perfil.
     </p>
-    <button *ngIf="userProfile"
-        mat-flat-button
-        [routerLink]="['/home/investorTestComponent']"
-        routerLinkActive="router-link-active"
-      >
-        Rehacer Test
-      </button>
+    <button
+      *ngIf="userProfile"
+      mat-flat-button
+      [routerLink]="['/home/investorTestComponent']"
+      routerLinkActive="router-link-active"
+    >
+      Rehacer Test
+    </button>
   </div>
 
   <ng-template #retakeTest>

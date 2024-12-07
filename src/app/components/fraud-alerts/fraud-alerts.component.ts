@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { CardComponent } from '../card/card.component';
@@ -18,7 +18,13 @@ import { InfoCardComponent } from '../info-card/info-card.component';
   templateUrl: './fraud-alerts.component.html',
   styleUrl: './fraud-alerts.component.css',
 })
-export class FraudAlertsComponent {
+export class FraudAlertsComponent implements OnInit {
+  isLoading: boolean = true;
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
+  }
   alertsCards1 = [
     {
       title: 'Cuidado con las estafas de inversiones de TikTok',

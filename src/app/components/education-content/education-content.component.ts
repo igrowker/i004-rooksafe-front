@@ -3,19 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { CardTwoComponent } from '../card-two/card-two.component';
-import { HttpClient } from '@angular/common/http';
 import { EducationService } from 'src/app/services/education.service';
-import { error } from 'console';
-
-interface EducationContentItem {
-  id: number;
-  title: string;
-  content_type: 'articulo' | 'video' | 'podcast';
-  level: string;
-  content_url: string;
-  image_url: string;
-  created_at: string;
-}
+import { EducationContentItem } from '@core/models/education-content.interface';
 
 @Component({
   selector: 'app-education-content',
@@ -28,6 +17,7 @@ export class EducationContentComponent implements OnInit {
   reports: EducationContentItem[] = [];
   videos: EducationContentItem[] = [];
   podcast: EducationContentItem[] = [];
+  isLoading: boolean = true;
 
   fictReports: EducationContentItem[] = [
     {
@@ -122,21 +112,24 @@ export class EducationContentComponent implements OnInit {
   constructor(private educationService: EducationService) {}
 
   ngOnInit() {
+    this.isLoading = true;
     this.fetchEducationContent();
   }
 
   fetchEducationContent() {
+    this.isLoading = true;
     this.educationService.getEducationContent().subscribe(
       (data: EducationContentItem[]) => {
         this.reports =
           data.filter((item) => item.content_type === 'articulo').slice(0, 3) ||
           this.fictReports;
-        this.reports =
+        this.videos =
           data.filter((item) => item.content_type === 'video').slice(0, 3) ||
           this.fictVideos;
-        this.reports =
+        this.podcast =
           data.filter((item) => item.content_type === 'podcast').slice(0, 3) ||
           this.fictPodcasts;
+        this.isLoading = false;
       },
       (error) => {
         console.error('Error fetching education content:', error);
