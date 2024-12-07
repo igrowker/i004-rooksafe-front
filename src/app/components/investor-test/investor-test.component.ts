@@ -71,6 +71,7 @@ export class InvestorTestComponent implements OnInit {
           height: 'auto',
           data: response,
         });
+        sessionStorage.setItem('testCompleted', 'true');
         this.loadUserProfile();
         this.isLoading = false;
         dialogRef.afterClosed().subscribe(() => {

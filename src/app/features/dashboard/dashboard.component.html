@@ -25,7 +25,7 @@
       Además al finalizar te mostraremos recomendaciones para tu perfil.
     </p>
     <button
-      *ngIf="userProfile"
+      *ngIf="completedTest"
       mat-flat-button
       [routerLink]="['/home/investorTestComponent']"
       routerLinkActive="router-link-active"
@@ -33,24 +33,13 @@
       Rehacer Test
     </button>
   </div>
-
-  <ng-template #retakeTest>
-    <button
-      mat-stroked-button
-      [routerLink]="['/home/investorTestComponent']"
-      routerLinkActive="router-link-active"
-      class="button-testCompleted"
-    >
-      Volver a realizar el test
-    </button>
-  </ng-template>
   <img
     src="assets/images/hero-1.png"
     alt="Hombre trabajando imagen principal"
   />
 </section>
-<ng-container *ngIf="!userProfile">
-  <section class="how-works" *ngIf="!completedTest; else retakeTest">
+<ng-container *ngIf="!completedTest">
+  <section class="how-works" *ngIf="!completedTest">
     <div class="how-works-l">
       <h6>¿Cómo funciona?</h6>
       <p>

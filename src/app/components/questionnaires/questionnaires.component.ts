@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
 import { TestProgressComponent } from 'src/app/utils/test-progress/test-progress.component';
 
@@ -10,7 +11,7 @@ export interface TestArray {
 @Component({
   selector: 'app-questionnaires',
   standalone: true,
-  imports: [MaterialModule, CommonModule, TestProgressComponent],
+  imports: [MaterialModule, CommonModule, TestProgressComponent, RouterLink],
   templateUrl: './questionnaires.component.html',
   styleUrl: './questionnaires.component.css',
 })

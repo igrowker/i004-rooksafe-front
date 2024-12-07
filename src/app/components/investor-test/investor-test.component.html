@@ -1,13 +1,15 @@
-<div *ngIf="isLoading" class="loading-container">
+<div *ngIf="isLoading; else showContent" class="loading-container">
   <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
   </mat-progress-spinner>
 </div>
-<div class="investor-test-conteiner" *ngIf="!isLoading">
-  <app-questionnaires
-    [title]="title"
-    [paragraph]="paragraph"
-    [tests]="questions"
-    (testCompleted)="onTestCompleted($event)"
-    class="investor-test-questionnaire"
-  ></app-questionnaires>
-</div>
+<ng-template #showContent>
+  <div class="investor-test-conteiner">
+    <app-questionnaires
+      [title]="title"
+      [paragraph]="paragraph"
+      [tests]="questions"
+      (testCompleted)="onTestCompleted($event)"
+      class="investor-test-questionnaire"
+    ></app-questionnaires>
+  </div>
+</ng-template>

@@ -32,10 +32,17 @@ export class DashboardComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getRecomendationCards();
+    this.checkTestCompleted();
   }
   getRecomendationCards(): void {
     this.recomendationService.getRecomendations().subscribe((cards) => {
       this.recomendationCards = cards;
     });
+  }
+  checkTestCompleted(): void {
+    if (this._authService.isRunningInBrowser()) {
+      const testCompleted = sessionStorage.getItem('testCompleted');
+      this.completedTest = testCompleted === 'true';
+    }
   }
 }
