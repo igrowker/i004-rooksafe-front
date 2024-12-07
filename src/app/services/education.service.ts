@@ -27,7 +27,7 @@ export class EducationService {
     }
     const headers = this.token;
     return this.http
-      .get<any>(`${this.url}/education/content/?type=all`, { headers })
+      .get<any>(`${this.url}/api/education/content/?type=all`, { headers })
       .pipe(map((response) => response.results.data));
   }
 }

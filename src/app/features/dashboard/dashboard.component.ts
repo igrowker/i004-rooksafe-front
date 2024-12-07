@@ -19,7 +19,10 @@ export class DashboardComponent implements OnInit {
   userProfile: any = null;
   dataProfile: any = null;
 
-  constructor(private recomendationService: RecomendationService, private _authService: AuthService) {
+  constructor(
+    private recomendationService: RecomendationService,
+    private _authService: AuthService
+  ) {
     if (this._authService.isRunningInBrowser()) {
       const dataProfile = sessionStorage.getItem('usr');
       if (dataProfile !== null) {
@@ -27,7 +30,6 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
-
   ngOnInit(): void {
     this.getRecomendationCards();
   }
@@ -36,18 +38,4 @@ export class DashboardComponent implements OnInit {
       this.recomendationCards = cards;
     });
   }
-  /*  recomendationCards = [
-    {
-      title: '¿Es seguro depositar dinero en apps online?',
-      image: 'assets/images/recomendationCard-1.png',
-    },
-    {
-      title: '¿De qué se trata un plazo fijo?',
-      image: 'assets/images/recomendationCard-2.png',
-    },
-    {
-      title: 'Recomendaciones de seguridad.',
-      image: 'assets/images/recomendationCard-3.png',
-    },
-  ]; */
 }
