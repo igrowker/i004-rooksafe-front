@@ -19,9 +19,8 @@ import { CommonModule } from '@angular/common';
 export class ToolbarComponent {
   userProfile: any = null; 
   error: string | null = null;
-  private _authService: any;
 
-  constructor(private _userProfileService: AuthService, private _router: Router) {}
+  constructor(private _userProfileService: AuthService, private _router: Router, private _authService:AuthService) {}
 
   ngOnInit(): void {
     this.loadUserProfile();

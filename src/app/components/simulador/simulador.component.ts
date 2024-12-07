@@ -10,14 +10,23 @@ import { defaultChartOptions } from '../../shared/chart-config';
 import { ChartData } from '@core/models/simulator.interface';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CardWalletComponent } from './card-wallet/card-wallet.component';
+export interface Stock {
+  stock_symbol: string;
+  number_of_shares: number;
+  purchase_price: number;
+  current_value: number;
+  total_purchase_value: number;
+}
 
 @Component({
   selector: 'app-simulador',
   standalone: true,
-  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, RouterLink],
+  imports: [NgApexchartsModule, MaterialModule, FormsModule, CommonModule, RouterLink, CardWalletComponent],
   templateUrl: './simulador.component.html',
   styleUrl: './simulador.component.css'
 })
+
 
 export class SimuladorComponent {
   @ViewChild("chart") chart: ChartComponent | undefined;
@@ -37,6 +46,7 @@ export class SimuladorComponent {
   isInputEnabled = false;
   isAddingFunds = false;
   operation = 0;
+  investments:Stock[] = []
 
   constructor(private _simulatorService: SimulatorService, private _dialog: MatDialog) {
     if (typeof window !== 'undefined') {
@@ -98,6 +108,7 @@ export class SimuladorComponent {
       this._simulatorService.get_wallet(this.token).subscribe({
         next: (response) => {
           this.balance = response.balance.toFixed(2);
+          this.investments = response.investments;
         },
         error: (err) => {
           console.error("Error al obtener el saldo de la billetera: ", err);
