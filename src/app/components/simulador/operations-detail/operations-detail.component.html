@@ -1,32 +1,36 @@
 <div class="container">
-    <h2 class="title">Simulador - Detalle de Operaciones</h2>
-    <mat-card class="filter-card">
-      <div class="filters">
-        <div>
-          <mat-radio-group>
-            <mat-radio-button value="todas">Todas</mat-radio-button>
-            <mat-radio-button value="pendientes">Pendientes</mat-radio-button>
-            <mat-radio-button value="finalizadas">Finalizadas</mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div>
-          <mat-form-field appearance="outline">
-            <mat-label>Desde</mat-label>
-            <input matInput [matDatepicker]="startDate" />
-            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-            <mat-datepicker #startDate></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>Hasta</mat-label>
-            <input matInput [matDatepicker]="endDate" />
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate></mat-datepicker>
-          </mat-form-field>
-          <button mat-raised-button color="primary">Buscar</button>
-        </div>
+  <h2 class="title">Simulador - Detalle de Operaciones</h2>
+
+  <mat-card class="filter-card">
+    <div class="filters d-flex justify-content-between align-items-center">
+      <div class="filter-date-range">
+        <mat-form-field appearance="outline">
+          <mat-label>Desde</mat-label>
+          <input matInput [matDatepicker]="startDate" />
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Hasta</mat-label>
+          <input matInput [matDatepicker]="endDate" />
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary">Buscar</button>
       </div>
-    </mat-card>
-  
+
+      <div class="download-buttons">
+        <button mat-raised-button color="accent">Excel</button>
+        <button mat-raised-button color="accent">JSON</button>
+        <button mat-raised-button color="accent">PDF</button>
+      </div>
+    </div>
+  </mat-card>
+
+  <!-- Contenedor responsivo para la tabla -->
+  <div class="mat-table-wrapper">
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="transactionNumber">
         <mat-header-cell *matHeaderCellDef>Nº de Trans.</mat-header-cell>
@@ -60,22 +64,18 @@
         <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
         <mat-cell *matCellDef="let element">{{ element.price }}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="day">
-        <mat-header-cell *matHeaderCellDef>Fecha Operación</mat-header-cell>
-        <mat-cell *matCellDef="let element">{{ element.day }}</mat-cell>
-      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-  
-    <div style="display: flex; align-items: center; gap: 1rem;">
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 1rem;">
     <button mat-raised-button color="primary" class="download-btn">
       Descargar Operaciones Finalizadas
     </button>
 
-    <a routerLink="/home/simulation"  mat-raised-button color="primary" style="margin-top: 1rem;">
+    <a routerLink="/home/simulation" mat-raised-button color="primary" style="margin-top: 1rem;">
       Volver
     </a>
-   </div>
-    
   </div>
+</div>

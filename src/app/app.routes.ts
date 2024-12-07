@@ -49,7 +49,7 @@ export const routes: Routes = [
       {
         path: 'detail',
         loadComponent: () =>
-          import('./components/operations-detail/operations-detail.component').then(
+          import('./components/simulador/operations-detail/operations-detail.component').then(
             (c) => c.OperationsDetailComponent
           ),
       },

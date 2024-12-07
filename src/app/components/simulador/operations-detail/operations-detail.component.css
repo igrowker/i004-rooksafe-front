@@ -1,0 +1,69 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  color: #4b5dff;
+  margin-bottom: 20px;
+}
+
+.filter-card {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.filter-date-range {
+  display: flex;
+  gap: 16px; 
+}
+
+.download-buttons {
+  display: flex;
+  gap: 8px; 
+}
+
+.download-btn {
+  display: block;
+  margin-top: 1rem;
+}
+
+.mat-table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.download-buttons button {
+  min-width: 100px;
+}
+
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .download-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .filter-date-range {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .download-btn {
+    margin-top: 0.5rem; 
+  }
+}

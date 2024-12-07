@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MaterialModule } from '@shared/material/material.module';
+import { SimulatorService } from 'src/app/services/simulation-service';
 
 @Component({
   selector: 'app-operations-detail',
@@ -18,7 +19,6 @@ export class OperationsDetailComponent {
     'symbol',
     'cant',
     'price',
-    'day',
   ];
   dataSource = [
     {
@@ -29,7 +29,25 @@ export class OperationsDetailComponent {
       symbol: 'MELI',
       cant: 5,
       price: 550,
-      day: "05/12/2024",
     },
   ];
+  token: any;
+
+  constructor(private _simulatorService: SimulatorService) {
+    if (typeof window !== 'undefined') {
+      this.token = sessionStorage.getItem('token');
+    }
+  }
+
+  ngOnInit(): void {
+    this.getOperations();
+  }
+
+  getOperations(){
+    this._simulatorService.get_operations(this.token).subscribe(
+      response=>{
+        console.log(response)
+      }
+    )
+  }
 }
