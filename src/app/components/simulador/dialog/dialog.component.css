@@ -34,7 +34,6 @@
 
 .operation-summary {
   display: grid;
-  grid-template-columns: 1fr 1fr;
   gap: 1rem;
   width: 100%;
   text-align: center;
@@ -84,4 +83,9 @@ button[style*="background-color: red"]:hover {
 
 .center-text {
   text-align: center;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  max-width: 600px; 
+  padding: 1rem; 
 }
