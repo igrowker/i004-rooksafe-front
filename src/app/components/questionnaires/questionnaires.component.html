@@ -1,6 +1,12 @@
 <div class="questionnaire-conteiner">
   <div class="questionnaire-test-title">
-    <span><mat-icon>arrow_back</mat-icon></span>
+    <a
+      [routerLink]="['/home/dashboard']"
+      routerLinkActive="router-link-active"
+      class="back-link"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </a>
     <h6>{{ title }}</h6>
     <div></div>
   </div>

@@ -12,10 +12,9 @@
   text-overflow: ellipsis;
 }
 
-
 .card-img {
   display: relative;
-  margin-top: 1rem;
+  margin-top: 3rem;
   justify-content: center;
 }
 
@@ -43,5 +42,5 @@
 }
 
 .mat-mdc-card-actions-align-end {
-  justify-content: center
+  justify-content: center;
 }

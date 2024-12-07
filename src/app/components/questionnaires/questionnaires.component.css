@@ -10,7 +10,7 @@
   justify-content: space-around;
   width: 1500px;
 }
-.questionnaire-test-title span {
+.questionnaire-test-title a {
   display: flex;
   align-items: center;
   justify-content: center;
