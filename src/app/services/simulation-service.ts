@@ -49,10 +49,14 @@ export class SimulatorService {
     return this._http.post(this.url + "api/wallet/sell", {shares,stock_symbol} ,{headers})
   }
 
-
   add_founds(amount: number, token: string):Observable<any>{
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
     return this._http.post(this.url + "api/wallet/add_money", {amount} ,{headers})
+  }
+
+  get_operations(token: string):Observable<any>{
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` });
+    return this._http.get(this.url + "api/wallet/history" ,{headers})
   }
 
   isRunningInBrowser(): boolean {
