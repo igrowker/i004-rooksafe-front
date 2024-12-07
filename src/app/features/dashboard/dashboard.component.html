@@ -24,6 +24,13 @@
       <br />
       Además al finalizar te mostraremos recomendaciones para tu perfil.
     </p>
+    <button *ngIf="userProfile"
+        mat-flat-button
+        [routerLink]="['/home/investorTestComponent']"
+        routerLinkActive="router-link-active"
+      >
+        Rehacer Test
+      </button>
   </div>
 
   <ng-template #retakeTest>
@@ -37,12 +44,12 @@
     </button>
   </ng-template>
   <img
-    src="https://s3-alpha-sig.figma.com/img/9790/7042/7122e65509b1fad0937250fe1bc34f50?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BCQpy9HQWwOAv1Zwx5Jfm0Q6aBPHxUhSbDZ0IlrvZQeyQ2Od7EtOS-XCCVuFycGM6Wt4RkKDY6AB1qli-DxgmnCzWvoTzsVKjPswpFvMFmoXnTLCGyoBmPKeki1cCxJy~PIA4S7oa8TYXlBKC7lBMdHDytI6gwjKc903B6YDJ9~M~QMKh9MFrh8d1Tqcehi4fdPHw~rUE4Hp0yhMZE4cetLV2ssySinwyMCr~kzrdDEC84vhYtBZECOnY4yulfVwynmV8Y~2CBxfxWVkBTGjE90jA6gCJUHg-gDjvS8Fx6EQVm47nqE9~EedYmYxbhUv9iNTltOkneavvC9X-rrKvA__"
-    alt="man-working"
+    src="assets/images/hero-1.png"
+    alt="Hombre trabajando imagen principal"
   />
 </section>
-<ng-container *ngIf="!completedTest; else retakeTest">
-  <section class="how-works">
+<ng-container *ngIf="!userProfile">
+  <section class="how-works" *ngIf="!completedTest; else retakeTest">
     <div class="how-works-l">
       <h6>¿Cómo funciona?</h6>
       <p>
@@ -55,8 +62,8 @@
     </div>
     <div class="how-works-r">
       <img
-        src="https://s3-alpha-sig.figma.com/img/c81d/17bf/98acd4990a7c62b61354768584d862c4?Expires=1733097600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=jJaotG1FiZ9BeYg001l8ZFGT48uLfLnEug06IdGT9YAYXIlYtif9t7229AZ-Gk1RFs0b~BK-xwxlE9lmoiE28ugaLPY1M86vhexSryjXro4r1yuVG7YPkFsTjrzyc2ngzgzwXZostKAUIeJQhN5lU-9VPAAmdbxK84zrlopxsdNn48lVWkIZdW3EBsQU-njbzQ3P4Y~2FhtIDrIwG3-RWdZdkYvHNYuleSU0GhPQsCCaaO8mCkQjC8ZzdgCMsW9N0Pw8Tc1DPq431dRWVHeZH9YupFTi46l9t3qGpTz4LNzJTO2-uoM9NIQoF12NjP2E0fho7ICxIwore~M882vGhA__"
-        alt="test-img"
+        src="assets/images/test-img.png"
+        alt="test de inversor imagen de formulario"
       />
       <button
         mat-flat-button
