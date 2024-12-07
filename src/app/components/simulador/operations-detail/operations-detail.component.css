@@ -67,3 +67,13 @@
     margin-top: 0.5rem; 
   }
 }
+
+.green-text {
+  color: green;
+  font-weight: bold;
+}
+
+.red-text {
+  color: red;
+  font-weight: bold;
+}
