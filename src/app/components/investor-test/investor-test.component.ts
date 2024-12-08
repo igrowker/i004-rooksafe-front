@@ -67,8 +67,6 @@ export class InvestorTestComponent implements OnInit {
     this.investorTestService.send_test({ respuestas: answers }).subscribe({
       next: (response) => {
         const dialogRef = this.dialog.open(ResponseDialogComponent, {
-          width: '500px',
-          height: 'auto',
           data: response,
         });
         sessionStorage.setItem('testCompleted', 'true');
