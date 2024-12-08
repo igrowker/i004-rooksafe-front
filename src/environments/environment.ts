@@ -1,5 +1,4 @@
 export const environment = {
-
     production: false,
-    apiUrl: 'http://ec2-3-80-155-172.compute-1.amazonaws.com/'
+    apiUrl: 'http://rooksafe-alb-2078386678.us-east-1.elb.amazonaws.com/'
   };
