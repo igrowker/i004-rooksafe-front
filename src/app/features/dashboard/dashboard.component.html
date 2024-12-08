@@ -99,7 +99,13 @@
       </span>
       <h5 style="margin: 0">Recomendaciones según tu nivel</h5>
     </div>
-    <a mat-button href="">Ver todo</a>
+    <a
+      mat-button
+      [routerLink]="['/home/educationContent']"
+      routerLinkActive="router-link-active"
+    >
+      Ver todo
+    </a>
   </div>
   <div class="cards">
     <app-card
