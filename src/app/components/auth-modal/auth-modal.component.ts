@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef  } from '@angular/material/dia
 import { MaterialModule } from '@shared/material/material.module';
 import { AuthFormData, AuthModalData } from '../../core/models/auth-form-data.interface'; 
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AuthService } from 'src/app/services/auth-service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -39,7 +39,7 @@ export class AuthModalComponent {
 
   onSubmit() {
     this.formSubmit.emit(this.formData);
-
+  
     if (this.isRegister && this.formData.name) {
       this._authService.register_usuario(this.formData.email, this.formData.password, this.formData.name).subscribe(
         response => {
@@ -47,7 +47,9 @@ export class AuthModalComponent {
             duration: 3000, 
             verticalPosition: 'top', 
           });
-          sessionStorage.setItem('token',response.token)
+          if (this._authService.isRunningInBrowser()) {
+            sessionStorage.setItem('token', response.token);
+          }
           this.closeModal();
           this._router.navigate(['/']); 
         },
@@ -62,9 +64,12 @@ export class AuthModalComponent {
             duration: 3000,
             verticalPosition: 'top',
           });
+          if (this._authService.isRunningInBrowser()) {
+            sessionStorage.setItem('token', response.access);
+            sessionStorage.setItem('refresh_token', response.refresh);
+          }
           this._router.navigate(['/']); 
           this.closeModal();
-          sessionStorage.setItem('token',response.access)
         },
         error => {
           this._snackBar.open('Error al ingresar, revise sus credenciales', 'Cerrar', { duration: 3000 , verticalPosition: 'top' });
@@ -72,7 +77,6 @@ export class AuthModalComponent {
       );
     }
   }
-
   changeForm() {
     this.isRegister = !this.isRegister;
     if (this.isRegister) {

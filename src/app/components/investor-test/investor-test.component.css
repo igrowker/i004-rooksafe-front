@@ -1,39 +1,11 @@
-/* .investor-test-conteiner {
-  margin-top: 5%;
+.loading-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
-}
-
-.investor-test-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  padding-left: 10px;
-  margin-top: 2.5rem;
-}
-
-.investor-test-title mat-icon {
-  font-size: 24px;
-  color: #007bff;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-.investor-test-questionnaire button {
-  margin-top: 20px;
+  height: 100%;
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
- */

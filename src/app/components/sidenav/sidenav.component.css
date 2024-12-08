@@ -22,13 +22,8 @@
   transition: background-color 0.3s;
 }
 .icon-item.active {
-  background-color: rgba(
-    0,
-    0,
-    0,
-    0.1
-  ); /* Color de fondo opcional cuando está activo */
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* Sombra del cuadro */
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 10;
 }
 
@@ -58,5 +53,5 @@
 
 span {
   font-size: 0.875rem;
-    color: #000;
+  color: #000;
 }

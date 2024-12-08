@@ -6,8 +6,8 @@ body {
 }
 
 .cdk-overlay-pane {
-  max-width: none !important;
-  width: 100% !important;
+  max-width: none;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,0 +1,42 @@
+<div mat-dialog-content class="dialog-content">
+  <div class="icon-container">
+    <img *ngIf="type === 'error'; else success" src="assets/images/error.gif" class="error-image" alt="Error">
+    <ng-template #success>
+      <img src="assets/images/dedoarriba.gif" class="success-image" alt="Operación Exitosa">
+    </ng-template>
+  </div>
+
+  <h2 class="dialog-title" [ngClass]="{'success-title': type !== 'error', 'error-title': type === 'error'}">
+    {{ type === 'error' ? '¡Error al realizar la operación!' : '¡Operación Exitosa!' }}
+  </h2>
+
+  <div class="operation-summary">
+    <p *ngIf="type === 'error'; else successSummary">
+      <strong class="text-center;">Hubo un error al intentar realizar la operación.</strong>
+    </p>
+    
+    <ng-template #successSummary>
+      <p *ngIf="type === 'Venta'; else compra">
+        <strong>Transacción:</strong> {{ codope }}
+        <br><strong>Símbolo:</strong> {{ symbol }}
+        <br><strong>Precio Unitario:</strong> {{ stock_price | currency:'USD':'symbol':'1.2-2' }}
+        <br><strong>Cantidad:</strong> {{ shares }}
+        <br><strong>Valor Total:</strong> {{ total_cost | currency:'USD':'symbol':'1.2-2' }}
+      </p>
+
+      <ng-template #compra>
+        <p><strong>Transacción:</strong> {{ codope }}</p>
+        <p><strong>Símbolo:</strong> {{ symbol }}</p>
+        <p><strong>Precio Unitario:</strong> {{ stock_price | currency:'USD':'symbol':'1.2-2' }}</p>
+        <p><strong>Cantidad:</strong> {{ shares }}</p>
+        <p><strong>Valor Total:</strong> {{ total_cost | currency:'USD':'symbol':'1.2-2' }}</p>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
+
+<div mat-dialog-actions align="center">
+  <button mat-button mat-dialog-close [ngStyle]="{'background-color': type === 'error' ? 'red' : 'green', 'color': 'white'}">
+    Aceptar
+  </button>
+</div>

@@ -1,0 +1,20 @@
+<h2 class="title-wallet">Mi Billetera</h2>
+<div class="wallet-container">
+  <mat-card class="wallet-card" *ngFor="let stock of filteredInvestments">
+    <div class="card-header">
+      <mat-card-title>{{ stock.stock_symbol }}</mat-card-title>
+    </div>
+    <mat-card-content class="card-body">
+      <div class="card-content-row">
+        <div class="card-column">
+          <p><strong>Símbolos:</strong> <br> {{ stock.number_of_shares }}</p>
+          <p><strong>P. de compra:</strong> {{ stock.purchase_price | currency }}</p>
+        </div>
+        <div class="card-column">
+          <p><strong>Total Invertido:</strong> {{ stock.total_purchase_value | currency }}</p>
+          <p><strong>Precio Actual:</strong> {{ stock.current_value | currency }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

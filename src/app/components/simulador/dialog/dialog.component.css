@@ -1,0 +1,91 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.icon-container {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1rem;
+}
+
+.success-image, .error-image {
+  width: 100%;
+  height: auto;
+}
+
+.dialog-title {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+.success-title {
+  color: #4caf50; 
+}
+
+.error-title {
+  color: red; 
+}
+
+.operation-summary {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.operation-summary p {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.operation-summary strong {
+  font-weight: bold;
+}
+
+mat-dialog-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-white {
+  color: white;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button[style*="background-color: red"] {
+  background-color: red;
+}
+
+button[style*="background-color: red"]:hover {
+  background-color: #d32f2f;
+}
+
+.center-text {
+  text-align: center;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  max-width: 600px; 
+  padding: 1rem; 
+}

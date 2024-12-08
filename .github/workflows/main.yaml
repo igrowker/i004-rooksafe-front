@@ -76,6 +76,10 @@ jobs:
     - name: Build 
       run: ng build
 
+    - name: Rename Index
+      if: success()
+      run: mv dist/template-angular-ts/browser/index.csr.html dist/template-angular-ts/browser/index.html
+
     - name: Deploy
       if: success()
       run: aws s3 sync ./dist/template-angular-ts/browser/ s3://rooksafe-front
