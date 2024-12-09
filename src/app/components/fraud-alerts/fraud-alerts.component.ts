@@ -29,37 +29,37 @@ export class FraudAlertsComponent implements OnInit {
     {
       title: 'Cuidado con las estafas de inversiones de TikTok',
       image:
-        'https://s3-alpha-sig.figma.com/img/362a/3352/8fefabc883d486da2616ec76fc3282f9?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CW8mALDLNWb4TPPhyJN2ZvP7f8B3wSveMjy40hS-4PgLu-FkUwrGhlPj52vZVGdvn5o863623hz8TmwVNPLbwPBPX0XDjmQrmRPQj8PjgM71tTtjLkXeg5WOhxjK6va0BUutWpyPkqKgaMEIH4AmOcqS7AzzEWOqPieHi-zTnoztbd0v3YcrDxKJYThbAyC9gfNATgHQB3Np60GKYR6wiKCR68Z8p1eLGHn6yys13ulEHL77o~YXfZtcyayVF3OIVclNJqoBC1cFgkVYK3kC8QRYcj0TBznVeKqfoiyrXXWHOUbUp0W1fjShRzhqGAiqMDTgBJWcgaWGvdleKpSiSg__',
+        'https://s3-alpha-sig.figma.com/img/362a/3352/8fefabc883d486da2616ec76fc3282f9?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=dwoU4xXcXswSDHkNCKb6sy8HO-xtYpGBxcMCQfcwD~dKPProqcKTESSJ1gvHslZbHFncJQpgEIwkrtRU~XhWS-ivrd6a14-KMzGbiEwWDPUyMMcdv-2oFnpdk7AQ7lk8Mj5JKtYjqYL1DyV5rreklVwJiSHDppobIIKSRaq8mbEG0IJ0~GWrUSXUBxnDIszQspMHgMYud7vqRErTj1MOZ-5peSirQP4yhwW5ZJZ2plmAg9VCa4xtQComlkfzewx0mR2FxxS3q78sZFmQKTEZ5hgxZZ6nViApFernbv5JEHCaUCv~~4R3p8rCabIU7fLP7jBiaXEwSvRC4M6QXlWFXw__',
     },
   ];
   alertsCards2 = [
     {
       title: 'Cuidado con la estada de facturas de PayPal',
       image:
-        'https://s3-alpha-sig.figma.com/img/b216/2773/9e36a7d58c98d7e016106fdecce8c15c?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=i8F9Dc4nZaX766MxYCWcFah8lwVxPfZegUAyYmGcnbRDRChUWnhMxXdfqZYfikjw~ecrsSceiKLdwqcdKsZQaEaJfndv5wuvR34awR0QHbypjjWi72tjn47C5PyJQ0Lu-LpEhOhWB7IsEMTE-~bHC8~jf9OeTfewu5fX~MFPnaSmk8EY89wNNEN8K2VHr7vggTgnNlZfiMrgioxbalja7aEI-fb8nw2fLQo4GzOQthogCKKyaP-CCXo1LYk6b-wY2YYpVrpUwZJmxfb7MUl1Z3-veSqafLwEV6lMl5hHyZ4Zd69mVlmWH3jmecXA9W00xt9fthgplQ-JYhSI39JFEQ__',
+        'https://s3-alpha-sig.figma.com/img/b216/2773/9e36a7d58c98d7e016106fdecce8c15c?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Yqvcc2RDzaNt5rYzv0JUtslKhy65SPCVqplaz83HPGal465FhrWRwhgtk8B0bjRNQVp1PhTW6VhioLTPD8KEVpv1WDKvpQMwMXyca9PNslofOJ9wFAxHSzWC0LmOgCYrm5yOV9FS2zrokp~rizFSWY3wKpegNmmsuJAlwiwSEb8xsOv4f0-UeSTcqv7buN9HZxvcj9YgnJyhkGTuycO~It9h2d4TeSLdSHfCimGX~zmnMDJSbMKcYk4I8ioFEss6rerM8RMYCbYmXZY2l4re~AgRPI~Y3-vlLlrrfIqAtyGnPCkpgqZT4fHiPf3Wg0Ygqfgto7MN6E5QJDsGvjcoMA__',
     },
     {
       title:
         'Atrapados en la red: Cómo las estafas de empleo en línea aumentaron un 20...',
       image:
-        'https://s3-alpha-sig.figma.com/img/4181/c57a/feabb463ccafd5823d61a9a237e47dea?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=DdCGPV4hCK8eLVD2o5nPHBB7u9bIja-f7lIK3otCNsyfgsNKhXXMkQl3Vsgg8vcmfDykI~oQmD5laQceAALkSfKiRc1nzi4k9FjZZX~dQhZoCQ20iEICeuQyDJQkouVgpLcTQ3LP0OFXGaTtNEvHfGjR9RGxmSNbvSxuGaMkTgfaL95SJbe6moLfdNjiT6t6J9JAliRLZdMaNjpCehkyJanOLLgJbmRRm1x0trI9140AF7umdUo644DZBolpQb~EdvWHlnORDg-KNAO2OIHK6ZOXJAug~LSXBwisJ5fctwexfZhed2LPrJ8ShXo9srTD6UDnPQUZPrvn56M5dishVw__',
+        'https://s3-alpha-sig.figma.com/img/4181/c57a/feabb463ccafd5823d61a9a237e47dea?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WmGXWbPM46bL1zz9eX9NESpDqQImJhOZgMfnBfjldUVfhfSm9b9eyyP2dlGzuZQ-IDl7KpFYqWrkZ6nCd5Zn51jqKwu2zQ4Wt2knYFmm5EAzdOGYnIxS3Eq9qmqnK3srJGj372HoXDELJUtiqjImmDK73QzXtN8IVnMIuqA0agb0abxKIWZy280g5hKuE9CzJ4XY7M-7zgtGUIPclvUbUG4xr7ULX1dh6vrug9mgfyoqYrpBlOXkWv0F6y33j23shFw0-JE0Xpy9kWk5IumCduBG1zmPgTLr9D9XdUv9yCl01rImhvk~6rkvWDSnVPr8YuYTGemrUn3szTtdBCYnpg__',
     },
   ];
   alertsCards3 = [
     {
       title: '¿Es Tupperware-us.com una estafa o es legítimo?',
       image:
-        'https://s3-alpha-sig.figma.com/img/1443/c3ab/366246d68117567b9ede1fb11be764de?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=G5n4KcaGItnXdkj4FvxLjRNiC~bKs6ksl7vCqxUluDgdSmvqGPr81PA390sCOZvR9tBqgMyGo~44IoZUsq0EVHZcCUzBLOkWy0vVwvNNpjgUnvLyU9eqX8bwPo3LVfe4lxqIsD65GoJT0wmsKA8Ue0BNvYzvSxrnFpBQOyifUpOJYD8fvg-vySX5BHnF6BhgEzrirnplpMWAVd1zyqk5gSB3yDySOhJ63~e~8RnzZIXZNmjAQvjPY0iJ7tQvqyvTsUl6DweJnKhZjdNVOcqiLr3A~5rbBVBbXwAy4yD4xG8b11SpAa9tPqlO--JAAQx8eVvociCBXFxHd8NEQK10lw__',
+        'https://s3-alpha-sig.figma.com/img/1443/c3ab/366246d68117567b9ede1fb11be764de?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JOy~bJ-vuESN1i2BGMLSedDJlxKxzFwlMiOU9-KF2ZFHe6a9y3MZugkeIIMN38wkLCO6JHEMjOmVY6kCuz7Zhs6xY2wqRI~MUZEbF5VLwXwjBCB18v9QiUFXv8eJuFpdhAbdzuDXeKL8aXvbWHXDQp3ssFb3TbpxCKePBc0V1AIzteTt9ee5fSBGth-14Y50KdtO8BqoFe-FXMoSJ~DIzrgqTwe2mKCIKGWaTOo-WltsXZLwbkqQVjqbvGfgRD6ickW17lfOkqBrl80dpy9w0PK4l16yDYVsedTJEgdmn9SRhGZJ1RCXKF7swIKlXbfoEHCefuepiFRjTffCGWCPEQ__',
     },
     {
       title: '¿Es Pantoably.com confiable?',
       image:
-        'https://s3-alpha-sig.figma.com/img/b6d0/2d5f/d96b72f1858560585e52a666c4d85d8e?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=cwe5kbqLoRf~UQdXkRFma7sB6WMtN~U7Lso~7Wuk9YW~Y-yVKR7sMU68PTTyrUE5s1C1BA-4W0Bxquq~a~fYywTx3ZOjRUJkD-wuwTx66v6Gx5GE~MPKKHnUrfvaPzNgMnC7SddjUsiANsU0wB-BDAkqzOvpdIXSWCZkckRCz04B-Qh-cqHDCZwxqj7CYo~6MuV8cc-FLTjeyiGOaMHqXc1FK65WFLKfPPP4t0HhCfvSw2pg6~ZwZqHOgtXyBw~cyQaYZNpwDAMpbSSaX0YA8w0W5N65aPPK5VDhIbq4~PNCOKW76LZzUBKKQ-0usjsasDVLkMUkHKsY2K1FUqt9sA__',
+        'https://s3-alpha-sig.figma.com/img/b6d0/2d5f/d96b72f1858560585e52a666c4d85d8e?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=USPl0VdzLKldsI7JbTgraccOgKVeyuHjg4Jv8DIq~3za97P2bTSdznIjJ1DcyW-EHZXqlYMaYE0RrOmzD3msb0tLGKTCgfMG57-0qudak8Tkrf~Gc6eaEwRJalizFrPFk3r9LSCitHeyFZqbztfaaSNXBWs1OD3WrwV1SYI2P2raP2rA3M2pEk1iwaNw7zJWMtb-3GYs4ySpfL1~ml0TeOwGLQcB2OQdxd9BHrBmGCB9-eAYXn48E~7qPNeYbMXIDjq79unGa6jma13pkVqTHc5Uht1pwmv2oPI5ud5KYlHuppIcD4VpSmC7s274v7~ta6Z2zSQpTOXrZuQnpC9gkQ__',
     },
     {
       title: 'Todo un pueblo cayo en una estafa de Criptomonedas en Argentina.',
       image:
-        'https://s3-alpha-sig.figma.com/img/b1e8/f488/b0312910bd57444390cc89b95d1203b7?Expires=1733702400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZlVwOuIqy~~dX51aAqj7U9saFNmVVGbxXQfYVS6inli2qLer0CV-UzgWwXNrHv40Q~KYawa3cFVLDRvwBlW96a~YuT2m5VUNav4LsXE2x1RcUHsK9ZV8FKc4aVevTKQDK4xOyakh8MTzlJtFMWoszZA3nGZY0VVxpHcE~X7kLXqel7JdXO0qfxKojlZ4gRE-ZONxhJKat0sHMjBOAtKNdtsp-RPzJj~ELinzgn4bkl4miu50VkjtSE6sYxsi1uj6o6uLeB~ha3Heh7ygpVK5HtFo8Z5h3d9aUClpCGm94itEU-YtTMj69h6siY~KunySECVgvsQ0RBentogUVQSLKQ__',
+        'https://s3-alpha-sig.figma.com/img/b1e8/f488/b0312910bd57444390cc89b95d1203b7?Expires=1734912000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=G4rRC2xlAucCwqbHZ1lZZJhQQT9OiyoNUU9gs~ZtnckcerwNWv1cn0yZg-7bCtg6iWlQ5yZSgz28NDrasHKoACZMIs7AdH2HAohkgRYa8OFnH7pTudKjhZEVq7~US95HGIShcYEIETPSH7Sc4WfOwz6ana2bcd~VyY6Wg1x5ei~5CTm~ufvaKJ7l6nOf821YY-Yfk37ZiQjQJIJPJ4itL1lhjXzRd3fQuhizVOFBYBrEHkMHOO5S~03pRDPsEs8D5uVgfJ8wla-fWe2UdW~nwa-o0fEB5VoWQj9BL82dusd3bOsue2BkfWxaWo8Mt0hBBpQp1~IL5wdby-i7WhHd5Q__',
     },
   ];
 }
