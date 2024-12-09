@@ -24,6 +24,7 @@ export class InvestorTestComponent implements OnInit {
   paragraph;
   userProfile: any;
   isLoading: boolean = true;
+  isRetakeTest: boolean = false;
   constructor(
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
@@ -59,6 +60,8 @@ export class InvestorTestComponent implements OnInit {
     },
   ];
   ngOnInit(): void {
+    const testCompleted = sessionStorage.getItem('testCompleted');
+    this.isRetakeTest = testCompleted === 'true';
     setTimeout(() => {
       this.isLoading = false;
     }, 1500);
@@ -86,6 +89,22 @@ export class InvestorTestComponent implements OnInit {
       },
     });
     this.router.navigate(['/home/dashboard']);
+  }
+  onRetakeTest(answers: number[]) {
+    this.isRetakeTest = true;
+    this.investorTestService.retake_test({ respuestas: answers }).subscribe({
+      next: (response) => {
+        this._snackBar.open(
+          'Haz realizado el test nuevamente. Mira las nuevas recomendaciones',
+          'Cerrar',
+          { duration: 3000, verticalPosition: 'top' }
+        );
+        sessionStorage.setItem('testCompleted', 'true');
+        this.loadUserProfile();
+        this.isLoading = false;
+        this.router.navigate(['home/educationContent']);
+      },
+    });
   }
 
   loadUserProfile(): void {

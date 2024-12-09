@@ -21,4 +21,14 @@ export class InvestorTestService {
       headers,
     });
   }
+  retake_test(respuestas: any): Observable<any> {
+    let token = sessionStorage.getItem('token');
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    return this._http.patch(this.url + 'update-experience', respuestas, {
+      headers,
+    });
+  }
 }
