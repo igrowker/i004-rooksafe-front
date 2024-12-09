@@ -99,3 +99,11 @@ a[routerLink="/home/simulation"] {
 a[routerLink="/home/simulation"]:hover {
   background-color: #45528b;
 }
+
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; 
+}

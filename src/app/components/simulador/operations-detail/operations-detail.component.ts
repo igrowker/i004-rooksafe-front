@@ -41,6 +41,7 @@ export class OperationsDetailComponent {
     total: number;
   }[] = [];
   token: any;
+  isLoading = true;
 
   constructor(private _simulatorService: SimulatorService) {
     if (typeof window !== 'undefined') {
@@ -53,6 +54,7 @@ export class OperationsDetailComponent {
   }
 
   getOperations() {
+    this.isLoading = true;
     this._simulatorService.get_operations(this.token).subscribe(response => {
       const combinedOperations: any[] = [
         ...response.sales_history.map((op: any) => ({
@@ -74,8 +76,8 @@ export class OperationsDetailComponent {
           total: op.total_value
         }))
       ];
-  
       this.dataSource = combinedOperations; 
+      this.isLoading = false;
     });
   }
 

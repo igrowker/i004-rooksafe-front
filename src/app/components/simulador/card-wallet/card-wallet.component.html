@@ -8,11 +8,10 @@
       <div class="card-content-row">
         <div class="card-column">
           <p><strong>Símbolos:</strong> <br> {{ stock.number_of_shares }}</p>
-          <p><strong>P. de compra:</strong> {{ stock.purchase_price | currency }}</p>
+          <p><strong>Total Invertido:</strong> {{ stock.total_purchase_value | currency }}</p>
         </div>
         <div class="card-column">
-          <p><strong>Total Invertido:</strong> {{ stock.total_purchase_value | currency }}</p>
-          <p><strong>Precio Actual:</strong> {{ stock.current_value | currency }}</p>
+          <p><strong>P. de compra:</strong> {{ stock.purchase_price | currency }}</p>
         </div>
       </div>
     </mat-card-content>
