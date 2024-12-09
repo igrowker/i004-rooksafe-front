@@ -109,7 +109,6 @@ export class SimuladorComponent {
         next: (response) => {
           this.balance = response.balance.toFixed(2);
           this.investments = response.investments;
-          console.log(response)
         },
         error: (err) => {
           console.error("Error al obtener el saldo de la billetera: ", err);
