@@ -2,55 +2,77 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: start;
+  justify-content: center;
+  padding: 20px;
 }
 
 .wallet-card {
-  background-color: #085499;
-  color: white;
-  width: 32%;
-  height: 20vh;
-  border-radius: 8px;
+  width: 300px;
+  border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.wallet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .card-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 15px 0;
+  background-color: #001c71;
+  color: white;
+  padding: 16px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .card-body {
-  padding: 10px 15px;
+  padding: 16px;
 }
 
 .card-content-row {
   display: flex;
   justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .card-column {
-  width: 48%;
+  flex: 1;
+  min-width: 120px;
 }
 
-.card-body p {
-  font-size: 18px;
+.card-column p {
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 12px;
-  background-color: #0056b3;
+.card-column strong {
+  color: #555;
+  font-weight: 600;
 }
 
-.title-wallet{
+@media (max-width: 600px) {
+  .wallet-card {
+    width: 100%;
+  }
+
+  .card-content-row {
+    flex-direction: column;
+  }
+
+  .card-column {
+    min-width: 100%;
+  }
+}
+
+.title-wallet {
   text-align: center;
-  font-size: 3rem;
-  margin: 0;
-  margin-top: 20px;  
-  margin-bottom: 20px; 
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #1d3188;
 }

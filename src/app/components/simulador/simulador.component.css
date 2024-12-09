@@ -1,16 +1,19 @@
 .simulator {
   display: flex;
   flex-direction: column;
-  padding: 0px 10px;
+  padding: 15px;
   max-width: 1200px;
   margin: auto;
   margin-bottom: 2rem;
+  border-radius: 15px;
 }
 
 .chart {
   width: 100%;
   max-width: 800px;
   margin: auto;
+  padding: 1rem;
+  border-radius: 10px;
 }
 
 .chart-container {
@@ -21,34 +24,33 @@
   text-align: center;
 }
 
-
-.custom-form-field {
-  width: 100%;
-  max-width: 300px;
-}
-
+.custom-form-field,
 .custom-select-panel {
   width: 100%;
   max-width: 300px;
-  min-width: 150px;
+  margin: 10px auto;
 }
 
 .btn-gra {
   margin: 0;
-  height: 57px;
-  border-radius: 0;
+  border-radius: 8px;
   font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .wallet {
   background-color: white;
   color: #004b9b;
   border: solid 1px #004b9b;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
+
 
 .left-button {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
   font-weight: bold;
 }
 
@@ -58,7 +60,7 @@
   border: solid 1px #004b9b;
   border-left: none;
   color: #004b9b;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   padding: 0;
   box-sizing: border-box;
@@ -101,6 +103,12 @@
   border: solid 1px #0c7813;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.buy:hover {
+  background-color: #0c7813;
+  color: white;
 }
 
 .sell {
@@ -111,6 +119,12 @@
   border: solid 1px #ff1100;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.sell:hover {
+  background-color: #ff1100;
+  color: white;
 }
 
 .operation {
@@ -121,6 +135,12 @@
   border: solid 1px #2d4dee;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.operation:hover {
+  background-color: #2d4dee;
+  color: white;
 }
 
 .upbuttons,
@@ -130,7 +150,6 @@
   justify-content: center;
   gap: 10px;
 }
-
 
 mat-form-field {
   color: rgb(39, 9, 208);
@@ -163,8 +182,6 @@ mat-form-field {
   font-weight: bold;
 }
 
-
-
 .no-data-container {
   display: flex;
   flex-direction: column;
@@ -176,7 +193,7 @@ mat-form-field {
 }
 
 .no-data-image {
-  max-width: 300px;
+  max-width: 100%;
   object-fit: contain;
   margin-bottom: 10px;
 }
@@ -201,4 +218,35 @@ mat-form-field {
   z-index: 10;
 }
 
+@media (max-width: 768px) {
+  .simulator {
+    padding: 10px;
+  }
 
+  .btn-gra {
+    height: 45px;
+  }
+
+  .wallet-input,
+  .confirm-button,
+  .left-button,
+  .right-button {
+    height: 45px;
+    font-size: 10px;
+  }
+
+  .chart {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .custom-form-field,
+  .custom-select-panel {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .no-data-container {
+    padding: 10px;
+  }
+}

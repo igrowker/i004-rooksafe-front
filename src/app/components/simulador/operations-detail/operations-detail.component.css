@@ -1,79 +1,101 @@
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px;
   padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
 }
 
 .title {
   text-align: center;
-  color: #4b5dff;
-  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 600;
+  color: #1d3188;
+  margin-bottom: 30px;
 }
 
 .filter-card {
+  margin-bottom: 20px;
   padding: 20px;
-  margin-bottom: 20px;
-}
-
-.filters {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.filter-date-range {
-  display: flex;
-  gap: 16px; 
-}
-
-.download-buttons {
-  display: flex;
-  gap: 8px; 
-}
-
-.download-btn {
-  display: block;
-  margin-top: 1rem;
-}
-
-.mat-table {
-  width: 100%;
-  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .download-buttons button {
-  min-width: 100px;
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 5px;
+  background-color: #1d3188;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+  border: none;
 }
 
-
-@media (max-width: 768px) {
-  .filters {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .download-buttons {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .filter-date-range {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .download-btn {
-    margin-top: 0.5rem; 
-  }
+.download-buttons button:hover {
+  background-color: #45528b;
 }
 
-.green-text {
-  color: green;
+mat-table {
+  width: 100%;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+mat-header-row {
+  background-color: #1d3188;
+  color: white;
   font-weight: bold;
 }
 
-.red-text {
-  color: red;
+mat-header-cell {
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 16px;
+  color: white;
+}
+
+mat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #941919;
+}
+
+mat-row:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+mat-row:hover {
+  background-color: #dbd9d9;
+}
+
+mat-cell {
+  flex: 1;
+  text-align: left;
+  padding: 3rem;
+  font-size: 14px;
   font-weight: bold;
+  color: #525252;
+}
+
+
+a[routerLink="/home/simulation"] {
+  font-size: 14px;
+  background-color: #1d3188;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+}
+
+a[routerLink="/home/simulation"]:hover {
+  background-color: #45528b;
 }
