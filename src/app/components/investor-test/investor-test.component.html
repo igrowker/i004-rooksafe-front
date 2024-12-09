@@ -4,12 +4,23 @@
 </div>
 <ng-template #showContent>
   <div class="investor-test-conteiner">
-    <app-questionnaires
-      [title]="title"
-      [paragraph]="paragraph"
-      [tests]="questions"
-      (testCompleted)="onTestCompleted($event)"
-      class="investor-test-questionnaire"
-    ></app-questionnaires>
+    <ng-container *ngIf="!isRetakeTest; else retakeTestContent">
+      <app-questionnaires
+        [title]="title"
+        [paragraph]="paragraph"
+        [tests]="questions"
+        (testCompleted)="onTestCompleted($event)"
+        class="investor-test-questionnaire"
+      ></app-questionnaires>
+    </ng-container>
+    <ng-template #retakeTestContent>
+      <app-questionnaires
+        [title]="'Rehaciendo Test'"
+        [paragraph]="paragraph"
+        [tests]="questions"
+        (testCompleted)="onRetakeTest($event)"
+        class="investor-test-questionnaire"
+      ></app-questionnaires>
+    </ng-template>
   </div>
 </ng-template>
