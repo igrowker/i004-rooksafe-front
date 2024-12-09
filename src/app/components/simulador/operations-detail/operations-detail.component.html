@@ -1,61 +1,67 @@
 <div class="container">
   <h2 class="title">Simulador - Detalle de Operaciones</h2>
-
-  <mat-card class="filter-card" *ngIf="dataSource.length > 0">
-    <div class="filters d-flex justify-content-between align-items-center">
-      <div class="download-buttons">
-        <button mat-raised-button color="accent" (click)="exportToExcel()">Exportar a Excel</button>
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-progress-spinner mode="indeterminate" diameter="50" class="spinner">
+    </mat-progress-spinner>
+  </div>
+  <ng-container *ngIf="!isLoading">
+    <mat-card class="filter-card" *ngIf="dataSource.length > 0">
+      <div class="filters d-flex justify-content-between align-items-center">
+        <div class="download-buttons">
+          <button mat-raised-button color="accent" (click)="exportToExcel()">Exportar a Excel</button>
+        </div>
       </div>
+    </mat-card>
+  
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="orderDate">
+        <mat-header-cell *matHeaderCellDef>Fecha orden</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.orderDate | date:'dd/MM/yyyy' }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span [ngStyle]="{ color: element.type === 'C' ? 'green' : 'red' }">
+            {{ element.type }}
+          </span>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <mat-icon style="color: green;">check_circle</mat-icon>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef>Símbolo</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="cant">
+        <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.cant }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.price | currency: '$':'symbol':'1.2-2' }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="total">
+        <mat-header-cell *matHeaderCellDef>Total Invertido</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{ element.total | currency: '$':'symbol':'1.2-2' }}</mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+    <div *ngIf="!dataSource.length" class="no-data-message" style="text-align: center; margin-top: 20px;">
+      <p>No hay operaciones disponibles</p>
     </div>
-  </mat-card>
+  
+    <div>
+      <a routerLink="/home/simulation" mat-raised-button color="primary">
+        Volver
+      </a>
+    </div>
+  </ng-container>
 
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="orderDate">
-      <mat-header-cell *matHeaderCellDef>Fecha orden</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.orderDate | date:'dd/MM/yyyy' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef>Tipo</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <span [ngStyle]="{ color: element.type === 'C' ? 'green' : 'red' }">
-          {{ element.type }}
-        </span>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="status">
-      <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <mat-icon style="color: green;">check_circle</mat-icon>
-      </mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef>Símbolo</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.symbol }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="cant">
-      <mat-header-cell *matHeaderCellDef>Cantidad</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.cant }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="price">
-      <mat-header-cell *matHeaderCellDef>Precio</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.price | currency: '$':'symbol':'1.2-2' }}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="total">
-      <mat-header-cell *matHeaderCellDef>Total Invertido</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{ element.total | currency: '$':'symbol':'1.2-2' }}</mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-
-  <div *ngIf="!dataSource.length" class="no-data-message" style="text-align: center; margin-top: 20px;">
-    <p>No hay operaciones disponibles</p>
-  </div>
-
-  <div>
-    <a routerLink="/home/simulation" mat-raised-button color="primary">
-      Volver
-    </a>
-  </div>
 </div>
